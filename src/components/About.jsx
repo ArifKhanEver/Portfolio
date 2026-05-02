@@ -70,7 +70,7 @@ const About = () => {
                                 <span className="w-2 h-2 bg-[#149988] rounded-full animate-pulse"></span>
                                 About Me
                             </div>
-                            <h2 className="text-4xl lg:text-5xl font-black text-slate-900 leading-tight">
+                            <h2 className="text-4xl lg:text-[50px] font-black text-slate-900 leading-tight">
                                 Bridging Narrative <br />
                                 <span className="text-[#149988]">With Technology</span>
                             </h2>

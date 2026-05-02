@@ -108,7 +108,7 @@ const Education = () => {
             <span className="w-2 h-2 bg-[#149988] rounded-full animate-pulse"></span>
             Educational Qualification
           </div>
-          <h2 className="edu-title text-4xl lg:text-6xl font-black text-slate-900 mb-4 opacity-1">
+          <h2 className="edu-title text-4xl lg:text-[50px] font-black text-slate-900 mb-4 opacity-1">
             Educational <span className="text-[#149988]">Pathway</span>
           </h2>
           <p className="text-slate-500 font-medium max-w-2xl mx-auto italic">

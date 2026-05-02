@@ -4,6 +4,10 @@ import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { FiGithub, FiExternalLink, FiLayers } from "react-icons/fi";
+import Image from "next/image";
+import Dragon from '@/assets/home-layout.png'
+import KinKeeper from '@/assets/KinKeeper.png'
+import BookVibe from '@/assets/BookVibe.png'
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -11,31 +15,31 @@ if (typeof window !== "undefined") {
 
 const PROJECTS = [
   {
-    title: "Dynamic Job Tracker",
+    title: "Dragon News",
     category: "Full Stack Development",
-    desc: "A comprehensive application built with Vanilla JS and Tailwind CSS to track job applications, featuring high-order array methods and DOM manipulation.",
-    tags: ["JavaScript", "Tailwind CSS", "Local Storage"],
-    link: "#",
-    github: "#",
-    image: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?q=80&w=2070&auto=format&fit=crop"
+    desc: "A comprehensive news portal built with Next JS with some login and signin and register functionality where users can register/signin through Google and github",
+    tags: ["NextJs", "Tailwind CSS", "Better Auth"],
+    link: "https://dragon-news-ng7z.vercel.app/",
+    github: "https://github.com/ArifKhanEver/Dragon-News",
+    image: Dragon
   },
   {
-    title: "Elegant Kicks",
-    category: "E-commerce Architecture",
-    desc: "A high-end sneaker brand platform developed using Next.js and Tailwind, focusing on seamless user interface and brand identity.",
-    tags: ["Next.js", "DaisyUI", "Responsive Design"],
-    link: "#",
-    github: "#",
-    image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=2070&auto=format&fit=crop"
+    title: "KinKeeper",
+    category: "A modern personal relationship management tool ",
+    desc: "KinKeeper is a modern personal relationship management tool designed to help you nurture and maintain your friendships. In a fast-paced digital world, it’s easy to lose track of time. KinKeeper ensures you stay connected with the people who matter most by tracking interactions and setting contact goals.",
+    tags: ["React.js", "DaisyUI", "Responsive Design"],
+    link: "https://kin-keeper-app.netlify.app/",
+    github: "https://github.com/ArifKhanEver/KinKeeper",
+    image: KinKeeper
   },
   {
-    title: "Style Arcade",
+    title: "Book Vibe",
     category: "Frontend Engineering",
     desc: "Digital storefront featuring custom-designed hero sections and interactive UI components built for modern retail.",
-    tags: ["React", "GSAP", "Modern UI"],
-    link: "#",
-    github: "#",
-    image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=2070&auto=format&fit=crop"
+    tags: ["React", "Modern UI"],
+    link: "https://the-book-vibe-app.netlify.app/",
+    github: "https://github.com/ArifKhanEver/Book_Vibe",
+    image: BookVibe
   }
 ];
 
@@ -45,7 +49,7 @@ const Projects = () => {
   useLayoutEffect(() => {
     let ctx = gsap.context(() => {
       // 1. Heading Animation (fromTo use korle content haray na)
-      gsap.fromTo(".proj-title", 
+      gsap.fromTo(".proj-title",
         { y: 50, opacity: 0 },
         {
           y: 0,
@@ -61,7 +65,7 @@ const Projects = () => {
       );
 
       // 2. Project Cards Entrance
-      gsap.fromTo(".project-card", 
+      gsap.fromTo(".project-card",
         { y: 80, opacity: 0, scale: 0.95 },
         {
           y: 0,
@@ -92,11 +96,15 @@ const Projects = () => {
   return (
     <section ref={sectionRef} id="portfolio" className="w-full py-24 bg-gray-50 relative overflow-hidden border-b border-slate-50">
       <div className="container mx-auto px-6 relative z-10">
-        
+
         {/* Header Section */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
           <div className="max-w-2xl">
-            <h2 className="proj-title text-4xl lg:text-7xl font-black text-slate-900 mb-6 opacity-1">
+            <div className="inline-flex items-center gap-2 bg-[#E6F4F1] text-[#149988] px-4 py-2 rounded-full text-xs font-bold mb-3">
+              <span className="w-2 h-2 bg-[#149988] rounded-full animate-pulse"></span>
+              Portfolio
+            </div>
+            <h2 className="proj-title text-4xl lg:text-[50px] font-black text-slate-900 mb-6 opacity-1">
               Innovative <span className="text-[#149988]">Creations</span>
             </h2>
             <p className="text-slate-500 font-medium text-lg italic">
@@ -104,29 +112,30 @@ const Projects = () => {
             </p>
           </div>
           <div className="hidden md:flex items-center gap-2 text-slate-400 font-black uppercase tracking-widest text-sm">
-             <FiLayers className="text-[#149988]" /> Showcase of 100 Innovative Apps
+            <FiLayers className="text-[#149988]" /> Showcase of 100 Innovative Apps
           </div>
         </div>
 
         {/* Projects Grid - added class 'projects-grid' for trigger */}
         <div className="projects-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {PROJECTS.map((project, idx) => (
-            <div 
-              key={idx} 
+            <div
+              key={idx}
               className="project-card group bg-white rounded-[2.5rem] border border-slate-100 overflow-hidden hover:shadow-2xl hover:shadow-teal-100/50 transition-all duration-500 flex flex-col h-full opacity-1"
             >
               {/* Image Container */}
               <div className="relative h-64 overflow-hidden">
-                <img 
-                  src={project.image} 
+                <Image
+                  src={project.image}
                   alt={project.title}
+                  fill
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-8">
-                    <div className="flex gap-4">
-                      <a href={project.link} className="p-3 bg-[#149988] text-white rounded-full hover:bg-[#0f7d6f] transition-colors"><FiExternalLink size={20}/></a>
-                      <a href={project.github} className="p-3 bg-white text-slate-900 rounded-full hover:bg-slate-100 transition-colors"><FiGithub size={20}/></a>
-                    </div>
+                  <div className="flex gap-4">
+                    <a href={project.link} target="_blank" className="p-3 bg-[#149988] text-white rounded-full hover:bg-[#0f7d6f] transition-colors"><FiExternalLink size={20} /></a>
+                    <a href={project.github} target="_blank" className="p-3 bg-white text-slate-900 rounded-full hover:bg-slate-100 transition-colors"><FiGithub size={20} /></a>
+                  </div>
                 </div>
               </div>
 

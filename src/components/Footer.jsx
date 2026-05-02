@@ -1,6 +1,6 @@
 "use client";
 
-import { FiGithub, FiLinkedin, FiTwitter, FiArrowUp } from "react-icons/fi";
+import { FiGithub, FiLinkedin, FiTwitter, FiArrowUp, FiCodepen } from "react-icons/fi";
 
 const Footer = () => {
   const scrollToTop = () => {
@@ -31,9 +31,9 @@ const Footer = () => {
           {/* Social Links */}
           <div className="flex items-center gap-6 mb-12">
             {[
-              { icon: <FiGithub size={20} />, link: "#", label: "GitHub" },
-              { icon: <FiLinkedin size={20} />, link: "#", label: "LinkedIn" },
-              { icon: <FiTwitter size={20} />, link: "#", label: "Twitter" },
+              { icon: <FiGithub size={20} />, link: "https://github.com/ArifKhanEver", label: "GitHub" },
+              { icon: <FiLinkedin size={20} />, link: "http://linkedin.com/in/arifkhanever", label: "LinkedIn" },
+              { icon: <FiCodepen size={20} />, link: "https://codepen.io/arifkhanever", label: "CodePent" },
             ].map((social, idx) => (
               <a
                 key={idx}
@@ -62,7 +62,7 @@ const Footer = () => {
           {/* Bottom Bar */}
           <div className="w-full pt-10 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-6">
             <p className="text-slate-500 text-xs font-medium">
-              © {currentYear} Shafiqul Islam Khan. Built with <span className="text-[#149988]">Next.js</span> & <span className="text-[#149988]">GSAP</span>.
+              © {currentYear} Shafiqul Islam Khan.
             </p>
             
             <button 

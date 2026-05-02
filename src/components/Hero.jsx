@@ -116,7 +116,7 @@ const Hero = () => {
                             Available Now
                         </div>
 
-                        <h1 className="text-4xl lg:text-6xl font-extrabold text-slate-900 leading-[1.1] mb-6">
+                        <h1 className="text-4xl lg:text-[50px] font-extrabold text-slate-900 leading-[1.1] mb-6">
                             Solving Problems <br />
                             <span className="text-[#149988] relative inline-block">
                                 Through Code
@@ -126,7 +126,7 @@ const Hero = () => {
                             </span>
                         </h1>
 
-                        <p className="text-slate-500 text-lg lg:text-xl max-w-xl mb-5 leading-relaxed font-medium mx-auto lg:mx-0">
+                        <p className="text-slate-500 text-base lg:text-lg max-w-xl mb-5 leading-relaxed font-medium mx-auto lg:mx-0">
                             Hi, I'm <span className="text-[#149988] font-bold">Shafiqul Islam Khan</span>, a passionate MERN stack developer focused on creating beautiful and functional digital experiences.
                         </p>
 
