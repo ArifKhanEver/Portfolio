@@ -1,13 +1,9 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { IoSchoolOutline, IoBriefcaseOutline } from "react-icons/io5";
-
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
 
 const EDUCATION = [
   {
@@ -35,62 +31,61 @@ const EDUCATION = [
 
 const Education = () => {
   const sectionRef = useRef(null);
-  const triggerRef = useRef(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Context ব্যবহার করা হয়েছে ডাবল-রেন্ডারিং সমস্যা এড়াতে
     let ctx = gsap.context(() => {
-      // 1. Entrance Animation
-      gsap.from(".edu-title", {
-        scrollTrigger: {
-          trigger: ".edu-title",
-          start: "top 90%",
-        },
-        y: 40,
-        opacity: 0,
-        duration: 1,
-        ease: "power3.out",
-      });
+      
+      // ১. টাইটেল অ্যানিমেশন
+      gsap.fromTo(".edu-title", 
+        { y: 50, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".edu-title",
+            start: "top 90%",
+            toggleActions: "play none none none",
+          }
+        }
+      );
 
-      // 2. Continuous Rotation (Looping) - Consistency with Hero
+      // ২. আইটেমগুলোর জন্য stagger অ্যানিমেশন
+      // gsap.fromTo ব্যবহার করা হয়েছে যেন 'first reload' এ কন্টেন্ট হারিয়ে না যায়
+      gsap.fromTo(".edu-item", 
+        { y: 100, opacity: 0, scale: 0.9 },
+        {
+          y: 0,
+          opacity: 1,
+          scale: 1,
+          duration: 1,
+          stagger: 0.2,
+          ease: "back.out(1.2)",
+          scrollTrigger: {
+            trigger: ".edu-grid", // একটি প্যারেন্ট কন্টেইনারকে ট্রিগার হিসেবে রাখা হয়েছে
+            start: "top 80%",
+          }
+        }
+      );
+
+      // ৩. ব্যাকগ্রাউন্ড রোটেশন
       gsap.to(".gsap-rotate-edu", {
         rotation: 360,
-        duration: 30,
+        duration: 40,
         repeat: -1,
         ease: "none",
       });
 
-      // 3. Staggered Entrance and Scrub for Items
-      const items = gsap.utils.toArray(".edu-item");
-
-      // Entrance
-      gsap.from(items, {
-        scrollTrigger: {
-          trigger: triggerRef.current,
-          start: "top 70%",
-        },
-        y: 80,
-        opacity: 0,
-        scale: 0.9,
-        duration: 1,
-        stagger: 0.2,
-        ease: "back.out(1.5)",
-      });
-
-      // 4. Subtle Scaling while scrolling (Scrub) - Unique Feature
-      if (typeof window !== "undefined") {
-        gsap.to(items, {
-          scrollTrigger: {
-            trigger: triggerRef.current,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: 1, // Linking animation directly to scroll position
-          },
-          y: -20, // Gentle upward movement
-          ease: "sine.inOut",
-        });
-      }
-
     }, sectionRef);
+
+    // পজিশন ঠিক রাখতে রিফ্রেশ
+    setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 100);
 
     return () => ctx.revert();
   }, []);
@@ -100,7 +95,7 @@ const Education = () => {
       ref={sectionRef}
       className="w-full py-24 bg-white relative overflow-hidden border-b border-slate-50"
     >
-      {/* Background Decorative Element */}
+      {/* Background Shapes */}
       <div className="absolute inset-0 pointer-events-none z-0">
         <div className="gsap-rotate-edu absolute -bottom-[20%] -right-[10%] w-[500px] h-[500px] bg-teal-50/50 rounded-full blur-[100px] opacity-40"></div>
         <div className="gsap-rotate-edu absolute -top-[10%] -left-[10%] w-[300px] h-[300px] bg-blue-50 rounded-full blur-[80px] opacity-30"></div>
@@ -112,7 +107,7 @@ const Education = () => {
             <span className="w-2 h-2 bg-[#149988] rounded-full animate-pulse"></span>
             Educational Qualification
           </div>
-          <h2 className="edu-title text-4xl lg:text-6xl font-black text-slate-900 mb-4">
+          <h2 className="edu-title text-4xl lg:text-6xl font-black text-slate-900 mb-4 opacity-1">
             Educational <span className="text-[#149988]">Pathway</span>
           </h2>
           <p className="text-slate-500 font-medium max-w-2xl mx-auto italic">
@@ -120,14 +115,15 @@ const Education = () => {
           </p>
         </div>
 
-        {/* The Asymmetric Grid (Alternating Layout) */}
-        <div ref={triggerRef} className="max-w-6xl mx-auto space-y-12 lg:space-y-0 lg:grid lg:grid-cols-2 lg:gap-12 lg:items-start">
+        {/* edu-grid ক্লাসটি এখানে ট্রিগার হিসেবে কাজ করবে */}
+        <div className="edu-grid max-w-6xl mx-auto space-y-12 lg:space-y-0 lg:grid lg:grid-cols-2 lg:gap-12 lg:items-start">
           {EDUCATION.map((edu, idx) => (
             <div
               key={idx}
-              className={`edu-item relative p-10 bg-white rounded-[2rem] shadow-sm hover:shadow-xl transition-all duration-500 flex flex-col items-start gap-6 border border-slate-100 group ${idx % 2 !== 0 ? 'lg:translate-y-20' : ''}`}
+              className={`edu-item relative p-10 bg-white rounded-[2rem] shadow-sm hover:shadow-xl transition-all duration-500 flex flex-col items-start gap-6 border border-slate-100 group ${
+                idx % 2 !== 0 ? 'lg:translate-y-20' : ''
+              }`}
             >
-              {/* Special Icon Design with Rotation and Staggering */}
               <div className="flex items-center gap-4">
                 <div className="w-16 h-16 rounded-full bg-teal-50 border border-teal-100/50 flex items-center justify-center text-3xl text-[#149988] group-hover:scale-110 group-hover:bg-[#149988] group-hover:text-white transition-all duration-300">
                   {edu.icon}

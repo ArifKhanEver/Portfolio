@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-import { FiMail, FiLinkedin, FiGithub, FiSend, FiMapPin } from "react-icons/fi";
+import { FiMail, FiLinkedin, FiSend, FiMapPin } from "react-icons/fi";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -13,56 +13,77 @@ const Contact = () => {
   const sectionRef = useRef(null);
   const formRef = useRef(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     let ctx = gsap.context(() => {
-      // Heading Animation
-      gsap.from(".contact-title", {
-        scrollTrigger: {
-          trigger: ".contact-title",
-          start: "top 90%",
-        },
-        y: 40,
-        opacity: 0,
-        duration: 1,
-        ease: "power3.out",
-      });
+      // 1. Heading Animation
+      gsap.fromTo(".contact-title", 
+        { y: 40, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".contact-title",
+            start: "top 90%",
+            toggleActions: "play none none none",
+          },
+        }
+      );
 
-      // Info Cards & Form Entrance
-      gsap.from(".contact-item", {
-        scrollTrigger: {
-          trigger: ".contact-grid",
-          start: "top 80%",
-        },
-        x: -30,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.2,
-        ease: "power2.out",
-      });
+      // 2. Info Cards Entrance (Left Side)
+      gsap.fromTo(".contact-item", 
+        { x: -40, opacity: 0 },
+        {
+          x: 0,
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.2,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".contact-grid",
+            start: "top 80%",
+          },
+        }
+      );
 
-      gsap.from(formRef.current, {
-        scrollTrigger: {
-          trigger: ".contact-grid",
-          start: "top 80%",
-        },
-        x: 30,
-        opacity: 0,
-        duration: 1,
-        ease: "power3.out",
-      });
+      // 3. Form Entrance (Right Side)
+      if (formRef.current) {
+        gsap.fromTo(formRef.current, 
+          { x: 40, opacity: 0 },
+          {
+            x: 0,
+            opacity: 1,
+            duration: 1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: ".contact-grid",
+              start: "top 80%",
+            },
+          }
+        );
+      }
     }, sectionRef);
 
-    return () => ctx.revert();
+    // Refresh for accurate calculations
+    const timer = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 300);
+
+    return () => {
+      ctx.revert();
+      clearTimeout(timer);
+    };
   }, []);
 
   return (
-    <section ref={sectionRef} id="contact" className="w-full py-24 bg-white relative overflow-hidden">
+    <section ref={sectionRef} id="contact" className="w-full py-24 bg-gray-100 relative overflow-hidden">
       {/* Background Subtle Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-teal-50/40 rounded-full blur-[120px] pointer-events-none z-0"></div>
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="text-center mb-20">
-          <h2 className="contact-title text-4xl lg:text-7xl font-black text-slate-900 mb-6">
+          <h2 className="contact-title text-4xl lg:text-7xl font-black text-slate-900 mb-6 opacity-1">
             Let’s <span className="text-[#149988]">Connect</span>
           </h2>
           <p className="text-slate-500 font-medium max-w-xl mx-auto">
@@ -74,7 +95,7 @@ const Contact = () => {
         <div className="contact-grid grid grid-cols-1 lg:grid-cols-12 gap-12 max-w-6xl mx-auto">
           {/* Left Side: Contact Info */}
           <div className="lg:col-span-5 space-y-6">
-            <div className="contact-item p-8 bg-slate-50 rounded-[2rem] border border-slate-100 group hover:border-[#149988]/30 transition-all">
+            <div className="contact-item p-8 bg-white rounded-[2rem] border border-slate-100 group hover:border-[#149988]/30 transition-all opacity-1">
               <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-[#149988] shadow-sm mb-4">
                 <FiMail size={24} />
               </div>
@@ -82,7 +103,7 @@ const Contact = () => {
               <p className="text-slate-500 text-sm">shafiqul.dev@example.com</p>
             </div>
 
-            <div className="contact-item p-8 bg-slate-50 rounded-[2rem] border border-slate-100 group hover:border-[#149988]/30 transition-all">
+            <div className="contact-item p-8 bg-white rounded-[2rem] border border-slate-100 group hover:border-[#149988]/30 transition-all opacity-1">
               <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-[#149988] shadow-sm mb-4">
                 <FiLinkedin size={24} />
               </div>
@@ -90,7 +111,7 @@ const Contact = () => {
               <p className="text-slate-500 text-sm">Connect with me for professional updates</p>
             </div>
 
-            <div className="contact-item p-8 bg-slate-50 rounded-[2rem] border border-slate-100 group hover:border-[#149988]/30 transition-all">
+            <div className="contact-item p-8 bg-white rounded-[2rem] border border-slate-100 group hover:border-[#149988]/30 transition-all opacity-1">
               <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-[#149988] shadow-sm mb-4">
                 <FiMapPin size={24} />
               </div>
@@ -102,7 +123,7 @@ const Contact = () => {
           {/* Right Side: Contact Form */}
           <form 
             ref={formRef}
-            className="lg:col-span-7 bg-white p-10 rounded-[2.5rem] border border-slate-100 shadow-2xl shadow-slate-100/50"
+            className="lg:col-span-7 bg-white p-10 rounded-[2.5rem] border border-slate-100 shadow-2xl shadow-slate-100/50 opacity-1"
           >
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
               <div className="space-y-2">
@@ -132,7 +153,7 @@ const Contact = () => {
               ></textarea>
             </div>
 
-            <button className="w-full py-5 bg-[#149988] text-white rounded-2xl font-black flex items-center justify-center gap-3 hover:bg-[#0f7d6f] transition-all shadow-xl shadow-teal-100 active:scale-[0.98]">
+            <button type="button" className="w-full py-5 bg-[#149988] text-white rounded-2xl font-black flex items-center justify-center gap-3 hover:bg-[#0f7d6f] transition-all shadow-xl shadow-teal-100 active:scale-[0.98]">
               Send Message <FiSend />
             </button>
           </form>
