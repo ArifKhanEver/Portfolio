@@ -92,6 +92,7 @@ const Education = () => {
 
   return (
     <section
+      id="education"
       ref={sectionRef}
       className="w-full py-24 bg-white relative overflow-hidden border-b border-slate-50"
     >

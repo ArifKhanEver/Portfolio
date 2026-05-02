@@ -1,1 +1,21 @@
 @import "tailwindcss";
+
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-poppins: 'Poppins', sans-serif;
+  }
+
+  html, body {
+    font-family: var(--font-poppins) !important;
+  }
+
+  * {
+    font-family: var(--font-poppins), sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-poppins), sans-serif;
+  }
+}

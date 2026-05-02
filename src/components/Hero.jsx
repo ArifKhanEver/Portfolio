@@ -8,6 +8,7 @@ import { HiArrowRight } from "react-icons/hi";
 import { FaDownload, FaLinkedinIn, FaDribbble, FaBehance, FaGithub, FaCodepen } from "react-icons/fa";
 import gsap from "gsap";
 
+
 const Hero = () => {
     const heroRef = useRef(null);
     const leftContentRef = useRef(null);
