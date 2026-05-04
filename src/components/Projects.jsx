@@ -3,8 +3,9 @@
 import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-import { FiGithub, FiExternalLink, FiLayers } from "react-icons/fi";
+import { FiGithub, FiExternalLink, FiLayers, FiArrowRight } from "react-icons/fi";
 import Image from "next/image";
+import Link from "next/link";
 import Dragon from '@/assets/home-layout.png'
 import KinKeeper from '@/assets/KinKeeper.png'
 import BookVibe from '@/assets/BookVibe.png'
@@ -15,31 +16,40 @@ if (typeof window !== "undefined") {
 
 const PROJECTS = [
   {
+    id: "dragon-news",
     title: "Dragon News",
     category: "Full Stack Development",
     desc: "A comprehensive news portal built with Next JS with some login and signin and register functionality where users can register/signin through Google and github",
     tags: ["NextJs", "Tailwind CSS", "Better Auth"],
     link: "https://dragon-news-ng7z.vercel.app/",
     github: "https://github.com/ArifKhanEver/Dragon-News",
-    image: Dragon
+    image: Dragon,
+    challenges: "Implementing social authentication with Better Auth while maintaining a seamless user session was a complex task.",
+    futurePlans: "Add a real-time notification system for breaking news and an AI-based news summarizer."
   },
   {
+    id: "kin-keeper",
     title: "KinKeeper",
-    category: "A modern personal relationship management tool ",
-    desc: "KinKeeper is a modern personal relationship management tool designed to help you nurture and maintain your friendships. In a fast-paced digital world, it’s easy to lose track of time. KinKeeper ensures you stay connected with the people who matter most by tracking interactions and setting contact goals.",
+    category: "Relationship Management",
+    desc: "KinKeeper is a modern personal relationship management tool designed to help you nurture and maintain your friendships by tracking interactions.",
     tags: ["React.js", "DaisyUI", "Responsive Design"],
     link: "https://kin-keeper-app.netlify.app/",
     github: "https://github.com/ArifKhanEver/KinKeeper",
-    image: KinKeeper
+    image: KinKeeper,
+    challenges: "Designing a local storage logic that efficiently tracks dates and intervals for contact goals.",
+    futurePlans: "Integrate Google Calendar API to automatically sync meetings and call logs."
   },
   {
+    id: "book-vibe",
     title: "Book Vibe",
     category: "Frontend Engineering",
     desc: "Digital storefront featuring custom-designed hero sections and interactive UI components built for modern retail.",
     tags: ["React", "Modern UI"],
     link: "https://the-book-vibe-app.netlify.app/",
     github: "https://github.com/ArifKhanEver/Book_Vibe",
-    image: BookVibe
+    image: BookVibe,
+    challenges: "Creating smooth state transitions for the interactive cart system without sacrificing performance.",
+    futurePlans: "Implement a dark mode UI and a recommendation engine based on user browsing history."
   }
 ];
 
@@ -48,7 +58,6 @@ const Projects = () => {
 
   useLayoutEffect(() => {
     let ctx = gsap.context(() => {
-      // 1. Heading Animation (fromTo use korle content haray na)
       gsap.fromTo(".proj-title",
         { y: 50, opacity: 0 },
         {
@@ -64,7 +73,6 @@ const Projects = () => {
         }
       );
 
-      // 2. Project Cards Entrance
       gsap.fromTo(".project-card",
         { y: 80, opacity: 0, scale: 0.95 },
         {
@@ -82,7 +90,6 @@ const Projects = () => {
       );
     }, sectionRef);
 
-    // Initial load e calculation thik rakhar jonno
     const timer = setTimeout(() => {
       ScrollTrigger.refresh();
     }, 200);
@@ -104,7 +111,7 @@ const Projects = () => {
               <span className="w-2 h-2 bg-[#149988] rounded-full animate-pulse"></span>
               Portfolio
             </div>
-            <h2 className="proj-title text-4xl lg:text-[50px] font-black text-slate-900 mb-6 opacity-1">
+            <h2 className="proj-title text-4xl lg:text-[50px] font-black text-slate-900 mb-6">
               Innovative <span className="text-[#149988]">Creations</span>
             </h2>
             <p className="text-slate-500 font-medium text-lg italic">
@@ -116,12 +123,12 @@ const Projects = () => {
           </div>
         </div>
 
-        {/* Projects Grid - added class 'projects-grid' for trigger */}
+        {/* Projects Grid */}
         <div className="projects-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {PROJECTS.map((project, idx) => (
             <div
               key={idx}
-              className="project-card group bg-white rounded-[2.5rem] border border-slate-100 overflow-hidden hover:shadow-2xl hover:shadow-teal-100/50 transition-all duration-500 flex flex-col h-full opacity-1"
+              className="project-card group bg-white rounded-[2.5rem] border border-slate-100 overflow-hidden hover:shadow-2xl hover:shadow-teal-100/50 transition-all duration-500 flex flex-col h-full"
             >
               {/* Image Container */}
               <div className="relative h-64 overflow-hidden">
@@ -131,10 +138,10 @@ const Projects = () => {
                   fill
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-8">
-                  <div className="flex gap-4">
-                    <a href={project.link} target="_blank" className="p-3 bg-[#149988] text-white rounded-full hover:bg-[#0f7d6f] transition-colors"><FiExternalLink size={20} /></a>
-                    <a href={project.github} target="_blank" className="p-3 bg-white text-slate-900 rounded-full hover:bg-slate-100 transition-colors"><FiGithub size={20} /></a>
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-8">
+                   <div className="flex gap-4 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                    <a href={project.link} target="_blank" className="p-3 bg-[#149988] text-white rounded-full hover:bg-[#0f7d6f] transition-colors shadow-lg"><FiExternalLink size={20} /></a>
+                    <a href={project.github} target="_blank" className="p-3 bg-white text-slate-900 rounded-full hover:bg-slate-100 transition-colors shadow-lg"><FiGithub size={20} /></a>
                   </div>
                 </div>
               </div>
@@ -147,17 +154,28 @@ const Projects = () => {
                 <h3 className="text-2xl font-bold text-slate-800 mb-4 group-hover:text-[#149988] transition-colors">
                   {project.title}
                 </h3>
-                <p className="text-slate-500 text-sm leading-relaxed mb-6 font-medium line-clamp-3">
+                <p className="text-slate-500 text-sm leading-relaxed mb-6 font-medium line-clamp-2">
                   {project.desc}
                 </p>
 
                 {/* Tags */}
-                <div className="mt-auto flex flex-wrap gap-2 pt-6 border-t border-slate-50">
+                <div className="flex flex-wrap gap-2 mb-8">
                   {project.tags.map(tag => (
-                    <span key={tag} className="px-3 py-1 bg-slate-50 text-slate-400 text-[10px] font-bold uppercase rounded-lg border border-slate-100 group-hover:border-[#149988]/20 group-hover:text-[#149988] transition-all">
+                    <span key={tag} className="px-3 py-1 bg-slate-50 text-slate-400 text-[9px] font-bold uppercase rounded-lg border border-slate-100 group-hover:border-[#149988]/20 group-hover:text-[#149988] transition-all">
                       {tag}
                     </span>
                   ))}
+                </div>
+
+                {/* View Details Button */}
+                <div className="mt-auto">
+                  <Link 
+                    href={`/projects/${project.id}`}
+                    className="inline-flex items-center gap-2 bg-slate-900 text-white px-6 py-3 rounded-2xl font-bold text-sm hover:bg-[#149988] transition-all active:scale-95 group/btn shadow-lg"
+                  >
+                    View Details
+                    <FiArrowRight className="group-hover/btn:translate-x-1 transition-transform" />
+                  </Link>
                 </div>
               </div>
             </div>
