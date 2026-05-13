@@ -134,7 +134,7 @@ const Contact = () => {
             {/* Form Configuration */}
             <input type="hidden" name="_captcha" value="false" />
             <input type="hidden" name="_template" value="table" />
-            <input type="hidden" name="_next" value="http://localhost:3000" />
+            <input type="hidden" name="_next" value="/" />
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
               <div className="space-y-2">
