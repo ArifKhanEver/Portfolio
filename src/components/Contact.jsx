@@ -134,7 +134,6 @@ const Contact = () => {
             {/* Form Configuration */}
             <input type="hidden" name="_captcha" value="false" />
             <input type="hidden" name="_template" value="table" />
-            {/* আপনার সাইট লাইভ করার পর নিচের ভ্যালুটি আপনার ডোমেইন দিয়ে আপডেট করে দেবেন */}
             <input type="hidden" name="_next" value="http://localhost:3000" />
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
@@ -142,7 +141,7 @@ const Contact = () => {
                 <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-2">Your Name</label>
                 <input
                   type="text"
-                  name="name" // name অ্যাট্রিবিউট অবশ্যই থাকতে হবে
+                  name="name"
                   required
                   placeholder="Shafiqul Islam Khan"
                   className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:border-[#149988] focus:bg-white transition-all text-slate-800"
@@ -152,7 +151,7 @@ const Contact = () => {
                 <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-2">Your Email</label>
                 <input
                   type="email"
-                  name="email" // name অ্যাট্রিবিউট অবশ্যই থাকতে হবে
+                  name="email"
                   required
                   placeholder="contact@example.com"
                   className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:border-[#149988] focus:bg-white transition-all text-slate-800"
@@ -163,7 +162,7 @@ const Contact = () => {
             <div className="space-y-2 mb-8">
               <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-2">Message</label>
               <textarea
-                name="message" // name অ্যাট্রিবিউট অবশ্যই থাকতে হবে
+                name="message" 
                 required
                 rows="5"
                 placeholder="How can I help you with your next MERN project?"
@@ -172,7 +171,7 @@ const Contact = () => {
             </div>
 
             <button
-              type="submit" // type অবশ্যই submit হতে হবে
+              type="submit"
               className="w-full py-5 bg-[#149988] text-white rounded-2xl font-black flex items-center justify-center gap-3 hover:bg-[#0f7d6f] transition-all shadow-xl shadow-teal-100 active:scale-[0.98]"
             >
               Send Message <FiSend />

@@ -8,7 +8,6 @@ import Dragon from '@/assets/home-layout.png';
 import KinKeeper from '@/assets/KinKeeper.png';
 import BookVibe from '@/assets/BookVibe.png';
 
-// Requirement অনুযায়ী বিস্তারিত ডাটা অ্যারে
 const PROJECT_DETAILS = [
   {
     id: "dragon-news",
@@ -49,7 +48,6 @@ const ProjectDetails = () => {
   const { id } = useParams();
   const router = useRouter();
 
-  // URL ID অনুযায়ী প্রজেক্ট খুঁজে বের করা
   const project = PROJECT_DETAILS.find((p) => p.id === id);
 
   if (!project) {
