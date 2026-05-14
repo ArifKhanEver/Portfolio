@@ -116,7 +116,6 @@ const Education = () => {
           </p>
         </div>
 
-        {/* edu-grid ক্লাসটি এখানে ট্রিগার হিসেবে কাজ করবে */}
         <div className="edu-grid max-w-6xl mx-auto space-y-12 lg:space-y-0 lg:grid lg:grid-cols-2 lg:gap-12 lg:items-start">
           {EDUCATION.map((edu, idx) => (
             <div

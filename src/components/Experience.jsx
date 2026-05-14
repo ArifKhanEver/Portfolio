@@ -38,7 +38,6 @@ const Experience = () => {
 
   useEffect(() => {
     let ctx = gsap.context(() => {
-      // Title Entrance
       gsap.from(".exp-title", {
         scrollTrigger: {
           trigger: ".exp-title",
@@ -56,7 +55,7 @@ const Experience = () => {
           trigger: sectionRef.current,
           start: "top 70%",
         },
-        x: (i) => (i % 2 === 0 ? -50 : 50), // Alternating entrance
+        x: (i) => (i % 2 === 0 ? -50 : 50),
         opacity: 0,
         duration: 1,
         stagger: 0.2,
@@ -70,7 +69,6 @@ const Experience = () => {
 
   return (
     <section ref={sectionRef} id="experience" className="w-full py-20 bg-gray-100 relative overflow-hidden border-t border-slate-50">
-      {/* Background Decorative Element */}
       <div className="absolute inset-0 pointer-events-none z-0">
         <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-teal-50/50 rounded-full blur-[100px]"></div>
       </div>
