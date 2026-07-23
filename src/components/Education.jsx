@@ -94,7 +94,7 @@ const Education = () => {
     <section
       id="education"
       ref={sectionRef}
-      className="w-full py-24 bg-white relative overflow-hidden border-b border-slate-50"
+      className="w-full py-24 bg-white dark:bg-slate-950 relative overflow-hidden border-b border-slate-50 dark:border-slate-800"
     >
       {/* Background Shapes */}
       <div className="absolute inset-0 pointer-events-none z-0">
@@ -108,7 +108,7 @@ const Education = () => {
             <span className="w-2 h-2 bg-[#149988] rounded-full animate-pulse"></span>
             Educational Qualification
           </div>
-          <h2 className="edu-title text-4xl lg:text-[50px] font-black text-slate-900 mb-4 opacity-1">
+          <h2 className="edu-title text-4xl lg:text-[50px] font-black text-slate-900 dark:text-white mb-4 opacity-1">
             Educational <span className="text-[#149988]">Pathway</span>
           </h2>
           <p className="text-slate-500 font-medium max-w-2xl mx-auto italic">
@@ -120,7 +120,7 @@ const Education = () => {
           {EDUCATION.map((edu, idx) => (
             <div
               key={idx}
-              className={`edu-item relative p-10 bg-white rounded-[2rem] shadow-sm hover:shadow-xl transition-all duration-500 flex flex-col items-start gap-6 border border-slate-100 group ${
+              className={`edu-item relative p-10 bg-white dark:bg-slate-800 rounded-[2rem] shadow-sm hover:shadow-xl transition-all duration-500 flex flex-col items-start gap-6 border border-slate-100 dark:border-slate-700 group ${
                 idx % 2 !== 0 ? 'lg:translate-y-20' : ''
               }`}
             >
@@ -129,7 +129,7 @@ const Education = () => {
                   {edu.icon}
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-2xl font-black text-slate-800 leading-tight">
+                  <h3 className="text-2xl font-black text-slate-800 dark:text-slate-200 leading-tight">
                     {edu.title}
                   </h3>
                   <p className="text-[#149988] font-bold text-sm uppercase tracking-wider">
