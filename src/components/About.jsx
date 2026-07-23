@@ -45,8 +45,8 @@ const About = () => {
         <section ref={sectionRef} id="about" className="w-full md:py-20 bg-white dark:bg-slate-950 relative overflow-hidden">
             {/* Background Decorative Glows */}
             <div className="absolute inset-0 pointer-events-none z-0">
-                <div className="about-glow absolute -top-[10%] -right-[5%] w-[400px] h-[400px] bg-teal-50 rounded-full blur-[100px] opacity-60"></div>
-                <div className="about-glow absolute -bottom-[10%] -left-[5%] w-[300px] h-[300px] bg-blue-50 rounded-full blur-[80px] opacity-40"></div>
+                <div className="about-glow absolute -top-[10%] -right-[5%] w-[400px] h-[400px] bg-teal-50 dark:bg-teal-900/20 rounded-full blur-[100px] opacity-60"></div>
+                <div className="about-glow absolute -bottom-[10%] -left-[5%] w-[300px] h-[300px] bg-blue-50 dark:bg-blue-900/20 rounded-full blur-[80px] opacity-40"></div>
             </div>
 
             <div className="container mx-auto px-6 relative z-10">
@@ -66,7 +66,7 @@ const About = () => {
                     {/* Right Side: Content */}
                     <div className="lg:w-3/5 about-content space-y-8">
                         <div className="space-y-4">
-                            <div className="inline-flex items-center gap-2 bg-[#E6F4F1] text-[#149988] px-4 py-2 rounded-full text-xs font-bold mb-3">
+                            <div className="inline-flex items-center gap-2 bg-[#E6F4F1] dark:bg-[#149988]/20 text-[#149988] px-4 py-2 rounded-full text-xs font-bold mb-3">
                                 <span className="w-2 h-2 bg-[#149988] rounded-full animate-pulse"></span>
                                 About Me
                             </div>

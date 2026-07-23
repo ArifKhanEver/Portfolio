@@ -89,12 +89,12 @@ const Skills = () => {
     <section id="skills" ref={sectionRef} className="w-full py-24 bg-gray-50 dark:bg-slate-900 relative overflow-hidden">
       {/* Background Glow */}
       <div className="absolute inset-0 pointer-events-none -z-10">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-teal-50 rounded-full blur-[120px] opacity-40"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-teal-50 dark:bg-teal-900/20 rounded-full blur-[120px] opacity-40"></div>
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 bg-[#E6F4F1] text-[#149988] px-4 py-2 rounded-full text-xs font-bold mb-3">
+          <div className="inline-flex items-center gap-2 bg-[#E6F4F1] dark:bg-[#149988]/20 text-[#149988] px-4 py-2 rounded-full text-xs font-bold mb-3">
             <span className="w-2 h-2 bg-[#149988] rounded-full animate-pulse"></span>
             Crafting Skills
           </div>

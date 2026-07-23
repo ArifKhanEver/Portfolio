@@ -102,8 +102,8 @@ const Hero = () => {
 
             {/* BACKGROUND DECORATIVE ELEMENTS - FIXED POSITIONS */}
             <div className="absolute inset-0 z-0 pointer-events-none">
-                <div className="gsap-rotate-bg absolute -top-[20%] -left-[10%] w-[700px] h-[700px] bg-teal-50 rounded-full blur-[120px] opacity-60"></div>
-                <div className="gsap-rotate-bg absolute -bottom-[20%] -right-[10%] w-[500px] h-[500px] bg-blue-50 rounded-full blur-[120px] opacity-40"></div>
+                <div className="gsap-rotate-bg absolute -top-[20%] -left-[10%] w-[700px] h-[700px] bg-teal-50 dark:bg-teal-900/20 rounded-full blur-[120px] opacity-60"></div>
+                <div className="gsap-rotate-bg absolute -bottom-[20%] -right-[10%] w-[500px] h-[500px] bg-blue-50 dark:bg-blue-900/20 rounded-full blur-[120px] opacity-40"></div>
             </div>
 
             <div className="container mx-auto px-6 lg:px-20 relative z-10">
@@ -111,7 +111,7 @@ const Hero = () => {
 
                     {/* Left Content */}
                     <div ref={leftContentRef} className="lg:w-1/2 text-center lg:text-left">
-                        <div className="inline-flex items-center gap-2 bg-[#E6F4F1] text-[#149988] px-4 py-2 rounded-full text-xs font-bold mb-3">
+                        <div className="inline-flex items-center gap-2 bg-[#E6F4F1] dark:bg-[#149988]/20 text-[#149988] px-4 py-2 rounded-full text-xs font-bold mb-3">
                             <span className="w-2 h-2 bg-[#149988] rounded-full animate-pulse"></span>
                             Available Now
                         </div>
@@ -151,7 +151,7 @@ const Hero = () => {
                             <a
                                 href="/resume.pdf" 
                                 download="Shafiqul_Islam_CV.pdf" 
-                                className="w-full sm:w-auto border-2 border-[#149988] text-[#149988] px-8 py-3 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-[#E6F4F1] transition-all active:scale-95"
+                                className="w-full sm:w-auto border-2 border-[#149988] text-[#149988] px-8 py-3 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-[#E6F4F1] dark:hover:bg-[#149988]/20 transition-all active:scale-95"
                             >
                                 Download CV <FaDownload />
                             </a>

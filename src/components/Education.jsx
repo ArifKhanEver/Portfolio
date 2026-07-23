@@ -98,13 +98,13 @@ const Education = () => {
     >
       {/* Background Shapes */}
       <div className="absolute inset-0 pointer-events-none z-0">
-        <div className="gsap-rotate-edu absolute -bottom-[20%] -right-[10%] w-[500px] h-[500px] bg-teal-50/50 rounded-full blur-[100px] opacity-40"></div>
-        <div className="gsap-rotate-edu absolute -top-[10%] -left-[10%] w-[300px] h-[300px] bg-blue-50 rounded-full blur-[80px] opacity-30"></div>
+        <div className="gsap-rotate-edu absolute -bottom-[20%] -right-[10%] w-[500px] h-[500px] bg-teal-50/50 dark:bg-teal-900/20 rounded-full blur-[100px] opacity-40"></div>
+        <div className="gsap-rotate-edu absolute -top-[10%] -left-[10%] w-[300px] h-[300px] bg-blue-50 dark:bg-blue-900/20 rounded-full blur-[80px] opacity-30"></div>
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 bg-[#E6F4F1] text-[#149988] px-4 py-2 rounded-full text-xs font-bold mb-3">
+          <div className="inline-flex items-center gap-2 bg-[#E6F4F1] dark:bg-[#149988]/20 text-[#149988] px-4 py-2 rounded-full text-xs font-bold mb-3">
             <span className="w-2 h-2 bg-[#149988] rounded-full animate-pulse"></span>
             Educational Qualification
           </div>
@@ -125,7 +125,7 @@ const Education = () => {
               }`}
             >
               <div className="flex items-center gap-4">
-                <div className="w-16 h-16 rounded-full bg-teal-50 border border-teal-100/50 flex items-center justify-center text-3xl text-[#149988] group-hover:scale-110 group-hover:bg-[#149988] group-hover:text-white transition-all duration-300">
+                <div className="w-16 h-16 rounded-full bg-teal-50 dark:bg-teal-900/20 border border-teal-100/50 flex items-center justify-center text-3xl text-[#149988] group-hover:scale-110 group-hover:bg-[#149988] group-hover:text-white transition-all duration-300">
                   {edu.icon}
                 </div>
                 <div className="flex-1">

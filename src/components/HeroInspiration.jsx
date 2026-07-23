@@ -66,7 +66,7 @@ const HeroInspiration = () => {
         <div className="gsap-rotate-bg w-[900px] h-[900px] border border-slate-50/50 rounded-full absolute opacity-20"></div>
         
         {/* Added extra glow for consistency with Hero section */}
-        <div className="absolute w-[600px] h-[600px] bg-teal-50 rounded-full blur-[120px] opacity-40"></div>
+        <div className="absolute w-[600px] h-[600px] bg-teal-50 dark:bg-teal-900/20 rounded-full blur-[120px] opacity-40"></div>
       </div>
 
       <div className="container mx-auto px-6 relative z-10 text-center">

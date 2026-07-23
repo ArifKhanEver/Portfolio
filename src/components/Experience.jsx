@@ -70,12 +70,12 @@ const Experience = () => {
   return (
     <section ref={sectionRef} id="experience" className="w-full py-20 bg-gray-100 dark:bg-slate-900 relative overflow-hidden border-t border-slate-50 dark:border-slate-800">
       <div className="absolute inset-0 pointer-events-none z-0">
-        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-teal-50/50 rounded-full blur-[100px]"></div>
+        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-teal-50/50 dark:bg-teal-900/20 rounded-full blur-[100px]"></div>
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 bg-[#E6F4F1] text-[#149988] px-4 py-2 rounded-full text-xs font-bold mb-3">
+          <div className="inline-flex items-center gap-2 bg-[#E6F4F1] dark:bg-[#149988]/20 text-[#149988] px-4 py-2 rounded-full text-xs font-bold mb-3">
             <span className="w-2 h-2 bg-[#149988] rounded-full animate-pulse"></span>
             Experience
           </div>
@@ -114,7 +114,7 @@ const Experience = () => {
 
               <div className="flex flex-wrap gap-2">
                 {exp.tags.map((tag) => (
-                  <span key={tag} className="px-3 py-1 bg-teal-50 text-[#149988] text-[10px] font-black uppercase rounded-lg border border-teal-100/50">
+                  <span key={tag} className="px-3 py-1 bg-teal-50 dark:bg-teal-900/20 text-[#149988] text-[10px] font-black uppercase rounded-lg border border-teal-100/50">
                     {tag}
                   </span>
                 ))}
