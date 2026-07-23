@@ -51,7 +51,7 @@ const Navbar = () => {
         
         {/* Brand Logo */}
         <Link href="/" className="flex items-center gap-2 group">
-          <div className="w-10 h-10 bg-[#149988] rounded-xl flex items-center justify-center transition-all group-hover:scale-110 group-hover:rotate-6 shadow-lg shadow-teal-500/20">
+          <div className="w-10 h-10 bg-[#149988] rounded-xl flex items-center justify-center transition-all group-hover:scale-110 group-hover:rotate-6 shadow-lg shadow-teal-500/20 dark:shadow-none">
              <div className="w-5 h-5 border-[3px] border-white rounded-full"></div>
           </div>
           <span className="text-3xl font-black text-slate-900 dark:text-white tracking-tighter">

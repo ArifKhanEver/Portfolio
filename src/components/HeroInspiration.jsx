@@ -106,7 +106,7 @@ const HeroInspiration = () => {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-5">
             <Link 
               href="#contact" 
-              className="w-full sm:w-auto bg-[#149988] text-white px-10 py-5 rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-[#0f7d6f] transition-all shadow-2xl shadow-teal-100 group active:scale-95"
+              className="w-full sm:w-auto bg-[#149988] text-white px-10 py-5 rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-[#0f7d6f] transition-all shadow-2xl shadow-teal-100 dark:shadow-none group active:scale-95"
             >
               Hire Me <HiArrowRight className="group-hover:translate-x-1 transition-transform" />
             </Link>
