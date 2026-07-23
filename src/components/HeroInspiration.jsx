@@ -56,7 +56,7 @@ const HeroInspiration = () => {
   return (
     <section 
       ref={containerRef} 
-      className="relative py-10 flex items-center justify-center bg-white overflow-hidden w-full"
+      className="relative py-10 flex items-center justify-center bg-white dark:bg-slate-950 overflow-hidden w-full"
     >
       
       {/* Background Decorative Circles - FIXED & ANIMATED */}
