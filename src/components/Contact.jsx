@@ -76,7 +76,7 @@ const Contact = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} id="contact" className="w-full py-24 bg-gray-100 relative overflow-hidden">
+    <section ref={sectionRef} id="contact" className="w-full py-24 bg-gray-100 dark:bg-slate-900 relative overflow-hidden">
       {/* Background Subtle Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-teal-50/40 rounded-full blur-[120px] pointer-events-none z-0"></div>
 
@@ -98,24 +98,24 @@ const Contact = () => {
         <div className="contact-grid grid grid-cols-1 lg:grid-cols-12 gap-12 max-w-6xl mx-auto">
           {/* Left Side: Contact Info */}
           <div className="lg:col-span-5 space-y-6">
-            <div className="contact-item p-8 bg-white rounded-[2rem] border border-slate-100 group hover:border-[#149988]/30 transition-all opacity-1">
-              <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-[#149988] shadow-sm mb-4">
+            <div className="contact-item p-8 bg-white dark:bg-slate-800 rounded-[2rem] border border-slate-100 dark:border-slate-700 group hover:border-[#149988]/30 dark:hover:border-[#149988]/30 transition-all opacity-1">
+              <div className="w-12 h-12 bg-white dark:bg-slate-900 rounded-xl flex items-center justify-center text-[#149988] shadow-sm mb-4">
                 <FiMail size={24} />
               </div>
               <h4 className="text-slate-900 font-bold mb-1">Email Me</h4>
               <p className="text-slate-500 text-sm">contact.arifkhanever@gmail.com</p>
             </div>
 
-            <div className="contact-item p-8 bg-white rounded-[2rem] border border-slate-100 group hover:border-[#149988]/30 transition-all opacity-1">
-              <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-[#149988] shadow-sm mb-4">
+            <div className="contact-item p-8 bg-white dark:bg-slate-800 rounded-[2rem] border border-slate-100 dark:border-slate-700 group hover:border-[#149988]/30 dark:hover:border-[#149988]/30 transition-all opacity-1">
+              <div className="w-12 h-12 bg-white dark:bg-slate-900 rounded-xl flex items-center justify-center text-[#149988] shadow-sm mb-4">
                 <FiLinkedin size={24} />
               </div>
               <h4 className="text-slate-900 font-bold mb-1">LinkedIn</h4>
               <p className="text-slate-500 text-sm">@arifkhanever</p>
             </div>
 
-            <div className="contact-item p-8 bg-white rounded-[2rem] border border-slate-100 group hover:border-[#149988]/30 transition-all opacity-1">
-              <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-[#149988] shadow-sm mb-4">
+            <div className="contact-item p-8 bg-white dark:bg-slate-800 rounded-[2rem] border border-slate-100 dark:border-slate-700 group hover:border-[#149988]/30 dark:hover:border-[#149988]/30 transition-all opacity-1">
+              <div className="w-12 h-12 bg-white dark:bg-slate-900 rounded-xl flex items-center justify-center text-[#149988] shadow-sm mb-4">
                 <FiMapPin size={24} />
               </div>
               <h4 className="text-slate-900 font-bold mb-1">Location</h4>
@@ -128,7 +128,7 @@ const Contact = () => {
             action="https://formsubmit.co/b9593152921aba84ef103074c9ed733d"
             method="POST"
             ref={formRef}
-            className="lg:col-span-7 bg-white p-10 rounded-[2.5rem] border border-slate-100 shadow-2xl shadow-slate-100/50 opacity-1"
+            className="lg:col-span-7 bg-white dark:bg-slate-800 p-10 rounded-[2.5rem] border border-slate-100 dark:border-slate-700 shadow-2xl shadow-slate-100/50 dark:shadow-none opacity-1"
           >
             {/* Form Configuration */}
             <input type="hidden" name="_captcha" value="false" />
@@ -143,7 +143,7 @@ const Contact = () => {
                   name="name"
                   required
                   placeholder="Shafiqul Islam Khan"
-                  className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:border-[#149988] focus:bg-white transition-all text-slate-800"
+                  className="w-full px-6 py-4 bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-700 rounded-2xl focus:outline-none focus:border-[#149988] focus:bg-white dark:focus:bg-slate-800 transition-all text-slate-800 dark:text-slate-200"
                 />
               </div>
               <div className="space-y-2">
@@ -153,7 +153,7 @@ const Contact = () => {
                   name="email"
                   required
                   placeholder="contact@example.com"
-                  className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:border-[#149988] focus:bg-white transition-all text-slate-800"
+                  className="w-full px-6 py-4 bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-700 rounded-2xl focus:outline-none focus:border-[#149988] focus:bg-white dark:focus:bg-slate-800 transition-all text-slate-800 dark:text-slate-200"
                 />
               </div>
             </div>
@@ -165,7 +165,7 @@ const Contact = () => {
                 required
                 rows="5"
                 placeholder="How can I help you with your next MERN project?"
-                className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:border-[#149988] focus:bg-white transition-all text-slate-800 resize-none"
+                className="w-full px-6 py-4 bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-700 rounded-2xl focus:outline-none focus:border-[#149988] focus:bg-white dark:focus:bg-slate-800 transition-all text-slate-800 dark:text-slate-200 resize-none"
               ></textarea>
             </div>
 
