@@ -68,7 +68,7 @@ const Experience = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} id="experience" className="w-full py-20 bg-gray-100 relative overflow-hidden border-t border-slate-50">
+    <section ref={sectionRef} id="experience" className="w-full py-20 bg-gray-100 dark:bg-slate-900 relative overflow-hidden border-t border-slate-50 dark:border-slate-800">
       <div className="absolute inset-0 pointer-events-none z-0">
         <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-teal-50/50 rounded-full blur-[100px]"></div>
       </div>
@@ -92,7 +92,7 @@ const Experience = () => {
             <div
               key={idx}
               ref={(el) => (cardsRef.current[idx] = el)}
-              className="group relative p-8 bg-white border border-slate-100 rounded-[2rem] hover:shadow-2xl hover:border-[#149988]/20 transition-all duration-500"
+              className="group relative p-8 bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-[2rem] hover:shadow-2xl hover:border-[#149988]/20 dark:hover:border-[#149988]/20 transition-all duration-500"
             >
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
                 <div>
