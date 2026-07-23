@@ -98,7 +98,7 @@ const Hero = () => {
     }, []);
 
     return (
-        <section ref={heroRef} className="w-full pt-28 lg:pt-30 bg-white relative overflow-hidden flex items-center">
+        <section ref={heroRef} className="w-full pt-28 lg:pt-30 bg-white dark:bg-slate-950 relative overflow-hidden flex items-center">
 
             {/* BACKGROUND DECORATIVE ELEMENTS - FIXED POSITIONS */}
             <div className="absolute inset-0 z-0 pointer-events-none">
