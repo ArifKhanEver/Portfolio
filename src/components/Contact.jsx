@@ -86,10 +86,10 @@ const Contact = () => {
             <span className="w-2 h-2 bg-[#149988] rounded-full animate-pulse"></span>
             Contact Me
           </div>
-          <h2 className="contact-title text-4xl lg:text-[50px] font-black text-slate-900 mb-6 opacity-1">
+          <h2 className="contact-title text-4xl lg:text-[50px] font-black text-slate-900 dark:text-white mb-6 opacity-1">
             Let’s <span className="text-[#149988]">Connect</span>
           </h2>
-          <p className="text-slate-500 font-medium max-w-xl mx-auto">
+          <p className="text-slate-500 dark:text-slate-400 font-medium max-w-xl mx-auto">
             Open for collaborations, innovative projects, or just a friendly tech talk.
             I'm currently seeking opportunities to architect scalable MERN applications.
           </p>
@@ -102,24 +102,24 @@ const Contact = () => {
               <div className="w-12 h-12 bg-white dark:bg-slate-900 rounded-xl flex items-center justify-center text-[#149988] shadow-sm mb-4">
                 <FiMail size={24} />
               </div>
-              <h4 className="text-slate-900 font-bold mb-1">Email Me</h4>
-              <p className="text-slate-500 text-sm">contact.arifkhanever@gmail.com</p>
+              <h4 className="text-slate-900 dark:text-white font-bold mb-1">Email Me</h4>
+              <p className="text-slate-500 dark:text-slate-400 text-sm">contact.arifkhanever@gmail.com</p>
             </div>
 
             <div className="contact-item p-8 bg-white dark:bg-slate-800 rounded-[2rem] border border-slate-100 dark:border-slate-700 group hover:border-[#149988]/30 dark:hover:border-[#149988]/30 transition-all opacity-1">
               <div className="w-12 h-12 bg-white dark:bg-slate-900 rounded-xl flex items-center justify-center text-[#149988] shadow-sm mb-4">
                 <FiLinkedin size={24} />
               </div>
-              <h4 className="text-slate-900 font-bold mb-1">LinkedIn</h4>
-              <p className="text-slate-500 text-sm">@arifkhanever</p>
+              <h4 className="text-slate-900 dark:text-white font-bold mb-1">LinkedIn</h4>
+              <p className="text-slate-500 dark:text-slate-400 text-sm">@arifkhanever</p>
             </div>
 
             <div className="contact-item p-8 bg-white dark:bg-slate-800 rounded-[2rem] border border-slate-100 dark:border-slate-700 group hover:border-[#149988]/30 dark:hover:border-[#149988]/30 transition-all opacity-1">
               <div className="w-12 h-12 bg-white dark:bg-slate-900 rounded-xl flex items-center justify-center text-[#149988] shadow-sm mb-4">
                 <FiMapPin size={24} />
               </div>
-              <h4 className="text-slate-900 font-bold mb-1">Location</h4>
-              <p className="text-slate-500 text-sm">Available for remote work worldwide</p>
+              <h4 className="text-slate-900 dark:text-white font-bold mb-1">Location</h4>
+              <p className="text-slate-500 dark:text-slate-400 text-sm">Available for remote work worldwide</p>
             </div>
           </div>
 

@@ -116,7 +116,7 @@ const Hero = () => {
                             Available Now
                         </div>
 
-                        <h1 className="text-4xl lg:text-[50px] font-extrabold text-slate-900 leading-[1.1] mb-6">
+                        <h1 className="text-4xl lg:text-[50px] font-extrabold text-slate-900 dark:text-white leading-[1.1] mb-6">
                             Solving Problems <br />
                             <span className="text-[#149988] relative inline-block">
                                 Through Code
@@ -126,19 +126,19 @@ const Hero = () => {
                             </span>
                         </h1>
 
-                        <p className="text-slate-500 text-base lg:text-lg max-w-xl mb-5 leading-relaxed font-medium mx-auto lg:mx-0">
+                        <p className="text-slate-500 dark:text-slate-400 text-base lg:text-lg max-w-xl mb-5 leading-relaxed font-medium mx-auto lg:mx-0">
                             Hi, I'm <span className="text-[#149988] font-bold">Shafiqul Islam Khan</span>, a passionate MERN stack developer focused on creating beautiful and functional digital experiences.
                         </p>
 
                         {/* Statistics */}
                         <div ref={statsRef} className="flex flex-wrap justify-center lg:justify-start gap-8 mb-6">
                             <div className="flex flex-col text-left">
-                                <span className="text-3xl font-black text-slate-900">5+</span>
+                                <span className="text-3xl font-black text-slate-900 dark:text-white">5+</span>
                                 <p className="text-gray-400 text-[10px] font-bold uppercase tracking-widest">Years of Excellence</p>
                             </div>
                             <div className="border-l border-gray-200 hidden md:block"></div>
                             <div className="flex flex-col text-left">
-                                <span className="text-3xl font-black text-slate-900">30+</span>
+                                <span className="text-3xl font-black text-slate-900 dark:text-white">30+</span>
                                 <p className="text-gray-400 text-[10px] font-bold uppercase tracking-widest">Projects Delivered</p>
                             </div>
                         </div>
@@ -159,13 +159,13 @@ const Hero = () => {
 
                         {/* Socials */}
                         <div className="flex items-center justify-center lg:justify-start gap-4">
-                                <a href="http://linkedin.com/in/arifkhanever" target="_blank" className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-600 hover:bg-[#149988] hover:text-white transition-all shadow-sm border border-slate-100">
+                                <a href="http://linkedin.com/in/arifkhanever" target="_blank" className="w-10 h-10 rounded-full bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-400 hover:bg-[#149988] hover:text-white transition-all shadow-sm border border-slate-100 dark:border-slate-700">
                                     <FaLinkedinIn />
                                 </a>
-                                <a href="https://codepen.io/arifkhanever" target="_blank" className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-600 hover:bg-[#149988] hover:text-white transition-all shadow-sm border border-slate-100">
+                                <a href="https://codepen.io/arifkhanever" target="_blank" className="w-10 h-10 rounded-full bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-400 hover:bg-[#149988] hover:text-white transition-all shadow-sm border border-slate-100 dark:border-slate-700">
                                     <FaCodepen />
                                 </a>
-                                <a href="https://github.com/ArifKhanEver" target="_blank" className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-600 hover:bg-[#149988] hover:text-white transition-all shadow-sm border border-slate-100">
+                                <a href="https://github.com/ArifKhanEver" target="_blank" className="w-10 h-10 rounded-full bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-400 hover:bg-[#149988] hover:text-white transition-all shadow-sm border border-slate-100 dark:border-slate-700">
                                     <FaGithub />
                                 </a>
                         </div>

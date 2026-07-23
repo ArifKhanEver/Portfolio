@@ -34,8 +34,8 @@ const Navbar = () => {
     return (
       <nav className="fixed top-0 left-0 w-full z-[100] py-5 bg-transparent">
         <div className="container mx-auto px-6 lg:px-20 flex justify-between items-center">
-           <div className="text-3xl font-black text-slate-900 tracking-tighter">SIK</div>
-           <div className="w-10 h-10 bg-slate-100 rounded-xl animate-pulse"></div>
+           <div className="text-3xl font-black text-slate-900 dark:text-white tracking-tighter">SIK</div>
+           <div className="w-10 h-10 bg-slate-100 dark:bg-slate-800 rounded-xl animate-pulse"></div>
         </div>
       </nav>
     );

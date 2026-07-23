@@ -79,10 +79,10 @@ const Experience = () => {
             <span className="w-2 h-2 bg-[#149988] rounded-full animate-pulse"></span>
             Experience
           </div>
-          <h2 className="exp-title text-4xl lg:text-6xl font-black text-slate-900 mb-4">
+          <h2 className="exp-title text-4xl lg:text-6xl font-black text-slate-900 dark:text-white mb-4">
             Professional <span className="text-[#149988]">Journey</span>
           </h2>
-          <p className="text-slate-500 font-medium max-w-2xl mx-auto">
+          <p className="text-slate-500 dark:text-slate-400 font-medium max-w-2xl mx-auto">
             A chronological timeline of my evolution from an English Literature graduate to a specialized MERN Stack Developer.
           </p>
         </div>
@@ -96,19 +96,19 @@ const Experience = () => {
             >
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
                 <div>
-                  <h3 className="text-2xl font-black text-slate-800 group-hover:text-[#149988] transition-colors">
+                  <h3 className="text-2xl font-black text-slate-800 dark:text-slate-200 group-hover:text-[#149988] transition-colors">
                     {exp.role}
                   </h3>
                   <p className="text-[#149988] font-bold text-sm uppercase tracking-wider">
                     {exp.company}
                   </p>
                 </div>
-                <span className="px-4 py-1.5 bg-slate-50 text-slate-500 text-xs font-black rounded-full border border-slate-100 whitespace-nowrap">
+                <span className="px-4 py-1.5 bg-slate-50 dark:bg-slate-800 text-slate-500 dark:text-slate-400 text-xs font-black rounded-full border border-slate-100 dark:border-slate-700 whitespace-nowrap">
                   {exp.period}
                 </span>
               </div>
 
-              <p className="text-slate-500 leading-relaxed mb-6 font-medium">
+              <p className="text-slate-500 dark:text-slate-400 leading-relaxed mb-6 font-medium">
                 {exp.desc}
               </p>
 

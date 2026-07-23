@@ -70,14 +70,14 @@ const About = () => {
                                 <span className="w-2 h-2 bg-[#149988] rounded-full animate-pulse"></span>
                                 About Me
                             </div>
-                            <h2 className="text-4xl lg:text-[50px] font-black text-slate-900 leading-tight">
+                            <h2 className="text-4xl lg:text-[50px] font-black text-slate-900 dark:text-white leading-tight">
                                 Bridging Narrative <br />
                                 <span className="text-[#149988]">With Technology</span>
                             </h2>
                             <div className="h-1.5 w-20 bg-[#149988] rounded-full"></div>
                         </div>
 
-                        <div className="space-y-6 text-slate-500 font-medium text-lg leading-relaxed">
+                        <div className="space-y-6 text-slate-500 dark:text-slate-400 font-medium text-lg leading-relaxed">
                             <p>
                                 Hello, I'm <strong>Shafiqul Islam Khan</strong> , a web developer with a passion for creating innovative and impactful digital experiences. My interest in web development started when I discovered my love for HTML and CSS, and since then, I've been fortunate enough to work with a variety of clients, including advertising agencies, start-ups, and large corporations.At Upstatement, I'm focused on developing accessible and inclusive digital products and experiences, constantly pushing the boundaries of what's possible. I'm proficient in a variety of cutting-edge technologies necessary for both Frontend and Backend.
                             </p>

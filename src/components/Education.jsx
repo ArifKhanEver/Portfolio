@@ -111,7 +111,7 @@ const Education = () => {
           <h2 className="edu-title text-4xl lg:text-[50px] font-black text-slate-900 dark:text-white mb-4 opacity-1">
             Educational <span className="text-[#149988]">Pathway</span>
           </h2>
-          <p className="text-slate-500 font-medium max-w-2xl mx-auto italic">
+          <p className="text-slate-500 dark:text-slate-400 font-medium max-w-2xl mx-auto italic">
             "A seamless fusion of academic knowledge and technical specialization."
           </p>
         </div>
@@ -139,7 +139,7 @@ const Education = () => {
               </div>
 
               <div className="flex-1 space-y-2">
-                <p className="text-slate-500 leading-relaxed font-medium">
+                <p className="text-slate-500 dark:text-slate-400 leading-relaxed font-medium">
                   {edu.desc}
                 </p>
                 <div className="flex items-center gap-2">

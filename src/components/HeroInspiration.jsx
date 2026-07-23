@@ -61,7 +61,7 @@ const HeroInspiration = () => {
       
       {/* Background Decorative Circles - FIXED & ANIMATED */}
       <div ref={circlesRef} className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
-        <div className="gsap-rotate-bg w-[500px] h-[500px] border border-slate-100 rounded-full absolute opacity-60"></div>
+        <div className="gsap-rotate-bg w-[500px] h-[500px] border border-slate-100 dark:border-slate-700 rounded-full absolute opacity-60"></div>
         <div className="gsap-rotate-bg w-[700px] h-[700px] border border-slate-50 rounded-full absolute opacity-40" style={{ animationDirection: 'reverse' }}></div>
         <div className="gsap-rotate-bg w-[900px] h-[900px] border border-slate-50/50 rounded-full absolute opacity-20"></div>
         
@@ -74,7 +74,7 @@ const HeroInspiration = () => {
         {/* Text Wrapper for GSAP Stagger */}
         <div ref={textRef}>
           {/* Main Heading */}
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 leading-tight mb-8">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 dark:text-white leading-tight mb-8">
             Crafting Digital <br className="hidden md:block" />
             <span className="text-[#149988] relative inline-block">
               Experiences
@@ -97,7 +97,7 @@ const HeroInspiration = () => {
           </h1>
 
           {/* Subtext */}
-          <p className="text-slate-500 text-lg md:text-xl max-w-2xl mx-auto mb-12 leading-relaxed font-medium">
+          <p className="text-slate-500 dark:text-slate-400 text-lg md:text-xl max-w-2xl mx-auto mb-12 leading-relaxed font-medium">
             Transforming ideas into exceptional digital solutions with modern design 
             and cutting-edge technology.
           </p>
