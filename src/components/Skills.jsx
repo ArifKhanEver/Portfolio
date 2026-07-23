@@ -86,7 +86,7 @@ const Skills = () => {
   }, []);
 
   return (
-    <section id="skills" ref={sectionRef} className="w-full py-24 bg-gray-50 relative overflow-hidden">
+    <section id="skills" ref={sectionRef} className="w-full py-24 bg-gray-50 dark:bg-slate-900 relative overflow-hidden">
       {/* Background Glow */}
       <div className="absolute inset-0 pointer-events-none -z-10">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-teal-50 rounded-full blur-[120px] opacity-40"></div>
@@ -113,7 +113,7 @@ const Skills = () => {
               key={skill.name}
               ref={(el) => (cardsRef.current[idx] = el)}
               style={{ opacity: 1 }} // Force initial visibility check
-              className="group p-8 bg-white border border-slate-100 rounded-[2rem] shadow-sm hover:shadow-2xl hover:border-[#149988]/30 transition-all duration-500 flex flex-col items-center text-center overflow-hidden"
+              className="group p-8 bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-[2rem] shadow-sm hover:shadow-2xl hover:border-[#149988]/30 dark:hover:border-[#149988]/30 transition-all duration-500 flex flex-col items-center text-center overflow-hidden"
             >
               <div className="text-6xl mb-4 group-hover:scale-125 transition-transform duration-500 ease-out leading-none">
                 {skill.icon}
