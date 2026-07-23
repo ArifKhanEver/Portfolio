@@ -2,6 +2,8 @@
 
 @tailwind utilities;
 
+@custom-variant dark (&:is(.dark *));
+
 @layer base {
   :root {
     --font-poppins: 'Poppins', sans-serif;
