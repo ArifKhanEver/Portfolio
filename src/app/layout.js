@@ -19,7 +19,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${poppins.variable} h-full antialiased`}>
+    <html lang="en" className={`${poppins.variable} h-full antialiased`} suppressHydrationWarning>
       <body className={`${poppins.className} font-sans min-h-full flex flex-col bg-white text-slate-900 dark:bg-slate-950 dark:text-white transition-colors duration-300`}>
         <ThemeProvider attribute="class" defaultTheme="light">
           <Navbar></Navbar>
