@@ -101,7 +101,7 @@ const Projects = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} id="portfolio" className="w-full py-24 bg-gray-50 relative overflow-hidden border-b border-slate-50">
+    <section ref={sectionRef} id="portfolio" className="w-full py-24 bg-gray-50 dark:bg-slate-900 relative overflow-hidden border-b border-slate-50 dark:border-slate-800">
       <div className="container mx-auto px-6 relative z-10">
 
         {/* Header Section */}
@@ -128,7 +128,7 @@ const Projects = () => {
           {PROJECTS.map((project, idx) => (
             <div
               key={idx}
-              className="project-card group bg-white rounded-[2.5rem] border border-slate-100 overflow-hidden hover:shadow-2xl hover:shadow-teal-100/50 transition-all duration-500 flex flex-col h-full"
+              className="project-card group bg-white dark:bg-slate-800 rounded-[2.5rem] border border-slate-100 dark:border-slate-700 overflow-hidden hover:shadow-2xl hover:shadow-teal-100/50 dark:hover:shadow-teal-900/50 transition-all duration-500 flex flex-col h-full"
             >
               {/* Image Container */}
               <div className="relative h-64 overflow-hidden">
