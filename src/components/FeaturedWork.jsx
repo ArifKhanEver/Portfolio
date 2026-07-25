@@ -49,6 +49,7 @@ const PROJECTS = [
 const FeaturedWork = () => {
   const sectionRef = useRef(null);
   const trackRef = useRef(null);
+  const cardsTrackRef = useRef(null);
   const cardsRef = useRef([]);
 
   useEffect(() => {
