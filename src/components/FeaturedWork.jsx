@@ -302,25 +302,25 @@ const FeaturedWork = () => {
         </div>
 
         {/* Moving track of cards (Slides from right to left, over the title) */}
-        <div className="cards-track flex gap-12 lg:gap-24 h-[70vh] items-center absolute left-[90vw] md:left-[70vw] lg:left-[800px] z-20 w-max pr-[50vw]">
+        <div className="cards-track flex gap-16 lg:gap-32 h-[70vh] items-center absolute left-[90vw] md:left-[70vw] lg:left-[800px] z-20 w-max pr-[50vw]">
           {PROJECTS.map((project, idx) => (
             <div
               key={project.id}
-              className="project-card-wrapper relative w-[85vw] md:w-[700px] lg:w-[900px] h-[450px] md:h-[550px] flex-shrink-0 cursor-pointer group"
+              className="project-card-wrapper relative w-[85vw] md:w-[480px] lg:w-[600px] h-[400px] md:h-[450px] flex-shrink-0 cursor-pointer group"
               style={{ perspective: "2000px" }}
             >
               {/* Corner Borders Animation targets */}
-              <div className="corner-tl absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-blue-500 rounded-tl-xl opacity-0"></div>
-              <div className="corner-tr absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-blue-500 rounded-tr-xl opacity-0"></div>
-              <div className="corner-bl absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-blue-500 rounded-bl-xl opacity-0"></div>
-              <div className="corner-br absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-blue-500 rounded-br-xl opacity-0"></div>
+              <div className="corner-tl absolute -top-4 -left-4 md:-top-6 md:-left-6 w-10 h-10 border-t-2 border-l-2 border-[#1877F2] rounded-tl-xl opacity-0 pointer-events-none"></div>
+              <div className="corner-tr absolute -top-4 -right-4 md:-top-6 md:-right-6 w-10 h-10 border-t-2 border-r-2 border-[#1877F2] rounded-tr-xl opacity-0 pointer-events-none"></div>
+              <div className="corner-bl absolute -bottom-4 -left-4 md:-bottom-6 md:-left-6 w-10 h-10 border-b-2 border-l-2 border-[#1877F2] rounded-bl-xl opacity-0 pointer-events-none"></div>
+              <div className="corner-br absolute -bottom-4 -right-4 md:-bottom-6 md:-right-6 w-10 h-10 border-b-2 border-r-2 border-[#1877F2] rounded-br-xl opacity-0 pointer-events-none"></div>
 
               {/* The Card Content */}
               <div
                 ref={(el) => cardsRef.current[idx] = el}
                 onMouseMove={(e) => handleMouseMove(e, idx)}
                 onMouseLeave={() => handleMouseLeave(idx)}
-                className="relative w-full h-full rounded-2xl bg-zinc-900 border border-white/10 shadow-2xl transition-transform duration-100 ease-out overflow-hidden"
+                className="relative w-full h-full rounded-2xl bg-zinc-900 border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)] transition-transform duration-100 ease-out overflow-hidden"
                 style={{ transformStyle: "preserve-3d" }}
               >
                 {/* Full Background Image */}
@@ -329,22 +329,22 @@ const FeaturedWork = () => {
                     src={project.image}
                     alt={project.title}
                     fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    className="object-cover transition-transform duration-700 group-hover:scale-105 opacity-60 group-hover:opacity-40"
                   />
                 </div>
 
                 {/* Gradient Overlay for Text Readability */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/20 group-hover:bg-black/40 transition-colors duration-500"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-black/20 group-hover:bg-black/40 transition-colors duration-500 pointer-events-none"></div>
 
                 {/* Overlaid Content Container */}
-                <div className="absolute inset-0 p-8 md:p-12 flex flex-col justify-center" style={{ transform: "translateZ(30px)" }}>
+                <div className="absolute inset-0 p-6 md:p-8 flex flex-col items-center justify-center text-center" style={{ transform: "translateZ(30px)" }}>
                   
                   {/* Tech Stack Tags */}
-                  <div className="flex flex-wrap gap-3 mb-6">
+                  <div className="flex flex-wrap gap-2 md:gap-3 mb-4 justify-center">
                     {project.tags.map(tag => (
                       <span 
                         key={tag} 
-                        className="px-4 py-1.5 rounded-full border border-white/20 bg-black/30 backdrop-blur-sm text-white/90 text-xs md:text-sm font-bold uppercase tracking-widest"
+                        className="px-4 py-1.5 rounded-full border border-white/20 bg-black/40 backdrop-blur-sm text-white/90 text-xs md:text-sm font-bold uppercase tracking-widest"
                       >
                         {tag}
                       </span>
@@ -352,45 +352,46 @@ const FeaturedWork = () => {
                   </div>
                   
                   {/* Title */}
-                  <h3 className="text-4xl md:text-6xl lg:text-7xl font-black text-white italic uppercase tracking-tighter mb-4 drop-shadow-2xl">
+                  <h3 className="text-4xl md:text-5xl lg:text-6xl font-black text-white italic uppercase tracking-tighter mb-4 drop-shadow-2xl leading-[1.1]">
                     {project.title}
                   </h3>
                   
                   {/* Description */}
-                  <p className="text-white/80 text-base md:text-xl max-w-2xl font-medium leading-relaxed drop-shadow-md mb-8 line-clamp-3">
+                  <p className="text-white/80 text-sm md:text-base max-w-md font-medium leading-relaxed drop-shadow-md mb-8 line-clamp-3 md:line-clamp-none">
                     {project.desc}
                   </p>
                   
-                  {/* Action Buttons */}
-                  <div className="flex flex-wrap items-center gap-4 mt-auto">
-                    {/* Live Preview Button */}
-                    <a 
-                      href={project.link} 
-                      target="_blank" 
-                      className="flex items-center gap-2 bg-white text-black px-6 py-3 rounded-md font-black uppercase tracking-widest hover:bg-zinc-200 hover:scale-105 active:scale-95 transition-all shadow-xl"
-                    >
-                      <FiExternalLink size={20} strokeWidth={2.5} />
-                      Preview
-                    </a>
-                    
-                    {/* Github Button */}
-                    <a 
-                      href={project.github} 
-                      target="_blank" 
-                      className="flex items-center justify-center w-12 h-12 bg-black/40 backdrop-blur-sm border border-white/20 rounded-md text-white hover:bg-white hover:text-black hover:scale-110 active:scale-95 transition-all shadow-xl"
-                    >
-                      <FiGithub size={22} />
-                    </a>
-
-                    {/* Details (Info) Button */}
-                    <button 
-                      className="flex items-center justify-center w-12 h-12 bg-black/40 backdrop-blur-sm border border-white/20 rounded-md text-white hover:bg-white hover:text-black hover:scale-110 active:scale-95 transition-all shadow-xl"
-                    >
-                      <FiInfo size={22} />
-                    </button>
-                  </div>
-                  
                 </div>
+
+                {/* Action Buttons (Absolute Bottom-Left) */}
+                <div className="absolute bottom-6 left-6 md:bottom-8 md:left-8 flex flex-wrap items-center gap-3 z-30" style={{ transform: "translateZ(40px)" }}>
+                  {/* Live Preview Button */}
+                  <a 
+                    href={project.link} 
+                    target="_blank" 
+                    className="flex items-center gap-2 bg-white text-black px-4 md:px-6 py-2 md:py-2.5 rounded-md font-black uppercase tracking-widest text-xs md:text-sm hover:bg-zinc-200 hover:scale-105 active:scale-95 transition-all shadow-xl"
+                  >
+                    <FiExternalLink size={18} strokeWidth={2.5} />
+                    Preview
+                  </a>
+                  
+                  {/* Github Button */}
+                  <a 
+                    href={project.github} 
+                    target="_blank" 
+                    className="flex items-center justify-center w-10 h-10 md:w-11 md:h-11 bg-black/50 backdrop-blur-md border border-white/20 rounded-md text-white hover:bg-white hover:text-black hover:scale-110 active:scale-95 transition-all shadow-xl"
+                  >
+                    <FiGithub size={20} />
+                  </a>
+
+                  {/* Details (Info) Button */}
+                  <button 
+                    className="flex items-center justify-center w-10 h-10 md:w-11 md:h-11 bg-black/50 backdrop-blur-md border border-white/20 rounded-md text-white hover:bg-white hover:text-black hover:scale-110 active:scale-95 transition-all shadow-xl"
+                  >
+                    <FiInfo size={20} />
+                  </button>
+                </div>
+
               </div>
             </div>
           ))}
