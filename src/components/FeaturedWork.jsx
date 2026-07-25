@@ -171,12 +171,14 @@ const FeaturedWork = () => {
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none"></div>
       
       {/* 2. Massive Vertical Scroll Title Sequence */}
-      <div className="relative z-10 w-full flex flex-col items-center pt-[15vh] pb-[30vh] select-none overflow-hidden">
+      <div className="relative z-10 w-full flex flex-col items-center pt-12 md:pt-24 pb-[30vh] select-none overflow-hidden">
         
-        {/* Radial glow pinned behind the text */}
-        <div className="sticky top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] md:w-[500px] md:h-[500px] bg-blue-500/10 rounded-full blur-[120px] pointer-events-none -z-10"></div>
+        {/* Radial glow pinned behind the text (wrapped in absolute so it doesn't push text down) */}
+        <div className="absolute inset-0 pointer-events-none -z-10">
+          <div className="sticky top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] md:w-[500px] md:h-[500px] bg-blue-500/10 rounded-full blur-[120px]"></div>
+        </div>
 
-        <h1 className="flex flex-col items-center text-center text-[12vw] sm:text-[10vw] md:text-[8vw] lg:text-[7vw] font-black uppercase tracking-tight text-white/20 leading-[1.1] w-full">
+        <h1 className="relative z-10 flex flex-col items-center text-center text-[12vw] sm:text-[10vw] md:text-[8vw] lg:text-[7vw] font-black uppercase tracking-tight text-white/20 leading-[1.1] w-full">
           <span className="light-text">TURNING</span>
           <span className="light-text">COMPLEX</span>
           <span className="light-text">PROBLEMS</span>
