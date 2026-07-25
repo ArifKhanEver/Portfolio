@@ -80,7 +80,7 @@ const Services = () => {
   }, { scope: containerRef });
 
   return (
-    <section id="services" ref={containerRef} className="min-h-screen bg-theme-black rounded-t-[2.5rem] relative overflow-hidden">
+    <section id="services" ref={containerRef} className="min-h-screen bg-theme-black rounded-t-[2.5rem] relative">
       <div>
         <div>
           <div style={{ clipPath: "polygon(0 0, 100% 0, 100% 120%, 0 120%)" }}>
@@ -113,40 +113,42 @@ const Services = () => {
         {SERVICES_DATA.map((service, index) => (
           <div 
             key={service.title}
-            className="service-card sticky px-6 md:px-10 pt-8 sm:pt-12 pb-12 text-white bg-theme-black border-t border-white/20 w-full min-h-[480px] lg:min-h-[580px] transform-gpu origin-top" 
+            className="sticky w-full"
             style={{ top: '0px', zIndex: index + 1 }}
           >
-            <div className="flex items-start justify-between gap-6 sm:gap-10 flex-col lg:flex-row">
-              
-              {/* Left Side: Title & Description */}
-              <div className="flex flex-col gap-4 sm:gap-8 w-full lg:w-1/2">
-                <div className="h-[5rem] lg:h-[7rem] flex items-start">
-                  <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter uppercase leading-none text-white select-none">
-                    {service.title}
-                  </h2>
-                </div>
-                <p className="text-lg sm:text-xl md:text-2xl text-white/50 leading-relaxed font-light text-pretty max-w-xl">
-                  {service.description}
-                </p>
-              </div>
-
-              {/* Right Side: Features List */}
-              <div className="flex flex-col gap-2 sm:gap-4 w-full lg:w-1/2 mt-6 lg:mt-0">
-                {service.items.map((item, i) => (
-                  <div key={i} className="group relative">
-                    <div className="flex items-center py-4 sm:py-5 border-b border-white/5 group-last:border-none px-4 rounded-xl transition-all duration-300 group-hover:bg-white/[0.03] overflow-hidden">
-                      <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-gradient-to-r from-transparent via-primary/50 to-transparent group-hover:w-full transition-all duration-700 ease-in-out"></div>
-                      <span className="mr-6 sm:mr-8 text-base sm:text-lg md:text-xl font-mono text-white/10 group-hover:text-primary transition-all duration-300">
-                        0{i + 1}
-                      </span>
-                      <h3 className="tracking-tight text-lg sm:text-xl md:text-2xl lg:text-3xl font-medium text-white/60 group-hover:text-white group-hover:translate-x-2 transition-all duration-300">
-                        {item}
-                      </h3>
-                    </div>
+            <div className="service-card px-6 md:px-10 pt-8 sm:pt-12 pb-12 text-white bg-theme-black border-t border-white/20 w-full min-h-[480px] lg:min-h-[580px] transform-gpu origin-top">
+              <div className="flex items-start justify-between gap-6 sm:gap-10 flex-col lg:flex-row">
+                
+                {/* Left Side: Title & Description */}
+                <div className="flex flex-col gap-4 sm:gap-8 w-full lg:w-1/2">
+                  <div className="h-[5rem] lg:h-[7rem] flex items-start">
+                    <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter uppercase leading-none text-white select-none">
+                      {service.title}
+                    </h2>
                   </div>
-                ))}
-              </div>
+                  <p className="text-lg sm:text-xl md:text-2xl text-white/50 leading-relaxed font-light text-pretty max-w-xl">
+                    {service.description}
+                  </p>
+                </div>
 
+                {/* Right Side: Features List */}
+                <div className="flex flex-col gap-2 sm:gap-4 w-full lg:w-1/2 mt-6 lg:mt-0">
+                  {service.items.map((item, i) => (
+                    <div key={i} className="group relative">
+                      <div className="flex items-center py-4 sm:py-5 border-b border-white/5 group-last:border-none px-4 rounded-xl transition-all duration-300 group-hover:bg-white/[0.03] overflow-hidden">
+                        <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-gradient-to-r from-transparent via-primary/50 to-transparent group-hover:w-full transition-all duration-700 ease-in-out"></div>
+                        <span className="mr-6 sm:mr-8 text-base sm:text-lg md:text-xl font-mono text-white/10 group-hover:text-primary transition-all duration-300">
+                          0{i + 1}
+                        </span>
+                        <h3 className="tracking-tight text-lg sm:text-xl md:text-2xl lg:text-3xl font-medium text-white/60 group-hover:text-white group-hover:translate-x-2 transition-all duration-300">
+                          {item}
+                        </h3>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+              </div>
             </div>
           </div>
         ))}
