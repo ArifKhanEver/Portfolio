@@ -140,12 +140,12 @@ const FeaturedWork = () => {
         });
       });
       
-      // 4. Featured Work Showcase Slide-Up & Clip-path
+      // 4. Featured Work Showcase Slide-Up & Clip-path (Triggers as track enters)
       const showcaseTimeline = gsap.timeline({
         scrollTrigger: {
           trigger: track,
-          start: "top 75%", // Trigger as the horizontal track container enters the screen vertically
-          end: "top 20%",
+          start: "top 80%", 
+          end: "top 30%",
           scrub: true,
         }
       });
@@ -161,6 +161,51 @@ const FeaturedWork = () => {
           clipPath: "inset(0% 0% 0% 0%)",
           ease: "none",
         }, "-=0.2");
+
+      // 5. Horizontal Cards Scroll Logic
+      const cardsTrack = document.querySelector('.cards-track');
+      const getScrollAmount = () => cardsTrack.scrollWidth; // Scroll the full width of the cards
+
+      const horizontalTween = gsap.to(cardsTrack, {
+        x: () => -getScrollAmount(),
+        ease: "none",
+        scrollTrigger: {
+          trigger: track, 
+          pin: true,
+          scrub: 1,
+          start: "top 0%", 
+          end: () => `+=${getScrollAmount()}`,
+          invalidateOnRefresh: true, 
+        }
+      });
+
+      // 6. Title Fade Out
+      gsap.to(".showcase-title-container", {
+        opacity: 0,
+        x: -100, // slight parallax push
+        ease: "none",
+        scrollTrigger: {
+          trigger: track,
+          start: "top 0%",
+          end: "+=800", // fade out during the first 800px of the horizontal scroll
+          scrub: true,
+        }
+      });
+
+      // 7. Horizontal Section Glow Animation
+      gsap.fromTo(".horizontal-glow",
+        { x: "0vw", y: "0vh" }, // Start top-left
+        {
+          x: "100vw", y: "100vh", // Move to bottom-right across the horizontal scroll
+          ease: "none",
+          scrollTrigger: {
+            trigger: track,
+            start: "top 0%",
+            end: () => `+=${getScrollAmount()}`,
+            scrub: true,
+          }
+        }
+      );
       
     }, sectionRef);
 
@@ -251,29 +296,35 @@ const FeaturedWork = () => {
       </div>
 
       {/* Horizontal Scrolling Track - Pinning Target */}
-      <div ref={trackRef} className="relative flex items-center h-[80vh] w-max px-6 md:px-16 lg:px-32 z-20">
-        <div className="flex gap-12 lg:gap-24 h-full items-center">
-          
-          {/* NEW: Horizontal Intro Title */}
-          <div className="w-[80vw] md:w-[60vw] lg:w-[600px] flex-shrink-0">
-            <h2 className="flex flex-col text-[12vw] sm:text-[10vw] md:text-[8vw] lg:text-[7vw] font-semibold uppercase tracking-tight text-white leading-[1.1]">
-              <span className="showcase-word opacity-0 translate-y-20 block">FEATURED</span>
-              
-              <div className="showcase-word opacity-0 translate-y-20 relative flex items-center w-full h-[1.3em] my-2 lg:my-4">
-                <span 
-                  className="work-replacement absolute z-10 flex items-center p-2"
-                  style={{ clipPath: 'inset(0% 100% 0% 0%)' }}
-                >
-                  <span className="bg-gradient-to-br from-blue-400 to-blue-600 text-white px-4 md:px-8 py-1 md:py-2 -rotate-2 inline-block border-2 md:border-4 border-white shadow-2xl">
-                    WORK
-                  </span>
-                </span>
-              </div>
+      <div ref={trackRef} className="relative flex items-center h-screen w-full z-20 overflow-hidden">
+        
+        {/* Animated Horizontal Glow (Starts Top-Left) */}
+        <div className="absolute inset-0 pointer-events-none -z-10">
+          <div className="horizontal-glow absolute top-0 left-0 w-[400px] h-[400px] md:w-[600px] md:h-[600px] bg-[#1877F2]/40 rounded-full blur-[100px] -translate-x-1/2 -translate-y-1/2"></div>
+        </div>
 
-              <span className="showcase-word opacity-0 translate-y-20 block">SHOWCASE</span>
-            </h2>
-          </div>
-          
+        {/* Absolute Title (Stays on left, fades out as cards slide over) */}
+        <div className="showcase-title-container absolute left-6 md:left-16 lg:left-32 z-10 w-[80vw] md:w-[60vw] lg:w-[600px]">
+          <h2 className="flex flex-col text-[12vw] sm:text-[10vw] md:text-[8vw] lg:text-[7vw] font-semibold uppercase tracking-tight text-white leading-[1.1]">
+            <span className="showcase-word opacity-0 translate-y-20 block">FEATURED</span>
+            
+            <div className="showcase-word opacity-0 translate-y-20 relative flex items-center w-full h-[1.3em] my-2 lg:my-4">
+              <span 
+                className="work-replacement absolute z-10 flex items-center p-2"
+                style={{ clipPath: 'inset(0% 100% 0% 0%)' }}
+              >
+                <span className="bg-gradient-to-br from-blue-400 to-blue-600 text-white px-4 md:px-8 py-1 md:py-2 -rotate-2 inline-block border-2 md:border-4 border-white shadow-2xl">
+                  WORK
+                </span>
+              </span>
+            </div>
+
+            <span className="showcase-word opacity-0 translate-y-20 block">SHOWCASE</span>
+          </h2>
+        </div>
+
+        {/* Moving track of cards (Slides from right to left, over the title) */}
+        <div className="cards-track flex gap-12 lg:gap-24 h-[70vh] items-center absolute left-[90vw] md:left-[70vw] lg:left-[800px] z-20 pr-[50vw]">
           {PROJECTS.map((project, idx) => (
             <div 
               key={project.id}
