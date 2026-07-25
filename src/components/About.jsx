@@ -42,7 +42,7 @@ const About = () => {
     }, []);
 
     return (
-        <section ref={sectionRef} id="about" className="w-full md:py-20 bg-white dark:bg-slate-950 relative overflow-hidden">
+        <section ref={sectionRef} id="about" className="w-full md:py-20 bg-white dark:bg-black relative overflow-hidden">
             {/* Background Decorative Glows */}
             <div className="absolute inset-0 pointer-events-none z-0">
                 <div className="about-glow absolute -top-[10%] -right-[5%] w-[400px] h-[400px] bg-teal-50 dark:bg-teal-900/20 rounded-full blur-[100px] opacity-60"></div>
@@ -54,8 +54,8 @@ const About = () => {
 
                     {/* Left Side: Image/Visual Placeholder */}
                     <div className="lg:w-2/5 relative">
-                        <div className="relative z-10 rounded-[3rem] overflow-hidden border-8 border-white dark:border-slate-800 shadow-2xl shadow-slate-200 dark:shadow-none">
-                            <div className="aspect-[4/5] bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+                        <div className="relative z-10 rounded-[3rem] overflow-hidden border-8 border-white dark:border-zinc-900 shadow-2xl shadow-slate-200 dark:shadow-none">
+                            <div className="aspect-[4/5] bg-slate-100 dark:bg-zinc-900 flex items-center justify-center">
                                 <Image src={HeroImage} alt='my Image' fill  className='object-cover'/>
                             </div>
                         </div>
@@ -77,7 +77,7 @@ const About = () => {
                             <div className="h-1.5 w-20 bg-[#149988] rounded-full"></div>
                         </div>
 
-                        <div className="space-y-6 text-slate-500 dark:text-slate-400 font-medium text-lg leading-relaxed">
+                        <div className="space-y-6 text-slate-500 dark:text-zinc-400 font-medium text-lg leading-relaxed">
                             <p>
                                 Hello, I'm <strong>Shafiqul Islam Khan</strong> , a web developer with a passion for creating innovative and impactful digital experiences. My interest in web development started when I discovered my love for HTML and CSS, and since then, I've been fortunate enough to work with a variety of clients, including advertising agencies, start-ups, and large corporations.At Upstatement, I'm focused on developing accessible and inclusive digital products and experiences, constantly pushing the boundaries of what's possible. I'm proficient in a variety of cutting-edge technologies necessary for both Frontend and Backend.
                             </p>
@@ -88,13 +88,13 @@ const About = () => {
 
                         {/* Quick Skills/Focus Area */}
                         <div className="grid grid-cols-2 gap-6 pt-4">
-                            <div className="p-6 bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 group hover:border-[#149988]/30 transition-all">
+                            <div className="p-6 bg-slate-50 dark:bg-zinc-950 rounded-2xl border border-slate-100 dark:border-zinc-900 group hover:border-[#149988]/30 transition-all">
                                 <h4 className="text-[#149988] font-black text-xs uppercase tracking-widest mb-2">Strategy</h4>
-                                <p className="text-slate-800 dark:text-slate-200 font-bold">Critical Thinking & Research</p>
+                                <p className="text-slate-800 dark:text-zinc-200 font-bold">Critical Thinking & Research</p>
                             </div>
-                            <div className="p-6 bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 group hover:border-[#149988]/30 transition-all">
+                            <div className="p-6 bg-slate-50 dark:bg-zinc-950 rounded-2xl border border-slate-100 dark:border-zinc-900 group hover:border-[#149988]/30 transition-all">
                                 <h4 className="text-[#149988] font-black text-xs uppercase tracking-widest mb-2">Execution</h4>
-                                <p className="text-slate-800 dark:text-slate-200 font-bold">Modern Web Architecture</p>
+                                <p className="text-slate-800 dark:text-zinc-200 font-bold">Modern Web Architecture</p>
                             </div>
                         </div>
                     </div>

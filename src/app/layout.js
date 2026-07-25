@@ -4,7 +4,6 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ThemeProvider } from "next-themes";
 
-
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800", "900"],
@@ -20,8 +19,8 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${poppins.variable} h-full antialiased`} suppressHydrationWarning>
-      <body className={`${poppins.className} font-sans min-h-full flex flex-col bg-white text-slate-900 dark:bg-slate-950 dark:text-white transition-colors duration-300`}>
-        <ThemeProvider attribute="class" defaultTheme="light">
+      <body className={`${poppins.className} font-sans min-h-full flex flex-col bg-white text-slate-900 dark:bg-black dark:text-zinc-100 transition-colors duration-500`}>
+        <ThemeProvider attribute="class" defaultTheme="system">
           <Navbar></Navbar>
           <main>{children}</main>
           <Footer></Footer>

@@ -98,7 +98,7 @@ const Hero = () => {
     }, []);
 
     return (
-        <section ref={heroRef} className="w-full pt-28 lg:pt-30 bg-white dark:bg-slate-950 relative overflow-hidden flex items-center">
+        <section ref={heroRef} className="w-full pt-28 lg:pt-30 bg-white dark:bg-black relative overflow-hidden flex items-center">
 
             {/* BACKGROUND DECORATIVE ELEMENTS - FIXED POSITIONS */}
             <div className="absolute inset-0 z-0 pointer-events-none">
@@ -126,7 +126,7 @@ const Hero = () => {
                             </span>
                         </h1>
 
-                        <p className="text-slate-500 dark:text-slate-400 text-base lg:text-lg max-w-xl mb-5 leading-relaxed font-medium mx-auto lg:mx-0">
+                        <p className="text-slate-500 dark:text-zinc-400 text-base lg:text-lg max-w-xl mb-5 leading-relaxed font-medium mx-auto lg:mx-0">
                             Hi, I'm <span className="text-[#149988] font-bold">Shafiqul Islam Khan</span>, a passionate MERN stack developer focused on creating beautiful and functional digital experiences.
                         </p>
 
@@ -159,13 +159,13 @@ const Hero = () => {
 
                         {/* Socials */}
                         <div className="flex items-center justify-center lg:justify-start gap-4">
-                                <a href="http://linkedin.com/in/arifkhanever" target="_blank" className="w-10 h-10 rounded-full bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-400 hover:bg-[#149988] hover:text-white transition-all shadow-sm border border-slate-100 dark:border-slate-700">
+                                <a href="http://linkedin.com/in/arifkhanever" target="_blank" className="w-10 h-10 rounded-full bg-slate-50 dark:bg-zinc-900 flex items-center justify-center text-slate-600 dark:text-zinc-400 hover:bg-[#149988] hover:text-white transition-all shadow-sm border border-slate-100 dark:border-zinc-800">
                                     <FaLinkedinIn />
                                 </a>
-                                <a href="https://codepen.io/arifkhanever" target="_blank" className="w-10 h-10 rounded-full bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-400 hover:bg-[#149988] hover:text-white transition-all shadow-sm border border-slate-100 dark:border-slate-700">
+                                <a href="https://codepen.io/arifkhanever" target="_blank" className="w-10 h-10 rounded-full bg-slate-50 dark:bg-zinc-900 flex items-center justify-center text-slate-600 dark:text-zinc-400 hover:bg-[#149988] hover:text-white transition-all shadow-sm border border-slate-100 dark:border-zinc-800">
                                     <FaCodepen />
                                 </a>
-                                <a href="https://github.com/ArifKhanEver" target="_blank" className="w-10 h-10 rounded-full bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-400 hover:bg-[#149988] hover:text-white transition-all shadow-sm border border-slate-100 dark:border-slate-700">
+                                <a href="https://github.com/ArifKhanEver" target="_blank" className="w-10 h-10 rounded-full bg-slate-50 dark:bg-zinc-900 flex items-center justify-center text-slate-600 dark:text-zinc-400 hover:bg-[#149988] hover:text-white transition-all shadow-sm border border-slate-100 dark:border-zinc-800">
                                     <FaGithub />
                                 </a>
                         </div>

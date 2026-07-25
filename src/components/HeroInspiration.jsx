@@ -56,12 +56,12 @@ const HeroInspiration = () => {
   return (
     <section 
       ref={containerRef} 
-      className="relative py-10 flex items-center justify-center bg-white dark:bg-slate-950 overflow-hidden w-full"
+      className="relative py-10 flex items-center justify-center bg-white dark:bg-black overflow-hidden w-full"
     >
       
       {/* Background Decorative Circles - FIXED & ANIMATED */}
       <div ref={circlesRef} className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
-        <div className="gsap-rotate-bg w-[500px] h-[500px] border border-slate-100 dark:border-slate-700 rounded-full absolute opacity-60"></div>
+        <div className="gsap-rotate-bg w-[500px] h-[500px] border border-slate-100 dark:border-zinc-800 rounded-full absolute opacity-60"></div>
         <div className="gsap-rotate-bg w-[700px] h-[700px] border border-slate-50 rounded-full absolute opacity-40" style={{ animationDirection: 'reverse' }}></div>
         <div className="gsap-rotate-bg w-[900px] h-[900px] border border-slate-50/50 rounded-full absolute opacity-20"></div>
         
@@ -97,7 +97,7 @@ const HeroInspiration = () => {
           </h1>
 
           {/* Subtext */}
-          <p className="text-slate-500 dark:text-slate-400 text-lg md:text-xl max-w-2xl mx-auto mb-12 leading-relaxed font-medium">
+          <p className="text-slate-500 dark:text-zinc-400 text-lg md:text-xl max-w-2xl mx-auto mb-12 leading-relaxed font-medium">
             Transforming ideas into exceptional digital solutions with modern design 
             and cutting-edge technology.
           </p>

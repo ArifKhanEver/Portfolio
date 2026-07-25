@@ -101,7 +101,7 @@ const Projects = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} id="portfolio" className="w-full py-24 bg-gray-50 dark:bg-slate-900 relative overflow-hidden border-b border-slate-50 dark:border-slate-800">
+    <section ref={sectionRef} id="portfolio" className="w-full py-24 bg-gray-50 dark:bg-zinc-950 relative overflow-hidden border-b border-slate-50 dark:border-zinc-900">
       <div className="container mx-auto px-6 relative z-10">
 
         {/* Header Section */}
@@ -114,7 +114,7 @@ const Projects = () => {
             <h2 className="proj-title text-4xl lg:text-[50px] font-black text-slate-900 dark:text-white mb-6">
               Innovative <span className="text-[#149988]">Creations</span>
             </h2>
-            <p className="text-slate-500 dark:text-slate-400 font-medium text-lg italic">
+            <p className="text-slate-500 dark:text-zinc-400 font-medium text-lg italic">
               "Architecting scalable web applications with a focus on precision and performance."
             </p>
           </div>
@@ -128,7 +128,7 @@ const Projects = () => {
           {PROJECTS.map((project, idx) => (
             <div
               key={idx}
-              className="project-card group bg-white dark:bg-slate-800 rounded-[2.5rem] border border-slate-100 dark:border-slate-700 overflow-hidden hover:shadow-2xl hover:shadow-teal-100/50 dark:hover:shadow-teal-900/50 transition-all duration-500 flex flex-col h-full"
+              className="project-card group bg-white dark:bg-zinc-900 rounded-[2.5rem] border border-slate-100 dark:border-zinc-800 overflow-hidden hover:shadow-2xl hover:shadow-teal-100/50 dark:hover:shadow-teal-900/50 transition-all duration-500 flex flex-col h-full"
             >
               {/* Image Container */}
               <div className="relative h-64 overflow-hidden">
@@ -141,7 +141,7 @@ const Projects = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-8">
                    <div className="flex gap-4 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
                     <a href={project.link} target="_blank" className="p-3 bg-[#149988] text-white rounded-full hover:bg-[#0f7d6f] transition-colors shadow-lg"><FiExternalLink size={20} /></a>
-                    <a href={project.github} target="_blank" className="p-3 bg-white dark:bg-slate-900 text-slate-900 dark:text-white rounded-full hover:bg-slate-100 transition-colors shadow-lg"><FiGithub size={20} /></a>
+                    <a href={project.github} target="_blank" className="p-3 bg-white dark:bg-zinc-950 text-slate-900 dark:text-white rounded-full hover:bg-slate-100 transition-colors shadow-lg"><FiGithub size={20} /></a>
                   </div>
                 </div>
               </div>
@@ -151,17 +151,17 @@ const Projects = () => {
                 <span className="text-[#149988] font-black text-[10px] uppercase tracking-[0.2em] mb-3">
                   {project.category}
                 </span>
-                <h3 className="text-2xl font-bold text-slate-800 dark:text-slate-200 mb-4 group-hover:text-[#149988] transition-colors">
+                <h3 className="text-2xl font-bold text-slate-800 dark:text-zinc-200 mb-4 group-hover:text-[#149988] transition-colors">
                   {project.title}
                 </h3>
-                <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-6 font-medium line-clamp-2">
+                <p className="text-slate-500 dark:text-zinc-400 text-sm leading-relaxed mb-6 font-medium line-clamp-2">
                   {project.desc}
                 </p>
 
                 {/* Tags */}
                 <div className="flex flex-wrap gap-2 mb-8">
                   {project.tags.map(tag => (
-                    <span key={tag} className="px-3 py-1 bg-slate-50 dark:bg-slate-800 text-slate-400 text-[9px] font-bold uppercase rounded-lg border border-slate-100 dark:border-slate-700 group-hover:border-[#149988]/20 group-hover:text-[#149988] transition-all">
+                    <span key={tag} className="px-3 py-1 bg-slate-50 dark:bg-zinc-900 text-slate-400 text-[9px] font-bold uppercase rounded-lg border border-slate-100 dark:border-zinc-800 group-hover:border-[#149988]/20 group-hover:text-[#149988] transition-all">
                       {tag}
                     </span>
                   ))}

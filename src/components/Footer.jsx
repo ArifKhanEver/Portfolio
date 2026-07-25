@@ -52,7 +52,7 @@ const Footer = () => {
               <a
                 key={item}
                 href={`#${item.toLowerCase()}`}
-                className="text-slate-500 dark:text-slate-400 hover:text-white text-xs font-black uppercase tracking-[0.2em] transition-colors"
+                className="text-slate-500 dark:text-zinc-400 hover:text-white text-xs font-black uppercase tracking-[0.2em] transition-colors"
               >
                 {item}
               </a>
@@ -61,7 +61,7 @@ const Footer = () => {
 
           {/* Bottom Bar */}
           <div className="w-full pt-10 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-6">
-            <p className="text-slate-500 dark:text-slate-400 text-xs font-medium">
+            <p className="text-slate-500 dark:text-zinc-400 text-xs font-medium">
               © {currentYear} Shafiqul Islam Khan.
             </p>
             

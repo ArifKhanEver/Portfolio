@@ -86,7 +86,7 @@ const Skills = () => {
   }, []);
 
   return (
-    <section id="skills" ref={sectionRef} className="w-full py-24 bg-gray-50 dark:bg-slate-900 relative overflow-hidden">
+    <section id="skills" ref={sectionRef} className="w-full py-24 bg-gray-50 dark:bg-zinc-950 relative overflow-hidden">
       {/* Background Glow */}
       <div className="absolute inset-0 pointer-events-none -z-10">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-teal-50 dark:bg-teal-900/20 rounded-full blur-[120px] opacity-40"></div>
@@ -101,7 +101,7 @@ const Skills = () => {
           <h2 className="skills-title text-4xl lg:text-6xl font-black text-slate-900 dark:text-white mb-4">
             Technical <span className="text-[#149988]">Proficiency</span>
           </h2>
-          <p className="text-slate-500 dark:text-slate-400 font-medium max-w-2xl mx-auto italic">
+          <p className="text-slate-500 dark:text-zinc-400 font-medium max-w-2xl mx-auto italic">
             "Leveraging the power of the MERN stack and modern tools to build
             scalable, high-performance web applications."
           </p>
@@ -113,12 +113,12 @@ const Skills = () => {
               key={skill.name}
               ref={(el) => (cardsRef.current[idx] = el)}
               style={{ opacity: 1 }} // Force initial visibility check
-              className="group p-8 bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-[2rem] shadow-sm hover:shadow-2xl hover:border-[#149988]/30 dark:hover:border-[#149988]/30 transition-all duration-500 flex flex-col items-center text-center overflow-hidden"
+              className="group p-8 bg-white dark:bg-zinc-900 border border-slate-100 dark:border-zinc-800 rounded-[2rem] shadow-sm hover:shadow-2xl hover:border-[#149988]/30 dark:hover:border-[#149988]/30 transition-all duration-500 flex flex-col items-center text-center overflow-hidden"
             >
               <div className="text-6xl mb-4 group-hover:scale-125 transition-transform duration-500 ease-out leading-none">
                 {skill.icon}
               </div>
-              <h3 className="text-xl font-bold text-slate-800 dark:text-slate-200 mb-1">{skill.name}</h3>
+              <h3 className="text-xl font-bold text-slate-800 dark:text-zinc-200 mb-1">{skill.name}</h3>
               <div className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#149988] animate-pulse"></span>
                 <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#149988]/80">

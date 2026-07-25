@@ -68,7 +68,7 @@ const Experience = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} id="experience" className="w-full py-20 bg-gray-100 dark:bg-slate-900 relative overflow-hidden border-t border-slate-50 dark:border-slate-800">
+    <section ref={sectionRef} id="experience" className="w-full py-20 bg-gray-100 dark:bg-zinc-950 relative overflow-hidden border-t border-slate-50 dark:border-zinc-900">
       <div className="absolute inset-0 pointer-events-none z-0">
         <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-teal-50/50 dark:bg-teal-900/20 rounded-full blur-[100px]"></div>
       </div>
@@ -82,7 +82,7 @@ const Experience = () => {
           <h2 className="exp-title text-4xl lg:text-6xl font-black text-slate-900 dark:text-white mb-4">
             Professional <span className="text-[#149988]">Journey</span>
           </h2>
-          <p className="text-slate-500 dark:text-slate-400 font-medium max-w-2xl mx-auto">
+          <p className="text-slate-500 dark:text-zinc-400 font-medium max-w-2xl mx-auto">
             A chronological timeline of my evolution from an English Literature graduate to a specialized MERN Stack Developer.
           </p>
         </div>
@@ -92,23 +92,23 @@ const Experience = () => {
             <div
               key={idx}
               ref={(el) => (cardsRef.current[idx] = el)}
-              className="group relative p-8 bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-[2rem] hover:shadow-2xl hover:border-[#149988]/20 dark:hover:border-[#149988]/20 transition-all duration-500"
+              className="group relative p-8 bg-white dark:bg-zinc-900 border border-slate-100 dark:border-zinc-800 rounded-[2rem] hover:shadow-2xl hover:border-[#149988]/20 dark:hover:border-[#149988]/20 transition-all duration-500"
             >
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
                 <div>
-                  <h3 className="text-2xl font-black text-slate-800 dark:text-slate-200 group-hover:text-[#149988] transition-colors">
+                  <h3 className="text-2xl font-black text-slate-800 dark:text-zinc-200 group-hover:text-[#149988] transition-colors">
                     {exp.role}
                   </h3>
                   <p className="text-[#149988] font-bold text-sm uppercase tracking-wider">
                     {exp.company}
                   </p>
                 </div>
-                <span className="px-4 py-1.5 bg-slate-50 dark:bg-slate-800 text-slate-500 dark:text-slate-400 text-xs font-black rounded-full border border-slate-100 dark:border-slate-700 whitespace-nowrap">
+                <span className="px-4 py-1.5 bg-slate-50 dark:bg-zinc-900 text-slate-500 dark:text-zinc-400 text-xs font-black rounded-full border border-slate-100 dark:border-zinc-800 whitespace-nowrap">
                   {exp.period}
                 </span>
               </div>
 
-              <p className="text-slate-500 dark:text-slate-400 leading-relaxed mb-6 font-medium">
+              <p className="text-slate-500 dark:text-zinc-400 leading-relaxed mb-6 font-medium">
                 {exp.desc}
               </p>
 

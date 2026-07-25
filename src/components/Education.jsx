@@ -94,7 +94,7 @@ const Education = () => {
     <section
       id="education"
       ref={sectionRef}
-      className="w-full py-24 bg-white dark:bg-slate-950 relative overflow-hidden border-b border-slate-50 dark:border-slate-800"
+      className="w-full py-24 bg-white dark:bg-black relative overflow-hidden border-b border-slate-50 dark:border-zinc-900"
     >
       {/* Background Shapes */}
       <div className="absolute inset-0 pointer-events-none z-0">
@@ -111,7 +111,7 @@ const Education = () => {
           <h2 className="edu-title text-4xl lg:text-[50px] font-black text-slate-900 dark:text-white mb-4 opacity-1">
             Educational <span className="text-[#149988]">Pathway</span>
           </h2>
-          <p className="text-slate-500 dark:text-slate-400 font-medium max-w-2xl mx-auto italic">
+          <p className="text-slate-500 dark:text-zinc-400 font-medium max-w-2xl mx-auto italic">
             "A seamless fusion of academic knowledge and technical specialization."
           </p>
         </div>
@@ -120,7 +120,7 @@ const Education = () => {
           {EDUCATION.map((edu, idx) => (
             <div
               key={idx}
-              className={`edu-item relative p-10 bg-white dark:bg-slate-800 rounded-[2rem] shadow-sm hover:shadow-xl transition-all duration-500 flex flex-col items-start gap-6 border border-slate-100 dark:border-slate-700 group ${
+              className={`edu-item relative p-10 bg-white dark:bg-zinc-900 rounded-[2rem] shadow-sm hover:shadow-xl transition-all duration-500 flex flex-col items-start gap-6 border border-slate-100 dark:border-zinc-800 group ${
                 idx % 2 !== 0 ? 'lg:translate-y-20' : ''
               }`}
             >
@@ -129,7 +129,7 @@ const Education = () => {
                   {edu.icon}
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-2xl font-black text-slate-800 dark:text-slate-200 leading-tight">
+                  <h3 className="text-2xl font-black text-slate-800 dark:text-zinc-200 leading-tight">
                     {edu.title}
                   </h3>
                   <p className="text-[#149988] font-bold text-sm uppercase tracking-wider">
@@ -139,7 +139,7 @@ const Education = () => {
               </div>
 
               <div className="flex-1 space-y-2">
-                <p className="text-slate-500 dark:text-slate-400 leading-relaxed font-medium">
+                <p className="text-slate-500 dark:text-zinc-400 leading-relaxed font-medium">
                   {edu.desc}
                 </p>
                 <div className="flex items-center gap-2">
