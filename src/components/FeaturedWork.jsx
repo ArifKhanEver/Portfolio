@@ -48,7 +48,7 @@ const PROJECTS = [
 
 const FeaturedWork = () => {
   const sectionRef = useRef(null);
-  const containerRef = useRef(null);
+  const trackRef = useRef(null);
   const cardsRef = useRef([]);
 
   useEffect(() => {
@@ -63,101 +63,55 @@ const FeaturedWork = () => {
         ease: "power3.out",
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top 70%",
+          start: "top 75%",
         }
       });
 
       // 2. Horizontal Scroll Logic
-      const container = containerRef.current;
-      const totalScrollWidth = container.scrollWidth - window.innerWidth;
+      const track = trackRef.current;
+      
+      // Calculate exactly how far we need to slide to the left
+      // scrollWidth is total content width, clientWidth is viewport width
+      const getScrollAmount = () => track.scrollWidth - window.innerWidth;
 
-      gsap.to(container, {
-        x: -totalScrollWidth,
+      const horizontalTween = gsap.to(track, {
+        x: () => -getScrollAmount(),
         ease: "none",
         scrollTrigger: {
-          trigger: sectionRef.current,
+          trigger: track, // Pin the track itself, not the whole section
           pin: true,
           scrub: 1,
-          start: "top top",
-          end: () => `+=${totalScrollWidth}`,
+          start: "top 10%", // Pin when track reaches near top
+          end: () => `+=${getScrollAmount()}`,
+          invalidateOnRefresh: true, // Recalculate if window resizes
         }
       });
 
       // 3. Corner Border Assembly Animation
-      const cards = document.querySelectorAll('.project-card-wrapper');
+      const cards = gsap.utils.toArray('.project-card-wrapper');
       
       cards.forEach((card) => {
-        const tlCorner = card.querySelector('.corner-tl');
-        const trCorner = card.querySelector('.corner-tr');
-        const blCorner = card.querySelector('.corner-bl');
-        const brCorner = card.querySelector('.corner-br');
+        const tl = card.querySelector('.corner-tl');
+        const tr = card.querySelector('.corner-tr');
+        const bl = card.querySelector('.corner-bl');
+        const br = card.querySelector('.corner-br');
 
-        // Initially offset them, then animate them to (0,0) as they scroll into view horizontally
-        gsap.set([tlCorner, trCorner, blCorner, brCorner], { opacity: 0 });
-        gsap.set(tlCorner, { x: -30, y: -30 });
-        gsap.set(trCorner, { x: 30, y: -30 });
-        gsap.set(blCorner, { x: -30, y: 30 });
-        gsap.set(brCorner, { x: 30, y: 30 });
-
-        gsap.to([tlCorner, trCorner, blCorner, brCorner], {
-          x: 0,
-          y: 0,
-          opacity: 1,
-          ease: "power2.out",
+        gsap.from([tl, tr, bl, br], {
+          x: (i) => (i % 2 === 0 ? -40 : 40), // Offset X based on index (tl:0, tr:1, bl:2, br:3)
+          y: (i) => (i < 2 ? -40 : 40),       // Offset Y
+          opacity: 0,
           scrollTrigger: {
             trigger: card,
-            containerAnimation: gsap.getById("horizontalScrollTween"), // Link to the horizontal scroll if needed, but standard scrub works too if we just use the card as trigger in a normal scroll, wait, horizontal container animation needs `containerAnimation`
-            // Actually, because the section is pinned and scrolls horizontally, we need to map it based on horizontal scroll.
-            // Let's create a scroll trigger for the container scroll
-            start: "left right", // when left side of card hits right side of viewport
-            end: "center center", // when center of card hits center of viewport
+            containerAnimation: horizontalTween,
+            start: "left 80%", // Assemble when card enters from right
+            end: "center center",
             scrub: true,
-            horizontal: true,
-            scroller: containerRef.current // NO, wait.
           }
         });
       });
       
     }, sectionRef);
 
-    return () => ctx.revert();
-  }, []);
-
-  // Update the GSAP hook for corners properly without complex horizontal scrollTrigger issues
-  // Since ScrollTrigger with horizontal container animation can be tricky without explicit setup,
-  // We will instead animate the corners simply using the main horizontal timeline, or keep them static on hover.
-  // Wait, let's setup the corner GSAP properly inside the effect.
-  useEffect(() => {
-    let ctx = gsap.context(() => {
-      const container = containerRef.current;
-      const totalScrollWidth = container.scrollWidth - window.innerWidth;
-
-      let horizontalTween = gsap.to(container, {
-        x: -totalScrollWidth,
-        ease: "none",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          pin: true,
-          scrub: 1,
-          start: "top top",
-          end: () => `+=${totalScrollWidth}`,
-        }
-      });
-
-      const cards = gsap.utils.toArray('.project-card-wrapper');
-      
-      cards.forEach((card) => {
-        const tlCorner = card.querySelector('.corner-tl');
-        const trCorner = card.querySelector('.corner-tr');
-        const blCorner = card.querySelector('.corner-bl');
-        const brCorner = card.querySelector('.corner-br');
-
-        gsap.from([tlCorner], { x: -30, y: -30, opacity: 0, scrollTrigger: { trigger: card, containerAnimation: horizontalTween, start: "left right", end: "center center", scrub: true }});
-        gsap.from([trCorner], { x: 30, y: -30, opacity: 0, scrollTrigger: { trigger: card, containerAnimation: horizontalTween, start: "left right", end: "center center", scrub: true }});
-        gsap.from([blCorner], { x: -30, y: 30, opacity: 0, scrollTrigger: { trigger: card, containerAnimation: horizontalTween, start: "left right", end: "center center", scrub: true }});
-        gsap.from([brCorner], { x: 30, y: 30, opacity: 0, scrollTrigger: { trigger: card, containerAnimation: horizontalTween, start: "left right", end: "center center", scrub: true }});
-      });
-    }, sectionRef);
     return () => ctx.revert();
   }, []);
 
@@ -173,8 +127,8 @@ const FeaturedWork = () => {
     const xc = rect.width / 2;
     const yc = rect.height / 2;
 
-    const rotateX = -(y - yc) / 15;
-    const rotateY = (x - xc) / 15;
+    const rotateX = -(y - yc) / 20; // Soften the tilt slightly
+    const rotateY = (x - xc) / 20;
 
     gsap.to(card, {
       rotateX,
@@ -198,34 +152,34 @@ const FeaturedWork = () => {
   };
 
   return (
-    <section ref={sectionRef} id="featured-work" className="relative min-h-screen w-full flex flex-col items-center bg-black overflow-hidden pt-24 md:pt-32">
+    <section ref={sectionRef} id="featured-work" className="relative min-h-screen w-full bg-black py-24 md:py-32">
       
       {/* 1. Grid Background & Radial Glow */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none"></div>
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-[120px] pointer-events-none"></div>
 
-      {/* 2. Exact Title Layout */}
-      <div className="relative z-10 text-center max-w-5xl px-6 w-full pointer-events-none select-none mb-12 lg:mb-0">
+      {/* 2. Exact Title Layout - Normal Document Flow (No Absolute Positioning) */}
+      <div className="relative z-10 text-center max-w-5xl mx-auto px-6 w-full pointer-events-none select-none mb-32">
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold uppercase tracking-wider text-white flex flex-wrap justify-center gap-x-4 gap-y-3 leading-tight">
-          <span className="title-word inline-block">Turning</span>
-          <span className="title-word inline-block">complex</span>
-          <span className="title-word inline-block text-blue-500">problems</span>
-          <span className="title-word inline-block">into</span>
-          <span className="title-word inline-block px-4 py-1 bg-blue-600 text-white -rotate-2 transform">elegant</span>
-          <span className="title-word inline-block">solutions</span>
-          <span className="title-word inline-block text-white/50 text-xl md:text-3xl lg:text-4xl w-full mt-4 tracking-normal lowercase">one line of code at a time</span>
+          <span className="title-word">Turning</span>
+          <span className="title-word">complex</span>
+          <span className="title-word text-blue-500">problems</span>
+          <span className="title-word">into</span>
+          <span className="title-word px-4 py-1 bg-blue-600 text-white -rotate-2 transform rounded-sm shadow-xl shadow-blue-500/20">elegant</span>
+          <span className="title-word">solutions</span>
+          <span className="title-word text-white/50 text-xl md:text-3xl lg:text-4xl w-full mt-4 tracking-normal lowercase block">one line of code at a time</span>
         </h1>
       </div>
 
-      {/* Horizontal Scrolling Container */}
-      <div className="flex items-center lg:h-screen lg:absolute lg:top-0 lg:left-0" ref={containerRef} style={{ width: 'max-content' }}>
-        <div className="flex gap-12 lg:gap-24 px-6 md:px-16 lg:px-32 lg:pt-32 pb-24 lg:pb-0 h-full items-center">
+      {/* Horizontal Scrolling Track - Pinning Target */}
+      <div ref={trackRef} className="relative flex items-center h-[80vh] w-max px-6 md:px-16 lg:px-32 z-20">
+        <div className="flex gap-12 lg:gap-24 h-full items-center">
           
           {PROJECTS.map((project, idx) => (
             <div 
               key={project.id}
-              className="project-card-wrapper relative w-[320px] md:w-[500px] lg:w-[600px] flex-shrink-0 cursor-pointer"
-              style={{ perspective: "1000px" }}
+              className="project-card-wrapper relative w-[320px] md:w-[500px] lg:w-[600px] flex-shrink-0 cursor-pointer group"
+              style={{ perspective: "1500px" }}
             >
               {/* Assembling Corner Brackets */}
               <div className="corner-tl absolute -top-4 -left-4 w-10 h-10 border-t-2 border-l-2 border-blue-500 z-20 pointer-events-none"></div>
@@ -234,37 +188,40 @@ const FeaturedWork = () => {
               <div className="corner-br absolute -bottom-4 -right-4 w-10 h-10 border-b-2 border-r-2 border-blue-500 z-20 pointer-events-none"></div>
 
               {/* The Card Content */}
+              {/* NOTE: No overflow-hidden here! overflow-hidden disables transform-style: preserve-3d */}
               <div 
                 ref={(el) => cardsRef.current[idx] = el}
                 onMouseMove={(e) => handleMouseMove(e, idx)}
                 onMouseLeave={() => handleMouseLeave(idx)}
-                className="relative w-full rounded-2xl bg-zinc-950 border border-white/10 transition-transform duration-100 ease-out overflow-hidden"
+                className="relative w-full rounded-2xl bg-zinc-950/80 backdrop-blur-xl border border-white/10 transition-colors duration-300 ease-out flex flex-col shadow-2xl"
                 style={{ transformStyle: "preserve-3d" }}
               >
                 
                 {/* Image Container */}
-                <div className="relative h-56 md:h-72 w-full overflow-hidden border-b border-white/5">
+                <div className="relative h-56 md:h-72 w-full rounded-t-2xl border-b border-white/5 overflow-hidden" style={{ transform: "translateZ(10px)" }}>
                   <Image
                     src={project.image}
                     alt={project.title}
                     fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out opacity-70 hover:opacity-100"
+                    className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out opacity-70 group-hover:opacity-100"
                   />
+                  {/* Subtle glare overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/5 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 </div>
 
                 {/* Content Container */}
-                <div className="p-6 md:p-8 flex flex-col bg-zinc-950">
+                <div className="p-6 md:p-8 flex flex-col rounded-b-2xl bg-zinc-950" style={{ transform: "translateZ(20px)" }}>
                   
                   {/* Tech Stack Tags */}
                   <div className="flex flex-wrap gap-2 mb-4">
                     {project.tags.map(tag => (
-                      <span key={tag} className="px-3 py-1 bg-white/5 text-white/70 text-[10px] md:text-xs rounded-full border border-white/10">
+                      <span key={tag} className="px-3 py-1 bg-white/5 text-white/70 text-[10px] md:text-xs rounded-full border border-white/10 shadow-sm">
                         {tag}
                       </span>
                     ))}
                   </div>
 
-                  <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">
+                  <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 tracking-tight group-hover:text-blue-400 transition-colors duration-300">
                     {project.title}
                   </h3>
                   
@@ -274,10 +231,10 @@ const FeaturedWork = () => {
                   
                   {/* External Links */}
                   <div className="flex gap-4">
-                    <a href={project.github} target="_blank" className="flex items-center justify-center w-12 h-12 bg-white/5 backdrop-blur-xl border border-white/10 rounded-full text-white/70 hover:text-white hover:bg-white/10 hover:scale-110 active:scale-95 transition-all">
+                    <a href={project.github} target="_blank" className="flex items-center justify-center w-12 h-12 bg-zinc-900 border border-white/10 rounded-full text-white/70 hover:text-white hover:bg-blue-600 hover:border-blue-500 hover:scale-110 active:scale-95 transition-all shadow-lg z-30 relative">
                       <FiGithub size={20} />
                     </a>
-                    <a href={project.link} target="_blank" className="flex items-center justify-center w-12 h-12 bg-white/5 backdrop-blur-xl border border-white/10 rounded-full text-white/70 hover:text-white hover:bg-white/10 hover:scale-110 active:scale-95 transition-all">
+                    <a href={project.link} target="_blank" className="flex items-center justify-center w-12 h-12 bg-zinc-900 border border-white/10 rounded-full text-white/70 hover:text-white hover:bg-blue-600 hover:border-blue-500 hover:scale-110 active:scale-95 transition-all shadow-lg z-30 relative">
                       <FiExternalLink size={20} />
                     </a>
                   </div>
