@@ -151,22 +151,22 @@ const FeaturedWork = () => {
         const frame = card.querySelector('.corner-frame');
         if (!frame) return;
 
-        // The frame slides in from the LEFT and moves rightward FAST as the
-        // card crosses the screen. scrub: 0.3 makes it feel snappy/loose
-        // relative to the card's own motion.
+        // The frame LEADS the card — it starts offset to the RIGHT (ahead in
+        // scroll direction) and the card gradually catches up to it as it
+        // reaches center. This creates the "chasing the frame" parallax feel.
         gsap.fromTo(frame,
-          { x: -120, opacity: 0 },
+          { x: 120, opacity: 0.6 },
           {
-            x: 80,
+            x: -40,
             opacity: 1,
-            ease: "power2.out",
+            ease: "none",
             immediateRender: false,
             scrollTrigger: {
               trigger: card,
               containerAnimation: horizontalTween,
-              start: "left 90%",
-              end: "center center",
-              scrub: 0.3,
+              start: "left right",   // card's left edge enters from viewport right
+              end: "center center",  // card center is at viewport center
+              scrub: true,
             }
           }
         );
