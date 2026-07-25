@@ -77,24 +77,28 @@ const FeaturedWork = () => {
         ease: "none",
         scrollTrigger: {
           trigger: ".into-container",
-          start: "top 60%", 
-          end: "top 30%",
+          start: "top 80%", // Start revealing early
+          end: "top 50%",   // Finish exactly when it reaches the center of the screen
           scrub: true,
         }
       });
 
       // 1c. Background Glow Animation (Top-Right to Bottom-Left)
-      gsap.to(".scroll-glow", {
-        x: () => -window.innerWidth, // Move all the way to the left
-        y: () => window.innerHeight, // Move down
-        ease: "none",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top top",
-          end: "bottom bottom",
-          scrub: true,
+      gsap.fromTo(".scroll-glow", 
+        { x: "50vw", y: "-50vh" }, // Start at top right
+        {
+          x: "-50vw", y: "50vh", // End at bottom left
+          ease: "none",
+          scrollTrigger: {
+            trigger: ".into-container",
+            // The scroll distance is from the bottom of the screen to the top of the screen
+            // When into-container is exactly at the center (top 50%), this animation will be exactly at 50% (x=0, y=0)
+            start: "top bottom",
+            end: "top top",
+            scrub: true,
+          }
         }
-      });
+      );
 
       // 2. Horizontal Scroll Logic for Projects
       const track = trackRef.current;
@@ -189,8 +193,8 @@ const FeaturedWork = () => {
         {/* Animated radial glow that moves from top-right to bottom-left */}
         <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden">
           <div className="sticky top-0 w-full h-screen">
-            {/* Increased brightness by using /40 instead of /20 */}
-            <div className="scroll-glow absolute right-0 top-0 w-[400px] h-[400px] md:w-[600px] md:h-[600px] bg-[#1877F2]/40 rounded-full blur-[100px] -translate-y-1/4 translate-x-1/4"></div>
+            {/* Positioned dead center. GSAP will offset it from here to top-right, and end at bottom-left */}
+            <div className="scroll-glow absolute top-1/2 left-1/2 w-[400px] h-[400px] md:w-[600px] md:h-[600px] bg-[#1877F2]/40 rounded-full blur-[100px] -translate-x-1/2 -translate-y-1/2"></div>
           </div>
         </div>
 
