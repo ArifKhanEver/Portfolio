@@ -3,8 +3,8 @@
 import { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { FiGithub, FiExternalLink } from "react-icons/fi";
 import Image from "next/image";
+import { FiGithub, FiExternalLink, FiInfo } from "react-icons/fi";
 import Dragon from '@/assets/home-layout.png'
 import KinKeeper from '@/assets/KinKeeper.png'
 import BookVibe from '@/assets/BookVibe.png'
@@ -54,10 +54,10 @@ const FeaturedWork = () => {
 
   useEffect(() => {
     let ctx = gsap.context(() => {
-      
+
       // 1. "Light on" effect for all text elements
       const lightElements = gsap.utils.toArray(".light-text");
-      
+
       lightElements.forEach(el => {
         gsap.to(el, {
           color: "rgba(255, 255, 255, 1)",
@@ -65,7 +65,7 @@ const FeaturedWork = () => {
           scrollTrigger: {
             trigger: el,
             start: "top 75%", // Light up when element reaches 75% of screen height
-            end: "top 45%",   
+            end: "top 45%",
             scrub: true,
           }
         });
@@ -83,11 +83,11 @@ const FeaturedWork = () => {
         }
       });
 
-      // 1c. Global Background Glow Animation (Part 1: Top-Right to Left-Side)
+      // 1c. Global Background Glow Animation (Part 1: Top-Right to Bottom-Left)
       gsap.set(".global-glow", { x: "50vw", y: "-50vh" }); // Initialize at Top-Right
 
       gsap.to(".global-glow", {
-        x: "-50vw", y: "0vh", // End at the left side (vertically centered behind FEATURED)
+        x: "-50vw", y: "50vh", // End at bottom left
         ease: "none",
         scrollTrigger: {
           trigger: ".into-container",
@@ -103,7 +103,7 @@ const FeaturedWork = () => {
       const showcaseTimeline = gsap.timeline({
         scrollTrigger: {
           trigger: track,
-          start: "top 80%", 
+          start: "top 80%",
           end: "top 30%",
           scrub: true,
         }
@@ -131,18 +131,18 @@ const FeaturedWork = () => {
         x: () => -getScrollAmount(),
         ease: "none",
         scrollTrigger: {
-          trigger: track, 
+          trigger: track,
           pin: true,
           scrub: 1,
-          start: "top 0%", 
+          start: "top 0%",
           end: () => `+=${getScrollAmount()}`,
-          invalidateOnRefresh: true, 
+          invalidateOnRefresh: true,
         }
       });
 
       // 4. Corner Border Assembly Animation (linked to horizontalTween)
       const cards = gsap.utils.toArray('.project-card-wrapper');
-      
+
       cards.forEach((card) => {
         const tl = card.querySelector('.corner-tl');
         const tr = card.querySelector('.corner-tr');
@@ -150,13 +150,13 @@ const FeaturedWork = () => {
         const br = card.querySelector('.corner-br');
 
         gsap.from([tl, tr, bl, br], {
-          x: (i) => (i % 2 === 0 ? -40 : 40), 
-          y: (i) => (i < 2 ? -40 : 40),       
+          x: (i) => (i % 2 === 0 ? -40 : 40),
+          y: (i) => (i < 2 ? -40 : 40),
           opacity: 0,
           scrollTrigger: {
             trigger: card,
             containerAnimation: horizontalTween,
-            start: "left 80%", 
+            start: "left 80%",
             end: "center center",
             scrub: true,
           }
@@ -176,13 +176,12 @@ const FeaturedWork = () => {
         }
       });
 
-      // 6. Global Background Glow Animation (Part 2: Left-Side to Bottom-Right)
+      // 6. Global Background Glow Animation (Part 2: Bottom-Left to Bottom-Right)
       gsap.fromTo(".global-glow",
-        { x: "-50vw", y: "0vh" }, // Start exactly where Part 1 ended (Left Side)
+        { x: "-50vw", y: "50vh" }, // Start where Part 1 ended (Bottom Left)
         {
           x: "50vw", y: "50vh", // Move to bottom-right across the horizontal scroll
           ease: "none",
-          immediateRender: false, // CRITICAL: prevents this from overriding Part 1's initial Top-Right position on load
           scrollTrigger: {
             trigger: track,
             start: "top 0%",
@@ -191,7 +190,7 @@ const FeaturedWork = () => {
           }
         }
       );
-      
+
     }, sectionRef);
 
     return () => ctx.revert();
@@ -209,7 +208,7 @@ const FeaturedWork = () => {
     const xc = rect.width / 2;
     const yc = rect.height / 2;
 
-    const rotateX = -(y - yc) / 20; 
+    const rotateX = -(y - yc) / 20;
     const rotateY = (x - xc) / 20;
 
     gsap.to(card, {
@@ -235,10 +234,10 @@ const FeaturedWork = () => {
 
   return (
     <section ref={sectionRef} id="featured-work" className="relative min-h-screen w-full bg-black">
-      
+
       {/* 1. Grid Background (Stretches across entire section) */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff15_1px,transparent_1px),linear-gradient(to_bottom,#ffffff15_1px,transparent_1px)] bg-[size:80px_80px] pointer-events-none z-0"></div>
-      
+
       {/* GLOBAL GLOW: Single element that animates across the entire section component */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
         <div className="sticky top-0 w-full h-screen">
@@ -248,18 +247,18 @@ const FeaturedWork = () => {
 
       {/* 2. Massive Vertical Scroll Title Sequence */}
       <div className="relative z-10 w-full flex flex-col items-center pt-12 md:pt-24 pb-[30vh] select-none overflow-hidden">
-        
+
         <h1 className="relative z-10 flex flex-col items-center text-center text-[12vw] sm:text-[10vw] md:text-[8vw] lg:text-[7vw] font-semibold uppercase tracking-tight text-white/20 leading-[1.1] w-full">
           <span className="light-text">TURNING</span>
           <span className="light-text">COMPLEX</span>
           <span className="light-text">PROBLEMS</span>
-          
+
           {/* The INTO / ELEGANT SOLUTIONS swap container */}
           <div className="into-container relative flex justify-center items-center w-full h-[1.3em] my-2 lg:my-4">
             <span className="light-text absolute">INTO</span>
-            
+
             {/* ELEGANT SOLUTIONS block sliding/clipping in from left */}
-            <span 
+            <span
               className="elegant-replacement absolute z-10 flex justify-center items-center p-2"
               style={{ clipPath: 'inset(0% 100% 0% 0%)' }}
             >
@@ -272,7 +271,7 @@ const FeaturedWork = () => {
           <span className="light-text mt-4">ONE LINE OF CODE</span>
           <span className="light-text">AT A TIME</span>
         </h1>
-        
+
         {/* Subtitle paragraph */}
         <p className="light-text text-white/30 text-sm md:text-base lg:text-lg max-w-xl mx-auto text-center mt-16 leading-relaxed px-6 tracking-wide">
           Building scalable full-stack applications with modern technologies. From MongoDB to React, NextJS to Postgres. I craft digital experiences that users love
@@ -281,14 +280,14 @@ const FeaturedWork = () => {
 
       {/* Horizontal Scrolling Track - Pinning Target */}
       <div ref={trackRef} className="relative flex items-center h-screen w-full z-20 overflow-hidden">
-        
+
         {/* Absolute Title (Stays on left, fades out as cards slide over) */}
         <div className="showcase-title-container absolute left-6 md:left-16 lg:left-32 z-10 w-[80vw] md:w-[60vw] lg:w-[600px]">
           <h2 className="flex flex-col text-[12vw] sm:text-[10vw] md:text-[8vw] lg:text-[7vw] font-semibold uppercase tracking-tight text-white leading-[1.1]">
             <span className="showcase-word opacity-0 translate-y-20 block">FEATURED</span>
-            
+
             <div className="showcase-word opacity-0 translate-y-20 relative flex items-center w-full h-[1.3em] my-2 lg:my-4">
-              <span 
+              <span
                 className="work-replacement absolute z-10 flex items-center p-2"
                 style={{ clipPath: 'inset(0% 100% 0% 0%)' }}
               >
@@ -305,74 +304,96 @@ const FeaturedWork = () => {
         {/* Moving track of cards (Slides from right to left, over the title) */}
         <div className="cards-track flex gap-12 lg:gap-24 h-[70vh] items-center absolute left-[90vw] md:left-[70vw] lg:left-[800px] z-20 w-max pr-[50vw]">
           {PROJECTS.map((project, idx) => (
-            <div 
+            <div
               key={project.id}
-              className="project-card-wrapper relative w-[280px] md:w-[400px] lg:w-[480px] flex-shrink-0 cursor-pointer group"
-              style={{ perspective: "1500px" }}
+              className="project-card-wrapper relative w-[85vw] md:w-[700px] lg:w-[900px] h-[450px] md:h-[550px] flex-shrink-0 cursor-pointer group"
+              style={{ perspective: "2000px" }}
             >
-              {/* Assembling Corner Brackets */}
-              <div className="corner-tl absolute -top-4 -left-4 w-10 h-10 border-t-2 border-l-2 border-blue-500 z-20 pointer-events-none"></div>
-              <div className="corner-tr absolute -top-4 -right-4 w-10 h-10 border-t-2 border-r-2 border-blue-500 z-20 pointer-events-none"></div>
-              <div className="corner-bl absolute -bottom-4 -left-4 w-10 h-10 border-b-2 border-l-2 border-blue-500 z-20 pointer-events-none"></div>
-              <div className="corner-br absolute -bottom-4 -right-4 w-10 h-10 border-b-2 border-r-2 border-blue-500 z-20 pointer-events-none"></div>
+              {/* Corner Borders Animation targets */}
+              <div className="corner-tl absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-blue-500 rounded-tl-xl opacity-0"></div>
+              <div className="corner-tr absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-blue-500 rounded-tr-xl opacity-0"></div>
+              <div className="corner-bl absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-blue-500 rounded-bl-xl opacity-0"></div>
+              <div className="corner-br absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-blue-500 rounded-br-xl opacity-0"></div>
 
               {/* The Card Content */}
-              {/* NOTE: No overflow-hidden here! overflow-hidden disables transform-style: preserve-3d */}
-              <div 
+              <div
                 ref={(el) => cardsRef.current[idx] = el}
                 onMouseMove={(e) => handleMouseMove(e, idx)}
                 onMouseLeave={() => handleMouseLeave(idx)}
-                className="relative w-full rounded-2xl bg-zinc-950/80 backdrop-blur-xl border border-white/10 transition-colors duration-300 ease-out flex flex-col shadow-2xl"
+                className="relative w-full h-full rounded-2xl bg-zinc-900 border border-white/10 shadow-2xl transition-transform duration-100 ease-out overflow-hidden"
                 style={{ transformStyle: "preserve-3d" }}
               >
-                
-                {/* Image Container */}
-                <div className="relative h-48 md:h-64 lg:h-64 w-full rounded-t-2xl border-b border-white/5 overflow-hidden" style={{ transform: "translateZ(10px)" }}>
+                {/* Full Background Image */}
+                <div className="absolute inset-0 w-full h-full">
                   <Image
                     src={project.image}
                     alt={project.title}
                     fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out opacity-70 group-hover:opacity-100"
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-                  {/* Subtle glare overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/5 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 </div>
 
-                {/* Content Container */}
-                <div className="p-6 md:p-8 flex flex-col rounded-b-2xl bg-zinc-950" style={{ transform: "translateZ(20px)" }}>
+                {/* Gradient Overlay for Text Readability */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/20 group-hover:bg-black/40 transition-colors duration-500"></div>
+
+                {/* Overlaid Content Container */}
+                <div className="absolute inset-0 p-8 md:p-12 flex flex-col justify-center" style={{ transform: "translateZ(30px)" }}>
                   
                   {/* Tech Stack Tags */}
-                  <div className="flex flex-wrap gap-2 mb-4">
+                  <div className="flex flex-wrap gap-3 mb-6">
                     {project.tags.map(tag => (
-                      <span key={tag} className="px-3 py-1 bg-white/5 text-white/70 text-[10px] md:text-xs rounded-full border border-white/10 shadow-sm">
+                      <span 
+                        key={tag} 
+                        className="px-4 py-1.5 rounded-full border border-white/20 bg-black/30 backdrop-blur-sm text-white/90 text-xs md:text-sm font-bold uppercase tracking-widest"
+                      >
                         {tag}
                       </span>
                     ))}
                   </div>
-
-                  <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 tracking-tight group-hover:text-blue-400 transition-colors duration-300">
+                  
+                  {/* Title */}
+                  <h3 className="text-4xl md:text-6xl lg:text-7xl font-black text-white italic uppercase tracking-tighter mb-4 drop-shadow-2xl">
                     {project.title}
                   </h3>
                   
-                  <p className="text-white/50 text-sm md:text-base leading-relaxed mb-8">
+                  {/* Description */}
+                  <p className="text-white/80 text-base md:text-xl max-w-2xl font-medium leading-relaxed drop-shadow-md mb-8 line-clamp-3">
                     {project.desc}
                   </p>
                   
-                  {/* External Links */}
-                  <div className="flex gap-4">
-                    <a href={project.github} target="_blank" className="flex items-center justify-center w-12 h-12 bg-zinc-900 border border-white/10 rounded-full text-white/70 hover:text-white hover:bg-blue-600 hover:border-blue-500 hover:scale-110 active:scale-95 transition-all shadow-lg z-30 relative">
-                      <FiGithub size={20} />
+                  {/* Action Buttons */}
+                  <div className="flex flex-wrap items-center gap-4 mt-auto">
+                    {/* Live Preview Button */}
+                    <a 
+                      href={project.link} 
+                      target="_blank" 
+                      className="flex items-center gap-2 bg-white text-black px-6 py-3 rounded-md font-black uppercase tracking-widest hover:bg-zinc-200 hover:scale-105 active:scale-95 transition-all shadow-xl"
+                    >
+                      <FiExternalLink size={20} strokeWidth={2.5} />
+                      Preview
                     </a>
-                    <a href={project.link} target="_blank" className="flex items-center justify-center w-12 h-12 bg-zinc-900 border border-white/10 rounded-full text-white/70 hover:text-white hover:bg-blue-600 hover:border-blue-500 hover:scale-110 active:scale-95 transition-all shadow-lg z-30 relative">
-                      <FiExternalLink size={20} />
+                    
+                    {/* Github Button */}
+                    <a 
+                      href={project.github} 
+                      target="_blank" 
+                      className="flex items-center justify-center w-12 h-12 bg-black/40 backdrop-blur-sm border border-white/20 rounded-md text-white hover:bg-white hover:text-black hover:scale-110 active:scale-95 transition-all shadow-xl"
+                    >
+                      <FiGithub size={22} />
                     </a>
-                  </div>
-                </div>
 
+                    {/* Details (Info) Button */}
+                    <button 
+                      className="flex items-center justify-center w-12 h-12 bg-black/40 backdrop-blur-sm border border-white/20 rounded-md text-white hover:bg-white hover:text-black hover:scale-110 active:scale-95 transition-all shadow-xl"
+                    >
+                      <FiInfo size={22} />
+                    </button>
+                  </div>
+                  
+                </div>
               </div>
             </div>
           ))}
-
         </div>
       </div>
     </section>
