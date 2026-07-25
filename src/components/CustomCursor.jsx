@@ -9,27 +9,33 @@ const CustomCursor = () => {
   const canvasRef = useRef(null);
   const pathname = usePathname();
 
-  // Primary Canvas & Mouse Tracking setup
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas || !mainCursor.current) return;
     const ctx = canvas.getContext("2d");
 
-    // Initialize the main DOM cursor center offset
-    gsap.set(mainCursor.current, { xPercent: -50, yPercent: -50 });
+    const defaultColor = "#61DAFB"; 
+    const hoverColor = "#00ff73"; 
+
+    gsap.set(mainCursor.current, { 
+      xPercent: -50, 
+      yPercent: -50, 
+      rotation: 45,
+      borderRadius: "0px", 
+      backgroundColor: defaultColor,
+      boxShadow: `0 0 3px ${defaultColor}`
+    });
 
     const xTo = gsap.quickTo(mainCursor.current, "x", { duration: 0.1, ease: "power3.out" });
     const yTo = gsap.quickTo(mainCursor.current, "y", { duration: 0.1, ease: "power3.out" });
 
-    // Handle Window Resize
     const handleResize = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     };
-    handleResize(); // Set initial size
+    handleResize();
     window.addEventListener("resize", handleResize);
 
-    // Initial mouse coordinates
     let mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
 
     const handleMouseMove = (e) => {
@@ -40,62 +46,51 @@ const CustomCursor = () => {
     };
     window.addEventListener("mousemove", handleMouseMove);
 
-    // Physics Setup: Perfect Lerp Hair Strands
-    const NUM_STRANDS = 4;
-    const POINTS_PER_STRAND = 40; 
+    // Trail Setup (Dots)
+    const TRAIL_LENGTH = 45; 
+    const points = [];
     
-    const LERP_FACTORS = [0.2, 0.25, 0.3, 0.35];
-    
-    let strands = [];
-
-    for (let i = 0; i < NUM_STRANDS; i++) {
-      let points = [];
-      for (let j = 0; j < POINTS_PER_STRAND; j++) {
-        points.push({ x: mouse.x, y: mouse.y });
-      }
-      strands.push({ 
-        points, 
-        lerpFactor: LERP_FACTORS[i]
-      });
+    for (let i = 0; i < TRAIL_LENGTH; i++) {
+      points.push({ x: mouse.x, y: mouse.y });
     }
+
+    const colors = ["#61DAFB", "#68A063", "#F7DF1E", "#61DAFB"]; 
 
     let animationFrameId;
 
     const render = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.lineCap = "round";
-      ctx.lineJoin = "round";
-      ctx.strokeStyle = "rgba(128, 128, 128, 0.3)"; 
-      ctx.lineWidth = 1.5;
 
-      strands.forEach((strand) => {
-        // The head of the strand instantly locks to mouse
-        strand.points[0].x = mouse.x;
-        strand.points[0].y = mouse.y;
+      points[0].x = mouse.x;
+      points[0].y = mouse.y;
+
+      for (let i = 1; i < TRAIL_LENGTH; i++) {
+        const pt = points[i];
+        const prevPt = points[i - 1];
+        pt.x += (prevPt.x - pt.x) * 0.4;
+        pt.y += (prevPt.y - pt.y) * 0.4;
+      }
+
+      for (let i = 1; i < TRAIL_LENGTH; i++) {
+        const pt = points[i];
+        const radius = Math.max(0.5, 3.5 * (1 - i / TRAIL_LENGTH));
+        const colorIndex = Math.floor((i / TRAIL_LENGTH) * (colors.length - 1));
 
         ctx.beginPath();
-        ctx.moveTo(strand.points[0].x, strand.points[0].y);
-
-        // Calculate trailing lerp physics
-        for (let j = 1; j < POINTS_PER_STRAND; j++) {
-          const pt = strand.points[j];
-          const prevPt = strand.points[j - 1];
-
-          pt.x += (prevPt.x - pt.x) * strand.lerpFactor;
-          pt.y += (prevPt.y - pt.y) * strand.lerpFactor;
-
-          ctx.lineTo(pt.x, pt.y);
-        }
+        ctx.arc(pt.x, pt.y, radius, 0, Math.PI * 2);
+        ctx.fillStyle = colors[colorIndex];
         
-        ctx.stroke();
-      });
+        ctx.shadowBlur = 5;
+        ctx.shadowColor = colors[colorIndex];
+        
+        ctx.fill();
+      }
 
       animationFrameId = requestAnimationFrame(render);
     };
 
     render();
 
-    // Cleanup phase
     return () => {
       window.removeEventListener("resize", handleResize);
       window.removeEventListener("mousemove", handleMouseMove);
@@ -103,38 +98,41 @@ const CustomCursor = () => {
     };
   }, []);
 
-  // Magnetic Hover & Cursor Scale Logic
   useEffect(() => {
     if (!mainCursor.current) return;
 
-    // Slight delay so React finishes rendering the tree
+    const defaultColor = "#61DAFB"; 
+    const hoverColor = "#61dafb51"; 
+
     const timeout = setTimeout(() => {
       const interactables = document.querySelectorAll("a, button, .magnetic-target");
       
       const handleMouseEnter = () => {
-        // Scale main cursor up on hover
-        gsap.to(mainCursor.current, {
-          scale: 2.5,
-          duration: 0.3,
-          ease: "power2.out",
+        // হোভার করলে কালার চেঞ্জ হবে এবং গোল হবে
+        gsap.to(mainCursor.current, { 
+          scale: 2.2, 
+          rotation: 0, 
+          borderRadius: "50%", 
+          backgroundColor: hoverColor,
+          boxShadow: `0 0 15px ${hoverColor}`,
+          duration: 0.3, 
+          ease: "power2.out" 
         });
       };
 
       const handleMouseLeave = (e) => {
         const el = e.currentTarget;
-        // Revert cursor scale
-        gsap.to(mainCursor.current, {
-          scale: 1,
-          duration: 0.3,
-          ease: "power2.out",
+        // হোভার থেকে সরলে আবার ডিফল্ট কালার এবং স্মুথ ডায়মন্ড হয়ে যাবে
+        gsap.to(mainCursor.current, { 
+          scale: 1, 
+          rotation: 45, 
+          borderRadius: "4px", 
+          backgroundColor: defaultColor,
+          boxShadow: `0 0 10px ${defaultColor}`,
+          duration: 0.3, 
+          ease: "power2.out" 
         });
-        // Snap element back to origin
-        gsap.to(el, {
-          x: 0,
-          y: 0,
-          duration: 0.7,
-          ease: "elastic.out(1, 0.3)",
-        });
+        gsap.to(el, { x: 0, y: 0, duration: 0.7, ease: "elastic.out(1, 0.3)" });
       };
 
       const handleMagneticMove = (e) => {
@@ -146,7 +144,6 @@ const CustomCursor = () => {
         const distanceX = e.clientX - elCenterX;
         const distanceY = e.clientY - elCenterY;
 
-        // Apply magnetic pull to the element
         gsap.to(el, {
           x: distanceX * 0.3,
           y: distanceY * 0.3,
@@ -172,23 +169,19 @@ const CustomCursor = () => {
 
     return () => {
       clearTimeout(timeout);
-      if (window.__cleanupMagnetic) {
-        window.__cleanupMagnetic();
-      }
+      if (window.__cleanupMagnetic) window.__cleanupMagnetic();
     };
   }, [pathname]);
 
   return (
     <div className="hidden lg:block">
-      {/* Canvas for the long flowing hair trail */}
-      <canvas
-        ref={canvasRef}
-        className="fixed inset-0 pointer-events-none z-[99998]"
-      />
-      {/* Primary Invert Spotlight Cursor */}
+      {/* Canvas for the colorful dots trail */}
+      <canvas ref={canvasRef} className="fixed inset-0 pointer-events-none z-[99998]" />
+      
+      {/* Primary Diamond Cursor */}
       <div
         ref={mainCursor}
-        className="fixed top-0 left-0 w-3 h-3 rounded-full bg-white pointer-events-none z-[99999] mix-blend-difference"
+        className="fixed top-0 left-0 w-3 h-3 text-[#61dafb41] pointer-events-none z-[99999]"
       />
     </div>
   );
