@@ -54,60 +54,61 @@ const FeaturedWork = () => {
   useEffect(() => {
     let ctx = gsap.context(() => {
       
-      // 1. Title Reveal & Light-On Animation
+      // 1. Massive Vertical Title - "Light on" effect
       const titleWords = gsap.utils.toArray(".light-text");
       
-      // Turn on lights (color to white) sequentially as user scrolls
-      gsap.to(titleWords, {
-        color: "white",
-        stagger: 0.2,
-        ease: "none",
-        scrollTrigger: {
-          trigger: ".title-container",
-          start: "top 80%",
-          end: "bottom 50%",
-          scrub: true,
+      titleWords.forEach(word => {
+        // Only trigger color change if it's not the into-text (which handles its own opacity)
+        if (!word.classList.contains("into-text")) {
+          gsap.to(word, {
+            color: "rgba(255, 255, 255, 1)",
+            ease: "none",
+            scrollTrigger: {
+              trigger: word,
+              start: "top 70%", // Light up when word reaches 70% of screen height
+              end: "top 40%",   // Fully lit by 40%
+              scrub: true,
+            }
+          });
         }
       });
 
-      // 1b. Replace "into" with "elegant solutions"
+      // 1b. The "into" Swap and Elegant Strip Animation
       const replaceTimeline = gsap.timeline({
         scrollTrigger: {
-          trigger: ".title-container",
-          start: "bottom 60%", // when user scrolls past the title area
-          end: "bottom 30%",
+          trigger: ".into-container",
+          start: "top 60%", 
+          end: "top 30%",
           scrub: true,
         }
       });
 
+      // Turn on "into", then fade it out, and fade in "elegant solutions" while scaling the strip
       replaceTimeline
-        .to(".into-text", { opacity: 0, scale: 0.8, duration: 0.5 }, 0)
+        .fromTo(".into-text", { color: "rgba(255,255,255,0.1)", opacity: 1, scale: 1 }, { color: "rgba(255,255,255,1)", opacity: 0, scale: 0.8, duration: 0.5 }, 0)
         .fromTo(".elegant-replacement", 
-          { opacity: 0, scale: 0.8, rotate: 0 }, 
-          { opacity: 1, scale: 1, rotate: -2, duration: 0.5 }, 0
+          { opacity: 0, scale: 0.8 }, 
+          { opacity: 1, scale: 1, duration: 0.5 }, 0
         )
         .fromTo(".elegant-strip",
           { scaleX: 0 },
           { scaleX: 1, duration: 0.5 }, 0
         );
 
-      // 2. Horizontal Scroll Logic
+      // 2. Horizontal Scroll Logic for Projects
       const track = trackRef.current;
-      
-      // Calculate exactly how far we need to slide to the left
-      // scrollWidth is total content width, clientWidth is viewport width
       const getScrollAmount = () => track.scrollWidth - window.innerWidth;
 
       const horizontalTween = gsap.to(track, {
         x: () => -getScrollAmount(),
         ease: "none",
         scrollTrigger: {
-          trigger: track, // Pin the track itself, not the whole section
+          trigger: track, 
           pin: true,
           scrub: 1,
-          start: "top 10%", // Pin when track reaches near top
+          start: "top 10%", 
           end: () => `+=${getScrollAmount()}`,
-          invalidateOnRefresh: true, // Recalculate if window resizes
+          invalidateOnRefresh: true, 
         }
       });
 
@@ -121,13 +122,13 @@ const FeaturedWork = () => {
         const br = card.querySelector('.corner-br');
 
         gsap.from([tl, tr, bl, br], {
-          x: (i) => (i % 2 === 0 ? -40 : 40), // Offset X based on index (tl:0, tr:1, bl:2, br:3)
-          y: (i) => (i < 2 ? -40 : 40),       // Offset Y
+          x: (i) => (i % 2 === 0 ? -40 : 40), 
+          y: (i) => (i < 2 ? -40 : 40),       
           opacity: 0,
           scrollTrigger: {
             trigger: card,
             containerAnimation: horizontalTween,
-            start: "left 80%", // Assemble when card enters from right
+            start: "left 80%", 
             end: "center center",
             scrub: true,
           }
@@ -151,7 +152,7 @@ const FeaturedWork = () => {
     const xc = rect.width / 2;
     const yc = rect.height / 2;
 
-    const rotateX = -(y - yc) / 20; // Soften the tilt slightly
+    const rotateX = -(y - yc) / 20; 
     const rotateY = (x - xc) / 20;
 
     gsap.to(card, {
@@ -176,33 +177,42 @@ const FeaturedWork = () => {
   };
 
   return (
-    <section ref={sectionRef} id="featured-work" className="relative min-h-screen w-full bg-black py-24 md:py-32">
+    <section ref={sectionRef} id="featured-work" className="relative min-h-screen w-full bg-black">
       
-      {/* 1. Grid Background & Radial Glow */}
+      {/* 1. Grid Background & Radial Glow (Stretches across entire section) */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none"></div>
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-[120px] pointer-events-none"></div>
+      
+      {/* 2. Massive Vertical Scroll Title Sequence */}
+      <div className="relative z-10 w-full flex flex-col items-center py-[20vh] mb-32 select-none overflow-hidden">
+        
+        {/* We place the glow pinned behind the text so it follows down, or just fixed to viewport */}
+        <div className="sticky top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] md:w-[500px] md:h-[500px] bg-blue-500/10 rounded-full blur-[120px] pointer-events-none -z-10"></div>
 
-      {/* 2. Vertical Title Layout with Light-on effect */}
-      <div className="title-container relative z-10 text-center max-w-5xl mx-auto px-6 w-full pointer-events-none select-none mb-48 pt-20">
-        <h1 className="flex flex-col text-[12vw] sm:text-[10vw] md:text-[8vw] lg:text-[7vw] font-black uppercase tracking-wider text-white/10 leading-[0.9] transition-colors">
-          <span className="light-text block">Turning</span>
-          <span className="light-text block">complex</span>
-          <span className="light-text block text-transparent bg-clip-text bg-blue-500/10">problems</span>
+        <h1 className="flex flex-col items-center text-center text-[18vw] sm:text-[15vw] md:text-[12vw] lg:text-[10vw] font-black uppercase tracking-widest text-white/10 leading-[1.1] w-full">
+          <span className="light-text">Turning</span>
+          <span className="light-text">complex</span>
+          <span className="light-text">problems</span>
           
-          <div className="relative mt-4 h-[1em] flex justify-center items-center">
-            {/* The word INTO that fades out */}
-            <span className="light-text into-text absolute inset-0 flex items-center justify-center">into</span>
+          {/* The into / elegant solutions swap container */}
+          <div className="into-container relative flex justify-center items-center w-full h-[1.2em] my-4 lg:my-8">
+            <span className="light-text into-text absolute">into</span>
             
-            {/* The ELEGANT SOLUTIONS replacement that scales in */}
-            <span className="elegant-replacement absolute inset-0 flex items-center justify-center">
-              <span className="relative px-6 sm:px-12 py-2 text-[6vw] sm:text-[5vw] md:text-[4vw] lg:text-[3.5vw] text-white">
-                <span className="relative z-10">elegant solutions</span>
-                <div className="elegant-strip absolute inset-0 bg-blue-600 rounded-lg shadow-[0_0_40px_rgba(37,99,235,0.5)] origin-left -z-10"></div>
+            <span className="elegant-replacement absolute opacity-0 flex justify-center items-center">
+              <span className="relative px-6 md:px-12 py-2 text-white -rotate-2 inline-block">
+                <span className="relative z-10 text-[8vw] sm:text-[7vw] md:text-[5vw] lg:text-[4vw] whitespace-nowrap">elegant solutions</span>
+                <div className="elegant-strip absolute inset-0 bg-blue-600 rounded-lg shadow-[0_0_40px_rgba(37,99,235,0.5)] origin-left -z-10 scale-x-0"></div>
               </span>
             </span>
           </div>
+
+          <span className="light-text">one</span>
+          <span className="light-text">line</span>
+          <span className="light-text">of</span>
+          <span className="light-text">code</span>
+          <span className="light-text">at</span>
+          <span className="light-text">a</span>
+          <span className="light-text">time</span>
         </h1>
-        <p className="light-text text-white/10 text-xl md:text-3xl lg:text-4xl w-full mt-12 tracking-normal lowercase block">one line of code at a time</p>
       </div>
 
       {/* Horizontal Scrolling Track - Pinning Target */}
