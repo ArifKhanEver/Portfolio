@@ -349,9 +349,10 @@ const FeaturedWork = () => {
                   vectorEffect="non-scaling-stroke"
                 />
                 {/* top-right: LARGE chamfered/diamond-cut corner
-                    Mathematically aligned to perfectly parallel a 60px cut on the card */}
+                    Mathematically offset 16px outward from the card's 60px cut 
+                    to maintain a perfectly uniform gap all the way around. */}
                 <polyline
-                  points="440,0 540,0 632,92 632,192"
+                  points="463,0 563,0 632,69 632,169"
                   fill="none" stroke="#38bdf8" strokeWidth="2.5" strokeLinecap="square"
                   vectorEffect="non-scaling-stroke"
                 />
