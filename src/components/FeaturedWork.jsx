@@ -181,7 +181,7 @@ const FeaturedWork = () => {
     <section ref={sectionRef} id="featured-work" className="relative min-h-screen w-full bg-black">
       
       {/* 1. Grid Background (Stretches across entire section) */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none"></div>
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff15_1px,transparent_1px),linear-gradient(to_bottom,#ffffff15_1px,transparent_1px)] bg-[size:80px_80px] pointer-events-none"></div>
       
       {/* 2. Massive Vertical Scroll Title Sequence */}
       <div className="relative z-10 w-full flex flex-col items-center pt-12 md:pt-24 pb-[30vh] select-none overflow-hidden">
@@ -189,7 +189,8 @@ const FeaturedWork = () => {
         {/* Animated radial glow that moves from top-right to bottom-left */}
         <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden">
           <div className="sticky top-0 w-full h-screen">
-            <div className="scroll-glow absolute right-0 top-0 w-[400px] h-[400px] md:w-[600px] md:h-[600px] bg-[#1877F2]/20 rounded-full blur-[120px] -translate-y-1/4 translate-x-1/4"></div>
+            {/* Increased brightness by using /40 instead of /20 */}
+            <div className="scroll-glow absolute right-0 top-0 w-[400px] h-[400px] md:w-[600px] md:h-[600px] bg-[#1877F2]/40 rounded-full blur-[100px] -translate-y-1/4 translate-x-1/4"></div>
           </div>
         </div>
 
