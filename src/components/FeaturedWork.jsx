@@ -140,6 +140,28 @@ const FeaturedWork = () => {
         });
       });
       
+      // 4. Featured Work Showcase Slide-Up & Clip-path
+      const showcaseTimeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: track,
+          start: "top 75%", // Trigger as the horizontal track container enters the screen vertically
+          end: "top 20%",
+          scrub: true,
+        }
+      });
+
+      showcaseTimeline
+        .to(".showcase-word", {
+          y: 0,
+          opacity: 1,
+          stagger: 0.2,
+          ease: "power2.out",
+        })
+        .to(".work-replacement", {
+          clipPath: "inset(0% 0% 0% 0%)",
+          ease: "none",
+        }, "-=0.2");
+      
     }, sectionRef);
 
     return () => ctx.revert();
@@ -231,6 +253,26 @@ const FeaturedWork = () => {
       {/* Horizontal Scrolling Track - Pinning Target */}
       <div ref={trackRef} className="relative flex items-center h-[80vh] w-max px-6 md:px-16 lg:px-32 z-20">
         <div className="flex gap-12 lg:gap-24 h-full items-center">
+          
+          {/* NEW: Horizontal Intro Title */}
+          <div className="w-[80vw] md:w-[60vw] lg:w-[600px] flex-shrink-0">
+            <h2 className="flex flex-col text-[12vw] sm:text-[10vw] md:text-[8vw] lg:text-[7vw] font-black uppercase tracking-tight text-white leading-[1.1]">
+              <span className="showcase-word opacity-0 translate-y-20 block">FEATURED</span>
+              
+              <div className="showcase-word opacity-0 translate-y-20 relative flex items-center w-full h-[1.3em] my-2 lg:my-4">
+                <span 
+                  className="work-replacement absolute z-10 flex items-center"
+                  style={{ clipPath: 'inset(0% 100% 0% 0%)' }}
+                >
+                  <span className="bg-[#1877F2] text-white px-4 md:px-8 py-1 md:py-2 -rotate-2 inline-block border-2 md:border-4 border-white shadow-2xl">
+                    WORK
+                  </span>
+                </span>
+              </div>
+
+              <span className="showcase-word opacity-0 translate-y-20 block">SHOWCASE</span>
+            </h2>
+          </div>
           
           {PROJECTS.map((project, idx) => (
             <div 
