@@ -36,9 +36,10 @@ const Navbar = () => {
   const navLinks = [
     { name: 'Home', href: '#home' },
     { name: 'About', href: '#about' },
-    { name: 'Experience', href: '#experience' },
     { name: 'Skills', href: '#skills' },
+    { name: 'Services', href: '#services' },
     { name: 'Portfolio', href: '#projects' },
+    { name: 'Education', href: '#education' },
     { name: 'Contact', href: '#contact' },
   ];
 
@@ -61,7 +62,7 @@ const Navbar = () => {
         </Link>
 
         {/* Desktop Menu - Aligned Right */}
-        <ul className="hidden lg:flex items-center justify-end gap-10 w-full">
+        <ul className="hidden lg:flex items-center justify-end gap-6 lg:gap-8 w-full">
           {navLinks.map((link) => {
             const isActive = activeSection === link.href.substring(1);
             return (

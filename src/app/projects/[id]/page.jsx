@@ -52,20 +52,23 @@ const ProjectDetails = () => {
 
   if (!project) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#FAF9F6]">
-        <h2 className="text-2xl font-bold text-slate-800">Project not found!</h2>
+      <div className="min-h-screen flex items-center justify-center bg-[#02050A]">
+        <h2 className="text-2xl font-bold text-white">Project not found!</h2>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#FAF9F6] py-12 md:py-24 px-6">
-      <div className="max-w-5xl mx-auto">
+    <div className="min-h-screen bg-[#02050A] py-12 md:py-24 px-6 relative overflow-hidden">
+      {/* Background Grid Pattern */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff10_1px,transparent_1px),linear-gradient(to_bottom,#ffffff10_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none z-0"></div>
+      
+      <div className="max-w-6xl mx-auto relative z-10">
         
         {/* Back Button */}
         <button 
           onClick={() => router.back()}
-          className="flex items-center gap-2 text-slate-500 hover:text-[#149988] font-bold mb-10 transition-colors group"
+          className="flex items-center gap-2 text-gray-400 hover:text-primary font-bold mb-10 transition-colors group tracking-wider uppercase text-sm"
         >
           <FiArrowLeft className="group-hover:-translate-x-1 transition-transform" /> Back to Projects
         </button>
@@ -74,7 +77,7 @@ const ProjectDetails = () => {
           
           {/* Left Column: Image & Links */}
           <div className="lg:col-span-7 space-y-8">
-            <div className="relative h-[300px] md:h-[450px] rounded-[40px] overflow-hidden shadow-2xl shadow-teal-900/10 border-8 border-white">
+            <div className="relative h-[300px] md:h-[450px] rounded-[40px] overflow-hidden shadow-[0_10px_30px_rgba(6,143,255,0.15)] border border-white/10 group">
               <Image 
                 src={project.image} 
                 alt={project.name} 
@@ -87,14 +90,14 @@ const ProjectDetails = () => {
               <a 
                 href={project.liveLink} 
                 target="_blank" 
-                className="flex-1 flex items-center justify-center gap-2 bg-[#149988] text-white py-4 rounded-2xl font-bold hover:bg-[#0f7d6f] transition-all shadow-lg shadow-teal-900/20 active:scale-95"
+                className="flex-1 flex items-center justify-center gap-2 bg-primary text-white py-4 rounded-xl font-bold hover:bg-accent hover:text-black transition-all shadow-[0_0_15px_rgba(6,143,255,0.5)] active:scale-95 uppercase tracking-widest text-sm"
               >
                 <FiExternalLink size={20} /> Live Preview
               </a>
               <a 
                 href={project.githubLink} 
                 target="_blank" 
-                className="flex-1 flex items-center justify-center gap-2 bg-slate-900 text-white py-4 rounded-2xl font-bold hover:bg-slate-800 transition-all shadow-lg active:scale-95"
+                className="flex-1 flex items-center justify-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 text-white py-4 rounded-xl font-bold hover:bg-white hover:text-black transition-all shadow-lg active:scale-95 uppercase tracking-widest text-sm"
               >
                 <FiGithub size={20} /> View Source
               </a>
@@ -104,10 +107,10 @@ const ProjectDetails = () => {
           {/* Right Column: Details */}
           <div className="lg:col-span-5 space-y-10">
             <div>
-              <h1 className="text-4xl md:text-5xl font-black text-slate-900 mb-4">{project.name}</h1>
+              <h1 className="text-5xl md:text-6xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent uppercase tracking-tighter mb-4">{project.name}</h1>
               <div className="flex flex-wrap gap-2">
                 {project.stack.map((tech) => (
-                  <span key={tech} className="px-3 py-1 bg-white border border-slate-200 text-slate-500 text-[10px] font-black uppercase rounded-lg">
+                  <span key={tech} className="px-3 py-1.5 bg-white/5 border border-white/10 text-gray-300 text-[10px] font-bold uppercase tracking-wider rounded-lg hover:border-primary/30 hover:text-primary transition-all">
                     {tech}
                   </span>
                 ))}
@@ -115,25 +118,25 @@ const ProjectDetails = () => {
             </div>
 
             <div className="space-y-6">
-              <section>
-                <h3 className="flex items-center gap-2 text-slate-900 font-black uppercase tracking-widest text-xs mb-3">
-                  <FiCode className="text-[#149988]" /> Description
+              <section className="p-6 bg-[#0B0F19] rounded-2xl border border-white/5">
+                <h3 className="flex items-center gap-2 text-white font-bold uppercase tracking-widest text-xs mb-3">
+                  <FiCode className="text-primary" /> Description
                 </h3>
-                <p className="text-slate-500 font-medium leading-relaxed">{project.description}</p>
+                <p className="text-gray-400 font-light leading-relaxed">{project.description}</p>
               </section>
 
-              <section className="p-6 bg-orange-50 rounded-3xl border border-orange-100">
-                <h3 className="flex items-center gap-2 text-orange-700 font-black uppercase tracking-widest text-xs mb-3">
-                  <FiZap /> Challenges Faced
+              <section className="p-6 bg-[#0B0F19] rounded-2xl border border-white/5">
+                <h3 className="flex items-center gap-2 text-white font-bold uppercase tracking-widest text-xs mb-3">
+                  <FiZap className="text-accent" /> Challenges Faced
                 </h3>
-                <p className="text-orange-900/70 text-sm font-medium leading-relaxed">{project.challenges}</p>
+                <p className="text-gray-400 font-light leading-relaxed">{project.challenges}</p>
               </section>
 
-              <section className="p-6 bg-[#E6F4F1] rounded-3xl border border-[#149988]/10">
-                <h3 className="flex items-center gap-2 text-[#149988] font-black uppercase tracking-widest text-xs mb-3">
-                  <FiTarget /> Future Improvements
+              <section className="p-6 bg-[#0B0F19] rounded-2xl border border-white/5">
+                <h3 className="flex items-center gap-2 text-white font-bold uppercase tracking-widest text-xs mb-3">
+                  <FiTarget className="text-primary" /> Future Improvements
                 </h3>
-                <p className="text-[#149988]/80 text-sm font-medium leading-relaxed">{project.improvements}</p>
+                <p className="text-gray-400 font-light leading-relaxed">{project.improvements}</p>
               </section>
             </div>
           </div>
