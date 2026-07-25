@@ -13,6 +13,12 @@
     font-family: var(--font-poppins) !important;
   }
 
+  @media (pointer: fine) {
+    body, a, button, [role="button"] {
+      cursor: none !important;
+    }
+  }
+
   * {
     font-family: var(--font-poppins), sans-serif;
   }

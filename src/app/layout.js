@@ -2,6 +2,7 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import CustomCursor from "@/components/CustomCursor";
 import { ThemeProvider } from "next-themes";
 
 const poppins = Poppins({
@@ -21,6 +22,7 @@ export default function RootLayout({ children }) {
     <html lang="en" className={`${poppins.variable} h-full antialiased`} suppressHydrationWarning>
       <body className={`${poppins.className} font-sans min-h-full flex flex-col bg-white text-slate-900 dark:bg-black dark:text-zinc-100 transition-colors duration-500`}>
         <ThemeProvider attribute="class" defaultTheme="system">
+          <CustomCursor />
           <Navbar></Navbar>
           <main>{children}</main>
           <Footer></Footer>
