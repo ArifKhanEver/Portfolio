@@ -220,7 +220,7 @@ const FeaturedWork = () => {
           </div>
         </div>
 
-        <h1 className="relative z-10 flex flex-col items-center text-center text-[12vw] sm:text-[10vw] md:text-[8vw] lg:text-[7vw] font-black uppercase tracking-tight text-white/20 leading-[1.1] w-full">
+        <h1 className="relative z-10 flex flex-col items-center text-center text-[12vw] sm:text-[10vw] md:text-[8vw] lg:text-[7vw] font-semibold uppercase tracking-tight text-white/20 leading-[1.1] w-full">
           <span className="light-text">TURNING</span>
           <span className="light-text">COMPLEX</span>
           <span className="light-text">PROBLEMS</span>
@@ -231,10 +231,10 @@ const FeaturedWork = () => {
             
             {/* ELEGANT SOLUTIONS block sliding/clipping in from left */}
             <span 
-              className="elegant-replacement absolute z-10 flex justify-center items-center"
+              className="elegant-replacement absolute z-10 flex justify-center items-center p-2"
               style={{ clipPath: 'inset(0% 100% 0% 0%)' }}
             >
-              <span className="bg-[#1877F2] text-white px-4 md:px-8 py-1 md:py-2 -rotate-2 inline-block shadow-2xl">
+              <span className="bg-gradient-to-br from-blue-400 to-blue-600 text-white px-4 md:px-8 py-1 md:py-2 -rotate-2 inline-block shadow-2xl">
                 ELEGANT SOLUTIONS
               </span>
             </span>
@@ -245,7 +245,7 @@ const FeaturedWork = () => {
         </h1>
         
         {/* Subtitle paragraph */}
-        <p className="light-text text-white/30 text-sm md:text-base lg:text-lg max-w-xl mx-auto text-center mt-16 leading-relaxed px-6 font-medium tracking-wide">
+        <p className="light-text text-white/30 text-sm md:text-base lg:text-lg max-w-xl mx-auto text-center mt-16 leading-relaxed px-6 tracking-wide">
           Building scalable full-stack applications with modern technologies. From MongoDB to React, NextJS to Postgres. I craft digital experiences that users love
         </p>
       </div>
@@ -256,15 +256,15 @@ const FeaturedWork = () => {
           
           {/* NEW: Horizontal Intro Title */}
           <div className="w-[80vw] md:w-[60vw] lg:w-[600px] flex-shrink-0">
-            <h2 className="flex flex-col text-[12vw] sm:text-[10vw] md:text-[8vw] lg:text-[7vw] font-black uppercase tracking-tight text-white leading-[1.1]">
+            <h2 className="flex flex-col text-[12vw] sm:text-[10vw] md:text-[8vw] lg:text-[7vw] font-semibold uppercase tracking-tight text-white leading-[1.1]">
               <span className="showcase-word opacity-0 translate-y-20 block">FEATURED</span>
               
               <div className="showcase-word opacity-0 translate-y-20 relative flex items-center w-full h-[1.3em] my-2 lg:my-4">
                 <span 
-                  className="work-replacement absolute z-10 flex items-center"
+                  className="work-replacement absolute z-10 flex items-center p-2"
                   style={{ clipPath: 'inset(0% 100% 0% 0%)' }}
                 >
-                  <span className="bg-[#1877F2] text-white px-4 md:px-8 py-1 md:py-2 -rotate-2 inline-block border-2 md:border-4 border-white shadow-2xl">
+                  <span className="bg-gradient-to-br from-blue-400 to-blue-600 text-white px-4 md:px-8 py-1 md:py-2 -rotate-2 inline-block border-2 md:border-4 border-white shadow-2xl">
                     WORK
                   </span>
                 </span>
