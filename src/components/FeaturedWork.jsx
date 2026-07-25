@@ -54,33 +54,42 @@ const FeaturedWork = () => {
   useEffect(() => {
     let ctx = gsap.context(() => {
       
-      // 1. Title Reveal Animation
-      gsap.from(".title-word", {
-        y: 50,
-        opacity: 0,
-        duration: 1,
-        stagger: 0.1,
-        ease: "power3.out",
+      // 1. Title Reveal & Light-On Animation
+      const titleWords = gsap.utils.toArray(".light-text");
+      
+      // Turn on lights (color to white) sequentially as user scrolls
+      gsap.to(titleWords, {
+        color: "white",
+        stagger: 0.2,
+        ease: "none",
         scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 75%",
+          trigger: ".title-container",
+          start: "top 80%",
+          end: "bottom 50%",
+          scrub: true,
         }
       });
 
-      // 1b. Elegant Strip Grow Animation
-      gsap.fromTo(".elegant-strip", 
-        { scaleX: 0 },
-        {
-          scaleX: 1,
-          ease: "none",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 60%", // Start growing as the user scrolls down
-            end: "top 20%",
-            scrub: true,
-          }
+      // 1b. Replace "into" with "elegant solutions"
+      const replaceTimeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".title-container",
+          start: "bottom 60%", // when user scrolls past the title area
+          end: "bottom 30%",
+          scrub: true,
         }
-      );
+      });
+
+      replaceTimeline
+        .to(".into-text", { opacity: 0, scale: 0.8, duration: 0.5 }, 0)
+        .fromTo(".elegant-replacement", 
+          { opacity: 0, scale: 0.8, rotate: 0 }, 
+          { opacity: 1, scale: 1, rotate: -2, duration: 0.5 }, 0
+        )
+        .fromTo(".elegant-strip",
+          { scaleX: 0 },
+          { scaleX: 1, duration: 0.5 }, 0
+        );
 
       // 2. Horizontal Scroll Logic
       const track = trackRef.current;
@@ -173,20 +182,27 @@ const FeaturedWork = () => {
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none"></div>
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-[120px] pointer-events-none"></div>
 
-      {/* 2. Exact Title Layout - Normal Document Flow (No Absolute Positioning) */}
-      <div className="relative z-10 text-center max-w-5xl mx-auto px-6 w-full pointer-events-none select-none mb-32">
-        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold uppercase tracking-wider text-white flex flex-wrap justify-center gap-x-4 gap-y-3 leading-tight">
-          <span className="title-word">Turning</span>
-          <span className="title-word">complex</span>
-          <span className="title-word text-blue-500">problems</span>
-          <span className="title-word">into</span>
-          <span className="title-word relative px-4 py-1 text-white -rotate-2 transform inline-block">
-            <span className="relative z-10">elegant</span>
-            <div className="elegant-strip absolute inset-0 bg-blue-600 rounded-sm shadow-xl shadow-blue-500/20 origin-left -z-10"></div>
-          </span>
-          <span className="title-word">solutions</span>
-          <span className="title-word text-white/50 text-xl md:text-3xl lg:text-4xl w-full mt-4 tracking-normal lowercase block">one line of code at a time</span>
+      {/* 2. Vertical Title Layout with Light-on effect */}
+      <div className="title-container relative z-10 text-center max-w-5xl mx-auto px-6 w-full pointer-events-none select-none mb-48 pt-20">
+        <h1 className="flex flex-col text-[12vw] sm:text-[10vw] md:text-[8vw] lg:text-[7vw] font-black uppercase tracking-wider text-white/10 leading-[0.9] transition-colors">
+          <span className="light-text block">Turning</span>
+          <span className="light-text block">complex</span>
+          <span className="light-text block text-transparent bg-clip-text bg-blue-500/10">problems</span>
+          
+          <div className="relative mt-4 h-[1em] flex justify-center items-center">
+            {/* The word INTO that fades out */}
+            <span className="light-text into-text absolute inset-0 flex items-center justify-center">into</span>
+            
+            {/* The ELEGANT SOLUTIONS replacement that scales in */}
+            <span className="elegant-replacement absolute inset-0 flex items-center justify-center">
+              <span className="relative px-6 sm:px-12 py-2 text-[6vw] sm:text-[5vw] md:text-[4vw] lg:text-[3.5vw] text-white">
+                <span className="relative z-10">elegant solutions</span>
+                <div className="elegant-strip absolute inset-0 bg-blue-600 rounded-lg shadow-[0_0_40px_rgba(37,99,235,0.5)] origin-left -z-10"></div>
+              </span>
+            </span>
+          </div>
         </h1>
+        <p className="light-text text-white/10 text-xl md:text-3xl lg:text-4xl w-full mt-12 tracking-normal lowercase block">one line of code at a time</p>
       </div>
 
       {/* Horizontal Scrolling Track - Pinning Target */}
