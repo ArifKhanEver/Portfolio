@@ -75,13 +75,13 @@ const Contact = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} id="contact" className="w-full py-24 bg-[#02050A] relative overflow-hidden border-t border-white/5">
-      <div className="container mx-auto px-6 relative z-10 max-w-6xl">
+    <section ref={sectionRef} id="contact" className="w-full py-24 md:py-32 bg-[#02050A] relative overflow-hidden border-t border-white/5">
+      <div className="container mx-auto px-6 max-w-7xl relative z-10">
         
         {/* Header Section */}
         <div className="text-center mb-20 relative">
           <h4 className="text-gray-400 text-[10px] md:text-xs font-bold tracking-[0.3em] uppercase mb-4">Get In Touch</h4>
-          <h2 className="contact-title text-5xl md:text-7xl lg:text-[90px] font-semibold text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent mb-6 uppercase tracking-tighter leading-none">
+          <h2 className="contact-title text-5xl md:text-6xl lg:text-7xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent mb-6 uppercase tracking-tighter leading-none">
             Let's Connect
           </h2>
           <p className="text-gray-400 font-light mx-auto text-sm">

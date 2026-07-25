@@ -50,7 +50,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="w-full bg-[#02050A] relative overflow-hidden border-t border-white/5 pt-20 pb-6"
+    <footer className="w-full bg-[#02050A] relative overflow-hidden border-t border-white/5 pt-24 md:pt-32 pb-6"
       style={{
         backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px)',
         backgroundSize: '24px 24px'
@@ -62,7 +62,7 @@ const Footer = () => {
           
           {/* Column 1: Info & Stats */}
           <div className="lg:col-span-5 space-y-6">
-            <h2 className="text-4xl md:text-5xl font-semibold text-cyan-400 tracking-tight leading-tight mb-4">
+            <h2 className="text-5xl md:text-6xl lg:text-7xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent uppercase tracking-tighter mb-4">
               &gt; Shafiqul Islam Khan &lt;
             </h2>
             <p className="text-gray-400 text-sm leading-relaxed max-w-md">
@@ -190,12 +190,12 @@ const Footer = () => {
           </div>
 
           <div className="flex items-center gap-1 uppercase tracking-widest text-center md:text-left">
-            © {currentYear} Arif Khan <span className="mx-2">|</span> Built with <span className="text-blue-500 text-sm mx-1">💙</span> and Vitamin-C
+            © {currentYear} Shafiqul Islam Khan <span className="mx-2">|</span> Built with <span className="text-blue-500 text-sm mx-1">💙</span> and Uranium-235 (U-235)
           </div>
 
           <div className="flex items-center gap-2 font-bold tracking-widest uppercase">
             <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
-            System_Online <span className="text-gray-600 ml-2">v3.8.5</span>
+            System_Online <span className="text-gray-600 ml-2">v2.1.0</span>
           </div>
 
         </div>

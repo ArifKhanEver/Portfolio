@@ -60,18 +60,18 @@ const Hero = () => {
     const googleDriveCVLink = "https://drive.google.com/file/d/YOUR_FILE_ID/view?usp=sharing";
 
     return (
-        <section id="home" ref={containerRef} className="relative bg-theme-black min-h-screen overflow-hidden flex items-center w-full">
-            <div className="w-full px-6 md:px-12 lg:px-24 xl:px-32 py-20 relative z-10 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16">
+        <section id="home" ref={containerRef} className="relative bg-[#02050A] min-h-screen overflow-hidden flex items-center w-full">
+            <div className="container mx-auto px-6 max-w-7xl py-24 md:py-32 relative z-10 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16">
                 
                 {/* Left Content */}
                 <div className="lg:w-[55%] text-left flex flex-col items-start z-10">
-                    <h2 className="reveal-element text-4xl sm:text-5xl lg:text-7xl font-bold uppercase leading-tight flex flex-wrap items-center gap-x-4 text-white">
+                    <h2 className="reveal-element text-5xl md:text-6xl lg:text-7xl font-semibold uppercase leading-tight flex flex-wrap items-center gap-x-4 text-white">
                         <span>HELLO</span>
                         <div className="inline-block cursor-pointer hover:animate-wave-fast animate-wave-gentle origin-bottom" role="img" aria-label="Waving Hand">👋</div>
                         <span className="text-transparent" style={{ WebkitTextStroke: "2px white" }}>I'M</span>
                     </h2>
                     
-                    <h1 className="reveal-element text-primary text-5xl sm:text-6xl lg:text-7xl font-extrabold uppercase mt-4 leading-tight tracking-tight">
+                    <h1 className="reveal-element text-5xl md:text-6xl lg:text-7xl font-semibold uppercase mt-4 leading-tight tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
                         Shafiqul Islam<br/>Khan
                     </h1>
 

@@ -59,7 +59,7 @@ const Services = () => {
   }, { scope: containerRef });
 
   return (
-    <section id="services" ref={containerRef} className="min-h-screen bg-theme-black rounded-t-[2.5rem] relative">
+    <section id="services" ref={containerRef} className="min-h-screen bg-[#02050A] rounded-t-[2.5rem] relative">
       <div>
         <div>
           <div style={{ clipPath: "polygon(0 0, 100% 0, 100% 120%, 0 120%)" }}>
@@ -68,7 +68,7 @@ const Services = () => {
                 Where Clean Code Meets Chaos Control
               </p>
               <div className="px-6 sm:px-10">
-                <h1 className="reveal-text flex flex-col gap-4 sm:gap-12 uppercase text-6xl md:text-8xl lg:text-[10rem] font-black text-white select-none">
+                <h1 className="reveal-text flex flex-col gap-4 sm:gap-12 uppercase text-6xl md:text-8xl lg:text-[10rem] font-semibold text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent select-none">
                   <span>Services</span>
                 </h1>
               </div>
@@ -95,13 +95,13 @@ const Services = () => {
             className="sticky w-full"
             style={{ top: `calc(2vh + ${index * 130}px)`, zIndex: index + 1 }}
           >
-            <div className="service-card px-6 md:px-10 pt-8 sm:pt-12 pb-12 text-white bg-theme-black border-t border-white/20 w-full min-h-[480px] lg:min-h-[580px] transform-gpu origin-top">
+            <div className="service-card px-6 md:px-10 pt-8 sm:pt-12 pb-12 text-white bg-[#02050A] border-t border-white/20 w-full min-h-[480px] lg:min-h-[580px] transform-gpu origin-top">
               <div className="flex items-start justify-between gap-6 sm:gap-10 flex-col lg:flex-row">
                 
                 {/* Left Side: Title & Description */}
                 <div className="flex flex-col gap-4 sm:gap-8 w-full lg:w-1/2">
                   <div className="h-[5rem] lg:h-[7rem] flex items-start">
-                    <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter uppercase leading-none text-white select-none">
+                    <h2 className="text-5xl md:text-6xl lg:text-7xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent uppercase tracking-tighter leading-none select-none">
                       {service.title}
                     </h2>
                   </div>

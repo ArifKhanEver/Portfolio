@@ -5,11 +5,32 @@ import Link from 'next/link';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    // Intersection Observer for active sections
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    }, { threshold: 0.3, rootMargin: "-20% 0px -40% 0px" });
+
+    // Ensure we run this after the DOM is ready
+    setTimeout(() => {
+      document.querySelectorAll('section[id]').forEach((section) => {
+        observer.observe(section);
+      });
+    }, 500);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      observer.disconnect();
+    };
   }, []);
 
   const navLinks = [
@@ -41,16 +62,24 @@ const Navbar = () => {
 
         {/* Desktop Menu - Aligned Right */}
         <ul className="hidden lg:flex items-center justify-end gap-10 w-full">
-          {navLinks.map((link) => (
-            <li key={link.name}>
-              <Link 
-                href={link.href} 
-                className="text-sm font-bold text-gray-300 hover:text-primary transition-all relative group/link tracking-wider uppercase"
-              >
-                {link.name}
-              </Link>
-            </li>
-          ))}
+          {navLinks.map((link) => {
+            const isActive = activeSection === link.href.substring(1);
+            return (
+              <li key={link.name}>
+                <Link 
+                  href={link.href} 
+                  className={`text-sm font-bold transition-all relative group/link tracking-wider uppercase ${
+                    isActive ? "text-primary" : "text-gray-300 hover:text-primary"
+                  }`}
+                >
+                  {link.name}
+                  <span className={`absolute -bottom-1.5 left-0 h-[2px] bg-primary transition-all duration-300 ${
+                    isActive ? "w-full" : "w-0 group-hover/link:w-full"
+                  }`}></span>
+                </Link>
+              </li>
+            );
+          })}
         </ul>
 
       </div>

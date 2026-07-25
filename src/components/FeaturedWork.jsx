@@ -260,7 +260,7 @@ const FeaturedWork = () => {
   };
 
   return (
-    <section ref={sectionRef} id="featured-work" className="relative min-h-screen w-full bg-black">
+    <section ref={sectionRef} id="projects" className="relative min-h-screen w-full bg-[#02050A]">
 
       {/* 1. Grid Background */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff15_1px,transparent_1px),linear-gradient(to_bottom,#ffffff15_1px,transparent_1px)] bg-[size:80px_80px] pointer-events-none z-0"></div>

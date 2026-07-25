@@ -52,12 +52,18 @@ const Skills = () => {
   }, { scope: containerRef });
 
   return (
-    <section id="skills" ref={containerRef} className="w-full py-20 bg-theme-black relative overflow-hidden">
+    <section id="skills" ref={containerRef} className="w-full py-24 md:py-32 bg-[#02050A] relative overflow-hidden border-t border-white/5">
       
       {/* Background Grid Pattern */}
       <div className="absolute inset-0 opacity-10 pointer-events-none">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff10_1px,transparent_1px)] bg-[size:4rem_4rem]"></div>
         <div className="absolute inset-0 bg-[linear-gradient(to_bottom,#ffffff10_1px,transparent_1px)] bg-[size:4rem_4rem]"></div>
+      </div>
+
+      <div className="container mx-auto px-6 max-w-7xl relative z-10 mb-16 text-center">
+        <h2 className="text-5xl md:text-6xl lg:text-7xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent uppercase tracking-tighter leading-tight">
+          Technical Arsenal
+        </h2>
       </div>
 
       <div className="relative space-y-16">
@@ -115,8 +121,8 @@ const Skills = () => {
       </div>
       
       {/* Fade borders to make it look smooth on edges */}
-      <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-theme-black to-transparent pointer-events-none z-10"></div>
-      <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-theme-black to-transparent pointer-events-none z-10"></div>
+      <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[#02050A] to-transparent pointer-events-none z-10"></div>
+      <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-[#02050A] to-transparent pointer-events-none z-10"></div>
     </section>
   );
 };

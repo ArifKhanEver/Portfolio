@@ -94,24 +94,24 @@ const Education = () => {
     <section
       id="education"
       ref={sectionRef}
-      className="w-full py-24 bg-white dark:bg-black relative overflow-hidden border-b border-slate-50 dark:border-zinc-900"
+      className="w-full py-24 md:py-32 bg-[#02050A] relative overflow-hidden border-t border-white/5"
     >
       {/* Background Shapes */}
       <div className="absolute inset-0 pointer-events-none z-0">
-        <div className="gsap-rotate-edu absolute -bottom-[20%] -right-[10%] w-[500px] h-[500px] bg-teal-50/50 dark:bg-teal-900/20 rounded-full blur-[100px] opacity-40"></div>
-        <div className="gsap-rotate-edu absolute -top-[10%] -left-[10%] w-[300px] h-[300px] bg-blue-50 dark:bg-blue-900/20 rounded-full blur-[80px] opacity-30"></div>
+        <div className="gsap-rotate-edu absolute -bottom-[20%] -right-[10%] w-[500px] h-[500px] bg-primary/10 rounded-full blur-[100px] opacity-40"></div>
+        <div className="gsap-rotate-edu absolute -top-[10%] -left-[10%] w-[300px] h-[300px] bg-accent/10 rounded-full blur-[80px] opacity-30"></div>
       </div>
 
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 bg-[#E6F4F1] dark:bg-[#149988]/20 text-[#149988] px-4 py-2 rounded-full text-xs font-bold mb-3">
-            <span className="w-2 h-2 bg-[#149988] rounded-full animate-pulse"></span>
+      <div className="container mx-auto px-6 max-w-7xl relative z-10">
+        <div className="text-center mb-20 relative">
+          <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-xs font-bold mb-4 uppercase tracking-widest">
+            <span className="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
             Educational Qualification
           </div>
-          <h2 className="edu-title text-4xl lg:text-[50px] font-black text-slate-900 dark:text-white mb-4 opacity-1">
-            Educational <span className="text-[#149988]">Pathway</span>
+          <h2 className="edu-title text-5xl md:text-6xl lg:text-7xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent uppercase tracking-tighter leading-tight mb-4 opacity-1">
+            Educational Pathway
           </h2>
-          <p className="text-slate-500 dark:text-zinc-400 font-medium max-w-2xl mx-auto italic">
+          <p className="text-gray-400 font-light max-w-2xl mx-auto italic text-sm">
             "A seamless fusion of academic knowledge and technical specialization."
           </p>
         </div>
@@ -120,26 +120,26 @@ const Education = () => {
           {EDUCATION.map((edu, idx) => (
             <div
               key={idx}
-              className={`edu-item relative p-10 bg-white dark:bg-zinc-900 rounded-[2rem] shadow-sm hover:shadow-xl transition-all duration-500 flex flex-col items-start gap-6 border border-slate-100 dark:border-zinc-800 group ${
+              className={`edu-item relative p-10 bg-[#0B0F19] rounded-[2rem] shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:shadow-[0_10px_30px_rgba(6,143,255,0.15)] transition-all duration-500 flex flex-col items-start gap-6 border border-white/5 hover:border-primary/50 group backdrop-blur-md ${
                 idx % 2 !== 0 ? 'lg:translate-y-20' : ''
               }`}
             >
               <div className="flex items-center gap-4">
-                <div className="w-16 h-16 rounded-full bg-teal-50 dark:bg-teal-900/20 border border-teal-100/50 flex items-center justify-center text-3xl text-[#149988] group-hover:scale-110 group-hover:bg-[#149988] group-hover:text-white transition-all duration-300">
+                <div className="w-16 h-16 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-3xl text-primary group-hover:scale-110 group-hover:bg-primary group-hover:text-white transition-all duration-300">
                   {edu.icon}
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-2xl font-black text-slate-800 dark:text-zinc-200 leading-tight">
+                  <h3 className="text-2xl font-bold text-white leading-tight group-hover:text-primary transition-colors">
                     {edu.title}
                   </h3>
-                  <p className="text-[#149988] font-bold text-sm uppercase tracking-wider">
+                  <p className="text-primary font-bold text-sm uppercase tracking-wider mt-1">
                     {edu.institution}
                   </p>
                 </div>
               </div>
 
               <div className="flex-1 space-y-2">
-                <p className="text-slate-500 dark:text-zinc-400 leading-relaxed font-medium">
+                <p className="text-gray-400 leading-relaxed font-light">
                   {edu.desc}
                 </p>
                 <div className="flex items-center gap-2">

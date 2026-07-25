@@ -44,8 +44,8 @@ const About = () => {
     }, []);
 
     return (
-        <section ref={sectionRef} id="about" className="w-full md:py-24 bg-theme-black relative overflow-hidden border-t border-white/5">
-            <div className="container mx-auto px-6 relative z-10">
+        <section ref={sectionRef} id="about" className="w-full py-24 md:py-32 bg-[#02050A] relative overflow-hidden border-t border-white/5">
+            <div className="container mx-auto px-6 max-w-7xl relative z-10">
                 <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
 
                     {/* Left Side: Image Visual */}
@@ -63,9 +63,9 @@ const About = () => {
                     {/* Right Side: Content */}
                     <div className="lg:w-[55%] about-content space-y-8">
                         <div className="space-y-4">
-                            <h2 className="text-5xl lg:text-[60px] font-black text-white leading-tight uppercase tracking-tighter">
+                            <h2 className="text-5xl md:text-6xl lg:text-7xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent leading-tight uppercase tracking-tighter">
                                 Bridging Narrative <br />
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">With Technology</span>
+                                With Technology
                             </h2>
                         </div>
 

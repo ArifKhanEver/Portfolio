@@ -68,21 +68,21 @@ const Experience = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} id="experience" className="w-full py-20 bg-gray-100 dark:bg-zinc-950 relative overflow-hidden border-t border-slate-50 dark:border-zinc-900">
+    <section ref={sectionRef} id="experience" className="w-full py-24 md:py-32 bg-[#02050A] relative overflow-hidden border-t border-white/5">
       <div className="absolute inset-0 pointer-events-none z-0">
-        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-teal-50/50 dark:bg-teal-900/20 rounded-full blur-[100px]"></div>
+        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-primary/10 rounded-full blur-[100px]"></div>
       </div>
 
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 bg-[#E6F4F1] dark:bg-[#149988]/20 text-[#149988] px-4 py-2 rounded-full text-xs font-bold mb-3">
-            <span className="w-2 h-2 bg-[#149988] rounded-full animate-pulse"></span>
+      <div className="container mx-auto px-6 max-w-7xl relative z-10">
+        <div className="text-center mb-20 relative">
+          <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-xs font-bold mb-4 uppercase tracking-widest">
+            <span className="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
             Experience
           </div>
-          <h2 className="exp-title text-4xl lg:text-6xl font-black text-slate-900 dark:text-white mb-4">
-            Professional <span className="text-[#149988]">Journey</span>
+          <h2 className="exp-title text-5xl md:text-6xl lg:text-7xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent uppercase tracking-tighter leading-tight mb-4">
+            Professional Journey
           </h2>
-          <p className="text-slate-500 dark:text-zinc-400 font-medium max-w-2xl mx-auto">
+          <p className="text-gray-400 font-light max-w-2xl mx-auto text-sm">
             A chronological timeline of my evolution from an English Literature graduate to a specialized MERN Stack Developer.
           </p>
         </div>
@@ -92,29 +92,29 @@ const Experience = () => {
             <div
               key={idx}
               ref={(el) => (cardsRef.current[idx] = el)}
-              className="group relative p-8 bg-white dark:bg-zinc-900 border border-slate-100 dark:border-zinc-800 rounded-[2rem] hover:shadow-2xl hover:border-[#149988]/20 dark:hover:border-[#149988]/20 transition-all duration-500"
+              className="group relative p-8 bg-[#0B0F19] border border-white/5 rounded-2xl hover:shadow-2xl hover:border-primary/50 transition-all duration-500 backdrop-blur-md"
             >
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
                 <div>
-                  <h3 className="text-2xl font-black text-slate-800 dark:text-zinc-200 group-hover:text-[#149988] transition-colors">
+                  <h3 className="text-2xl font-bold text-white group-hover:text-primary transition-colors">
                     {exp.role}
                   </h3>
-                  <p className="text-[#149988] font-bold text-sm uppercase tracking-wider">
+                  <p className="text-primary font-bold text-sm uppercase tracking-wider mt-1">
                     {exp.company}
                   </p>
                 </div>
-                <span className="px-4 py-1.5 bg-slate-50 dark:bg-zinc-900 text-slate-500 dark:text-zinc-400 text-xs font-black rounded-full border border-slate-100 dark:border-zinc-800 whitespace-nowrap">
+                <span className="px-4 py-1.5 bg-white/5 text-gray-300 text-xs font-bold rounded-full border border-white/10 whitespace-nowrap">
                   {exp.period}
                 </span>
               </div>
 
-              <p className="text-slate-500 dark:text-zinc-400 leading-relaxed mb-6 font-medium">
+              <p className="text-gray-400 leading-relaxed mb-6 font-light">
                 {exp.desc}
               </p>
 
               <div className="flex flex-wrap gap-2">
                 {exp.tags.map((tag) => (
-                  <span key={tag} className="px-3 py-1 bg-teal-50 dark:bg-teal-900/20 text-[#149988] text-[10px] font-black uppercase rounded-lg border border-teal-100/50">
+                  <span key={tag} className="px-3 py-1 bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-wider rounded-lg border border-primary/20">
                     {tag}
                   </span>
                 ))}
