@@ -71,7 +71,6 @@ const FeaturedWork = () => {
       });
 
       // 1b. The "INTO" covered by "ELEGANT SOLUTIONS" animation
-      // We use clipPath to reveal the blue block from left to right
       gsap.to(".elegant-replacement", {
         clipPath: "inset(0% 0% 0% 0%)",
         ease: "none",
@@ -91,8 +90,6 @@ const FeaturedWork = () => {
           ease: "none",
           scrollTrigger: {
             trigger: ".into-container",
-            // The scroll distance is from the bottom of the screen to the top of the screen
-            // When into-container is exactly at the center (top 50%), this animation will be exactly at 50% (x=0, y=0)
             start: "top bottom",
             end: "top top",
             scrub: true,
@@ -100,47 +97,10 @@ const FeaturedWork = () => {
         }
       );
 
-      // 2. Horizontal Scroll Logic for Projects
       const track = trackRef.current;
-      const getScrollAmount = () => track.scrollWidth - window.innerWidth;
+      const cardsTrack = cardsTrackRef.current;
 
-      const horizontalTween = gsap.to(track, {
-        x: () => -getScrollAmount(),
-        ease: "none",
-        scrollTrigger: {
-          trigger: track, 
-          pin: true,
-          scrub: 1,
-          start: "top 10%", 
-          end: () => `+=${getScrollAmount()}`,
-          invalidateOnRefresh: true, 
-        }
-      });
-
-      // 3. Corner Border Assembly Animation
-      const cards = gsap.utils.toArray('.project-card-wrapper');
-      
-      cards.forEach((card) => {
-        const tl = card.querySelector('.corner-tl');
-        const tr = card.querySelector('.corner-tr');
-        const bl = card.querySelector('.corner-bl');
-        const br = card.querySelector('.corner-br');
-
-        gsap.from([tl, tr, bl, br], {
-          x: (i) => (i % 2 === 0 ? -40 : 40), 
-          y: (i) => (i < 2 ? -40 : 40),       
-          opacity: 0,
-          scrollTrigger: {
-            trigger: card,
-            containerAnimation: horizontalTween,
-            start: "left 80%", 
-            end: "center center",
-            scrub: true,
-          }
-        });
-      });
-      
-      // 4. Featured Work Showcase Slide-Up & Clip-path (Triggers as track enters)
+      // 2. Featured Work Showcase Slide-Up & Clip-path
       const showcaseTimeline = gsap.timeline({
         scrollTrigger: {
           trigger: track,
@@ -162,9 +122,8 @@ const FeaturedWork = () => {
           ease: "none",
         }, "-=0.2");
 
-      // 5. Horizontal Cards Scroll Logic
-      const cardsTrack = document.querySelector('.cards-track');
-      const getScrollAmount = () => cardsTrack.scrollWidth; // Scroll the full width of the cards
+      // 3. Horizontal Cards Scroll Logic
+      const getScrollAmount = () => cardsTrack ? cardsTrack.scrollWidth : 0; 
 
       const horizontalTween = gsap.to(cardsTrack, {
         x: () => -getScrollAmount(),
@@ -179,7 +138,30 @@ const FeaturedWork = () => {
         }
       });
 
-      // 6. Title Fade Out
+      // 4. Corner Border Assembly Animation (linked to horizontalTween)
+      const cards = gsap.utils.toArray('.project-card-wrapper');
+      
+      cards.forEach((card) => {
+        const tl = card.querySelector('.corner-tl');
+        const tr = card.querySelector('.corner-tr');
+        const bl = card.querySelector('.corner-bl');
+        const br = card.querySelector('.corner-br');
+
+        gsap.from([tl, tr, bl, br], {
+          x: (i) => (i % 2 === 0 ? -40 : 40), 
+          y: (i) => (i < 2 ? -40 : 40),       
+          opacity: 0,
+          scrollTrigger: {
+            trigger: card,
+            containerAnimation: horizontalTween,
+            start: "left 80%", 
+            end: "center center",
+            scrub: true,
+          }
+        });
+      });
+
+      // 5. Title Fade Out
       gsap.to(".showcase-title-container", {
         opacity: 0,
         x: -100, // slight parallax push
@@ -192,7 +174,7 @@ const FeaturedWork = () => {
         }
       });
 
-      // 7. Horizontal Section Glow Animation
+      // 6. Horizontal Section Glow Animation
       gsap.fromTo(".horizontal-glow",
         { x: "0vw", y: "0vh" }, // Start top-left
         {
