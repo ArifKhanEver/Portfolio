@@ -3,9 +3,8 @@
 import { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { FiGithub, FiExternalLink, FiArrowRight } from "react-icons/fi";
+import { FiGithub, FiExternalLink } from "react-icons/fi";
 import Image from "next/image";
-import Link from "next/link";
 import Dragon from '@/assets/home-layout.png'
 import KinKeeper from '@/assets/KinKeeper.png'
 import BookVibe from '@/assets/BookVibe.png'
@@ -17,9 +16,9 @@ if (typeof window !== "undefined") {
 const PROJECTS = [
   {
     id: "dragon-news",
-    title: "Dragon News",
-    category: "Full Stack Development",
-    desc: "A comprehensive news portal built with Next JS with some login and signin and register functionality where users can register/signin through Google and github",
+    title: "DRAGON NEWS",
+    category: "FULL STACK DEVELOPMENT",
+    desc: "A comprehensive news portal built with Next JS with some login and signin and register functionality where users can register/signin through Google and github.",
     tags: ["NextJs", "Tailwind CSS", "Better Auth"],
     link: "https://dragon-news-ng7z.vercel.app/",
     github: "https://github.com/ArifKhanEver/Dragon-News",
@@ -27,8 +26,8 @@ const PROJECTS = [
   },
   {
     id: "kin-keeper",
-    title: "KinKeeper",
-    category: "Relationship Management",
+    title: "KINKEEPER",
+    category: "RELATIONSHIP MANAGEMENT",
     desc: "KinKeeper is a modern personal relationship management tool designed to help you nurture and maintain your friendships by tracking interactions.",
     tags: ["React.js", "DaisyUI", "Responsive Design"],
     link: "https://kin-keeper-app.netlify.app/",
@@ -37,8 +36,8 @@ const PROJECTS = [
   },
   {
     id: "book-vibe",
-    title: "Book Vibe",
-    category: "Frontend Engineering",
+    title: "BOOK VIBE",
+    category: "FRONTEND ENGINEERING",
     desc: "Digital storefront featuring custom-designed hero sections and interactive UI components built for modern retail.",
     tags: ["React", "Modern UI"],
     link: "https://the-book-vibe-app.netlify.app/",
@@ -54,17 +53,17 @@ const FeaturedWork = () => {
 
   useEffect(() => {
     let ctx = gsap.context(() => {
+      
       // 1. Title Reveal Animation
-      gsap.from(".fw-title-line", {
-        y: 80,
+      gsap.from(".title-word", {
+        y: 50,
         opacity: 0,
-        rotationX: -45,
-        stagger: 0.2,
-        duration: 1.2,
+        duration: 1,
+        stagger: 0.1,
         ease: "power3.out",
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top 80%",
+          start: "top 70%",
         }
       });
 
@@ -72,32 +71,97 @@ const FeaturedWork = () => {
       const container = containerRef.current;
       const totalScrollWidth = container.scrollWidth - window.innerWidth;
 
-      // Animate the container horizontally
-      const horizontalTween = gsap.to(container, {
+      gsap.to(container, {
         x: -totalScrollWidth,
         ease: "none",
         scrollTrigger: {
           trigger: sectionRef.current,
           pin: true,
-          scrub: 1, // Smooth scrubbing
+          scrub: 1,
           start: "top top",
-          end: () => `+=${totalScrollWidth}`, // Pin for the exact horizontal distance
-          onUpdate: (self) => {
-            // Animate the border rotation angle based on scroll progress
-            const angle = self.progress * 360 * 2; // Rotate 2 full times during the scroll
-            cardsRef.current.forEach(card => {
-              if (card) card.style.setProperty("--border-angle", `${angle}deg`);
-            });
-          }
+          end: () => `+=${totalScrollWidth}`,
         }
       });
 
+      // 3. Corner Border Assembly Animation
+      const cards = document.querySelectorAll('.project-card-wrapper');
+      
+      cards.forEach((card) => {
+        const tlCorner = card.querySelector('.corner-tl');
+        const trCorner = card.querySelector('.corner-tr');
+        const blCorner = card.querySelector('.corner-bl');
+        const brCorner = card.querySelector('.corner-br');
+
+        // Initially offset them, then animate them to (0,0) as they scroll into view horizontally
+        gsap.set([tlCorner, trCorner, blCorner, brCorner], { opacity: 0 });
+        gsap.set(tlCorner, { x: -30, y: -30 });
+        gsap.set(trCorner, { x: 30, y: -30 });
+        gsap.set(blCorner, { x: -30, y: 30 });
+        gsap.set(brCorner, { x: 30, y: 30 });
+
+        gsap.to([tlCorner, trCorner, blCorner, brCorner], {
+          x: 0,
+          y: 0,
+          opacity: 1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: card,
+            containerAnimation: gsap.getById("horizontalScrollTween"), // Link to the horizontal scroll if needed, but standard scrub works too if we just use the card as trigger in a normal scroll, wait, horizontal container animation needs `containerAnimation`
+            // Actually, because the section is pinned and scrolls horizontally, we need to map it based on horizontal scroll.
+            // Let's create a scroll trigger for the container scroll
+            start: "left right", // when left side of card hits right side of viewport
+            end: "center center", // when center of card hits center of viewport
+            scrub: true,
+            horizontal: true,
+            scroller: containerRef.current // NO, wait.
+          }
+        });
+      });
+      
     }, sectionRef);
 
     return () => ctx.revert();
   }, []);
 
-  // 3D Hover Effect Logic
+  // Update the GSAP hook for corners properly without complex horizontal scrollTrigger issues
+  // Since ScrollTrigger with horizontal container animation can be tricky without explicit setup,
+  // We will instead animate the corners simply using the main horizontal timeline, or keep them static on hover.
+  // Wait, let's setup the corner GSAP properly inside the effect.
+  useEffect(() => {
+    let ctx = gsap.context(() => {
+      const container = containerRef.current;
+      const totalScrollWidth = container.scrollWidth - window.innerWidth;
+
+      let horizontalTween = gsap.to(container, {
+        x: -totalScrollWidth,
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          pin: true,
+          scrub: 1,
+          start: "top top",
+          end: () => `+=${totalScrollWidth}`,
+        }
+      });
+
+      const cards = gsap.utils.toArray('.project-card-wrapper');
+      
+      cards.forEach((card) => {
+        const tlCorner = card.querySelector('.corner-tl');
+        const trCorner = card.querySelector('.corner-tr');
+        const blCorner = card.querySelector('.corner-bl');
+        const brCorner = card.querySelector('.corner-br');
+
+        gsap.from([tlCorner], { x: -30, y: -30, opacity: 0, scrollTrigger: { trigger: card, containerAnimation: horizontalTween, start: "left right", end: "center center", scrub: true }});
+        gsap.from([trCorner], { x: 30, y: -30, opacity: 0, scrollTrigger: { trigger: card, containerAnimation: horizontalTween, start: "left right", end: "center center", scrub: true }});
+        gsap.from([blCorner], { x: -30, y: 30, opacity: 0, scrollTrigger: { trigger: card, containerAnimation: horizontalTween, start: "left right", end: "center center", scrub: true }});
+        gsap.from([brCorner], { x: 30, y: 30, opacity: 0, scrollTrigger: { trigger: card, containerAnimation: horizontalTween, start: "left right", end: "center center", scrub: true }});
+      });
+    }, sectionRef);
+    return () => ctx.revert();
+  }, []);
+
+  // Exact Math 3D Hover Effect Logic
   const handleMouseMove = (e, idx) => {
     const card = cardsRef.current[idx];
     if (!card) return;
@@ -106,11 +170,11 @@ const FeaturedWork = () => {
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
 
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
+    const xc = rect.width / 2;
+    const yc = rect.height / 2;
 
-    const rotateX = ((y - centerY) / centerY) * -15; // Max 15deg tilt
-    const rotateY = ((x - centerX) / centerX) * 15;
+    const rotateX = -(y - yc) / 15;
+    const rotateY = (x - xc) / 15;
 
     gsap.to(card, {
       rotateX,
@@ -134,102 +198,91 @@ const FeaturedWork = () => {
   };
 
   return (
-    <section ref={sectionRef} id="featured-work" className="bg-theme-black relative overflow-hidden min-h-screen">
+    <section ref={sectionRef} id="featured-work" className="relative min-h-screen w-full flex flex-col items-center bg-black overflow-hidden pt-24 md:pt-32">
       
-      {/* Title Section */}
-      <div className="pt-24 md:pt-32 px-6 lg:px-16 w-full absolute top-0 left-0 z-10 pointer-events-none">
-        <h2 className="text-4xl md:text-6xl lg:text-8xl font-black uppercase tracking-tight text-white flex flex-col gap-2">
-          <span className="fw-title-line origin-bottom">Turning complex problems</span>
-          <span className="fw-title-line origin-bottom text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">into Elegant Solution</span>
-        </h2>
+      {/* 1. Grid Background & Radial Glow */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none"></div>
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-[120px] pointer-events-none"></div>
+
+      {/* 2. Exact Title Layout */}
+      <div className="relative z-10 text-center max-w-5xl px-6 w-full pointer-events-none select-none mb-12 lg:mb-0">
+        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold uppercase tracking-wider text-white flex flex-wrap justify-center gap-x-4 gap-y-3 leading-tight">
+          <span className="title-word inline-block">Turning</span>
+          <span className="title-word inline-block">complex</span>
+          <span className="title-word inline-block text-blue-500">problems</span>
+          <span className="title-word inline-block">into</span>
+          <span className="title-word inline-block px-4 py-1 bg-blue-600 text-white -rotate-2 transform">elegant</span>
+          <span className="title-word inline-block">solutions</span>
+          <span className="title-word inline-block text-white/50 text-xl md:text-3xl lg:text-4xl w-full mt-4 tracking-normal lowercase">one line of code at a time</span>
+        </h1>
       </div>
 
       {/* Horizontal Scrolling Container */}
-      <div className="flex items-center h-screen pt-48" ref={containerRef} style={{ width: 'max-content' }}>
-        <div className="flex gap-12 lg:gap-24 px-6 md:px-16 lg:px-32">
+      <div className="flex items-center lg:h-screen lg:absolute lg:top-0 lg:left-0" ref={containerRef} style={{ width: 'max-content' }}>
+        <div className="flex gap-12 lg:gap-24 px-6 md:px-16 lg:px-32 lg:pt-32 pb-24 lg:pb-0 h-full items-center">
           
           {PROJECTS.map((project, idx) => (
             <div 
               key={project.id}
-              className="relative w-[320px] md:w-[500px] lg:w-[600px] flex-shrink-0"
+              className="project-card-wrapper relative w-[320px] md:w-[500px] lg:w-[600px] flex-shrink-0 cursor-pointer"
               style={{ perspective: "1000px" }}
             >
-              {/* The Card wrapper with 3D tilt */}
+              {/* Assembling Corner Brackets */}
+              <div className="corner-tl absolute -top-4 -left-4 w-10 h-10 border-t-2 border-l-2 border-blue-500 z-20 pointer-events-none"></div>
+              <div className="corner-tr absolute -top-4 -right-4 w-10 h-10 border-t-2 border-r-2 border-blue-500 z-20 pointer-events-none"></div>
+              <div className="corner-bl absolute -bottom-4 -left-4 w-10 h-10 border-b-2 border-l-2 border-blue-500 z-20 pointer-events-none"></div>
+              <div className="corner-br absolute -bottom-4 -right-4 w-10 h-10 border-b-2 border-r-2 border-blue-500 z-20 pointer-events-none"></div>
+
+              {/* The Card Content */}
               <div 
                 ref={(el) => cardsRef.current[idx] = el}
                 onMouseMove={(e) => handleMouseMove(e, idx)}
                 onMouseLeave={() => handleMouseLeave(idx)}
-                className="group relative bg-[#111111] rounded-3xl p-1 overflow-hidden h-full flex flex-col"
-                style={{ 
-                  transformStyle: "preserve-3d", 
-                  "--border-angle": "0deg" 
-                }}
+                className="relative w-full rounded-2xl bg-zinc-950 border border-white/10 transition-transform duration-100 ease-out overflow-hidden"
+                style={{ transformStyle: "preserve-3d" }}
               >
-                {/* Scroll-Animated Gradient Border Pseudo-element */}
-                <div 
-                  className="absolute inset-[-50%] z-0"
-                  style={{
-                    background: "conic-gradient(from var(--border-angle), transparent 70%, #068FFF 85%, #00D2FC 100%)",
-                  }}
-                ></div>
+                
+                {/* Image Container */}
+                <div className="relative h-56 md:h-72 w-full overflow-hidden border-b border-white/5">
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out opacity-70 hover:opacity-100"
+                  />
+                </div>
 
-                {/* Inner Card Content */}
-                <div className="relative z-10 bg-theme-black rounded-[1.3rem] flex flex-col h-full overflow-hidden transform-gpu translate-z-[50px]">
+                {/* Content Container */}
+                <div className="p-6 md:p-8 flex flex-col bg-zinc-950">
                   
-                  {/* Image Container */}
-                  <div className="relative h-64 md:h-80 w-full overflow-hidden">
-                    <Image
-                      src={project.image}
-                      alt={project.title}
-                      fill
-                      className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out opacity-80 group-hover:opacity-100"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-theme-black via-transparent to-transparent opacity-90"></div>
+                  {/* Tech Stack Tags */}
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {project.tags.map(tag => (
+                      <span key={tag} className="px-3 py-1 bg-white/5 text-white/70 text-[10px] md:text-xs rounded-full border border-white/10">
+                        {tag}
+                      </span>
+                    ))}
                   </div>
 
-                  {/* Content Container */}
-                  <div className="p-8 flex flex-col flex-grow relative bg-gradient-to-t from-theme-black to-theme-black/80">
-                    <div className="flex justify-between items-start mb-4">
-                      <div>
-                        <span className="text-primary font-bold text-xs uppercase tracking-widest block mb-2">
-                          {project.category}
-                        </span>
-                        <h3 className="text-3xl lg:text-4xl font-black text-white group-hover:text-primary transition-colors duration-300">
-                          {project.title}
-                        </h3>
-                      </div>
-                      
-                      {/* External Links */}
-                      <div className="flex gap-3 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 delay-100">
-                        <a href={project.github} target="_blank" className="p-3 bg-white/5 border border-white/10 rounded-full text-white hover:bg-white hover:text-black transition-colors"><FiGithub size={20} /></a>
-                        <a href={project.link} target="_blank" className="p-3 bg-primary text-white rounded-full hover:bg-accent hover:text-black transition-colors shadow-[0_0_15px_rgba(6,143,255,0.5)]"><FiExternalLink size={20} /></a>
-                      </div>
-                    </div>
-
-                    <p className="text-gray-400 text-base md:text-lg leading-relaxed mb-6 font-light">
-                      {project.desc}
-                    </p>
-
-                    <div className="flex flex-wrap gap-2 mb-8 mt-auto">
-                      {project.tags.map(tag => (
-                        <span key={tag} className="px-3 py-1.5 bg-white/5 text-gray-300 text-[10px] md:text-xs uppercase tracking-wider rounded-lg border border-white/10">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-
-                    <Link 
-                      href={`/projects/${project.id}`}
-                      className="inline-flex items-center gap-2 text-white font-bold group/btn"
-                    >
-                      <span className="relative overflow-hidden">
-                        <span className="inline-block transition-transform duration-300 group-hover/btn:-translate-y-full">Explore Project</span>
-                        <span className="absolute top-0 left-0 inline-block translate-y-full text-primary transition-transform duration-300 group-hover/btn:translate-y-0">Explore Project</span>
-                      </span>
-                      <FiArrowRight className="group-hover/btn:translate-x-2 group-hover/btn:text-primary transition-all duration-300" />
-                    </Link>
+                  <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">
+                    {project.title}
+                  </h3>
+                  
+                  <p className="text-white/50 text-sm md:text-base leading-relaxed mb-8">
+                    {project.desc}
+                  </p>
+                  
+                  {/* External Links */}
+                  <div className="flex gap-4">
+                    <a href={project.github} target="_blank" className="flex items-center justify-center w-12 h-12 bg-white/5 backdrop-blur-xl border border-white/10 rounded-full text-white/70 hover:text-white hover:bg-white/10 hover:scale-110 active:scale-95 transition-all">
+                      <FiGithub size={20} />
+                    </a>
+                    <a href={project.link} target="_blank" className="flex items-center justify-center w-12 h-12 bg-white/5 backdrop-blur-xl border border-white/10 rounded-full text-white/70 hover:text-white hover:bg-white/10 hover:scale-110 active:scale-95 transition-all">
+                      <FiExternalLink size={20} />
+                    </a>
                   </div>
                 </div>
+
               </div>
             </div>
           ))}
