@@ -40,28 +40,22 @@ const CustomCursor = () => {
     };
     window.addEventListener("mousemove", handleMouseMove);
 
-    // Physics Setup: Long Flowing Hair Strands
+    // Physics Setup: Perfect Lerp Hair Strands
     const NUM_STRANDS = 4;
-    const POINTS_PER_STRAND = 70; // Long elegant trails
+    const POINTS_PER_STRAND = 40; 
     
-    // Varying stiffness and damping across strands for organic separation
-    const STIFFNESS = [0.15, 0.20, 0.25, 0.30]; 
-    const DAMPING = [0.65, 0.70, 0.72, 0.75]; // Adds a loose, trailing drag
-    const LINE_WIDTHS = [1.2, 1.5, 1.8, 2.0]; // Adds visual depth
+    const LERP_FACTORS = [0.2, 0.25, 0.3, 0.35];
     
     let strands = [];
 
     for (let i = 0; i < NUM_STRANDS; i++) {
       let points = [];
       for (let j = 0; j < POINTS_PER_STRAND; j++) {
-        // include vx, vy for spring physics
-        points.push({ x: mouse.x, y: mouse.y, vx: 0, vy: 0 });
+        points.push({ x: mouse.x, y: mouse.y });
       }
       strands.push({ 
         points, 
-        stiffness: STIFFNESS[i], 
-        damping: DAMPING[i], 
-        lineWidth: LINE_WIDTHS[i] 
+        lerpFactor: LERP_FACTORS[i]
       });
     }
 
@@ -71,6 +65,8 @@ const CustomCursor = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.lineCap = "round";
       ctx.lineJoin = "round";
+      ctx.strokeStyle = "rgba(128, 128, 128, 0.3)"; 
+      ctx.lineWidth = 1.5;
 
       strands.forEach((strand) => {
         // The head of the strand instantly locks to mouse
@@ -80,29 +76,13 @@ const CustomCursor = () => {
         ctx.beginPath();
         ctx.moveTo(strand.points[0].x, strand.points[0].y);
 
-        // Solid white stroke that relies on the canvas mix-blend-difference to invert colors dynamically
-        ctx.strokeStyle = "rgba(255, 255, 255, 1)"; 
-        ctx.lineWidth = strand.lineWidth;
-
-        // Calculate trailing spring physics with damping
+        // Calculate trailing lerp physics
         for (let j = 1; j < POINTS_PER_STRAND; j++) {
           const pt = strand.points[j];
           const prevPt = strand.points[j - 1];
 
-          // Calculate spring force pulling towards previous point
-          const dx = prevPt.x - pt.x;
-          const dy = prevPt.y - pt.y;
-
-          // Apply force to velocity, then apply damping
-          pt.vx += dx * strand.stiffness;
-          pt.vy += dy * strand.stiffness;
-          
-          pt.vx *= strand.damping;
-          pt.vy *= strand.damping;
-
-          // Add final velocity to position
-          pt.x += pt.vx;
-          pt.y += pt.vy;
+          pt.x += (prevPt.x - pt.x) * strand.lerpFactor;
+          pt.y += (prevPt.y - pt.y) * strand.lerpFactor;
 
           ctx.lineTo(pt.x, pt.y);
         }
@@ -203,7 +183,7 @@ const CustomCursor = () => {
       {/* Canvas for the long flowing hair trail */}
       <canvas
         ref={canvasRef}
-        className="fixed inset-0 pointer-events-none z-[99998] mix-blend-difference"
+        className="fixed inset-0 pointer-events-none z-[99998]"
       />
       {/* Primary Invert Spotlight Cursor */}
       <div
