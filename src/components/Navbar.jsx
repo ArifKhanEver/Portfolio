@@ -1,101 +1,60 @@
 "use client";
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import gsap from 'gsap';
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const overlayRef = useRef(null);
-  const linksRef = useRef([]);
-
-  const navLinks = [
-    { name: 'HOME', href: '#home' },
-    { name: 'ABOUT', href: '#about' },
-    { name: 'PROJECTS', href: '#projects' },
-    { name: 'CONTACT', href: '#contact' },
-  ];
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    if (isOpen) {
-      gsap.to(overlayRef.current, {
-        clipPath: 'circle(150% at 90% 10%)',
-        duration: 0.8,
-        ease: 'power3.inOut'
-      });
-      gsap.fromTo(linksRef.current, 
-        { y: 50, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.5, stagger: 0.1, delay: 0.3, ease: 'power3.out' }
-      );
-    } else {
-      gsap.to(overlayRef.current, {
-        clipPath: 'circle(0% at 90% 10%)',
-        duration: 0.8,
-        ease: 'power3.inOut'
-      });
-    }
-  }, [isOpen]);
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const navLinks = [
+    { name: 'Home', href: '#home' },
+    { name: 'About', href: '#about' },
+    { name: 'Experience', href: '#experience' },
+    { name: 'Skills', href: '#skills' },
+    { name: 'Portfolio', href: '#projects' },
+    { name: 'Contact', href: '#contact' },
+  ];
 
   return (
-    <>
-      {/* Floating Toggle Button */}
-      <div 
-        onClick={() => setIsOpen(!isOpen)}
-        className="fixed z-[10000] flex flex-col items-center justify-center gap-[6px] transition-all duration-300 bg-theme-black border border-white/20 rounded-full cursor-pointer w-14 h-14 md:w-16 md:h-16 top-6 right-6 md:right-10 hover:bg-gray-900 hover:scale-105 shadow-2xl"
-      >
-        <span className={`block w-6 h-[2px] bg-white rounded-full transition-all duration-300 ${isOpen ? 'rotate-45 translate-y-[8px]' : ''}`}></span>
-        <span className={`block w-6 h-[2px] bg-white rounded-full transition-all duration-300 ${isOpen ? 'opacity-0' : ''}`}></span>
-        <span className={`block w-6 h-[2px] bg-white rounded-full transition-all duration-300 ${isOpen ? '-rotate-45 -translate-y-[8px]' : ''}`}></span>
-      </div>
+    <nav className={`fixed top-0 left-0 w-full z-[100] transition-all duration-300 ${
+      scrolled 
+      ? 'bg-theme-black/90 backdrop-blur-xl border-b border-white/10 py-4 shadow-lg' 
+      : 'bg-theme-black py-6'
+    }`}>
+      <div className="container mx-auto px-6 lg:px-20 flex items-center justify-between">
+        
+        {/* Brand Logo */}
+        <Link href="/" className="flex items-center gap-2 group">
+          <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center transition-all group-hover:scale-110 group-hover:rotate-6 shadow-[0_0_15px_rgba(6,143,255,0.4)]">
+             <div className="w-5 h-5 border-[3px] border-white rounded-full"></div>
+          </div>
+          <span className="text-3xl font-black text-white tracking-tighter">
+            SI<span className="text-primary">K</span>
+          </span>
+        </Link>
 
-      {/* Fullscreen Overlay Menu */}
-      <nav 
-        ref={overlayRef}
-        className={`fixed inset-0 z-[9999] flex flex-col md:flex-row-reverse justify-between w-full h-full px-10 md:px-20 py-28 bg-theme-black text-white ${isOpen ? 'pointer-events-auto' : 'pointer-events-none'}`}
-        style={{ clipPath: 'circle(0% at 90% 10%)' }}
-      >
-        {/* Right Side (originally Left) - Links */}
-        <div className="flex flex-col text-5xl gap-y-4 md:text-6xl lg:text-8xl w-full md:w-1/2 md:justify-center text-right items-end">
-          {navLinks.map((link, index) => (
-            <div key={link.name} className="overflow-hidden w-full text-right">
+        {/* Desktop Menu - Aligned Right */}
+        <ul className="hidden lg:flex items-center justify-end gap-10 w-full">
+          {navLinks.map((link) => (
+            <li key={link.name}>
               <Link 
-                href={link.href}
-                onClick={() => setIsOpen(false)}
-                className="group inline-block font-black tracking-tighter"
-                ref={el => linksRef.current[index] = el}
+                href={link.href} 
+                className="text-sm font-bold text-gray-300 hover:text-primary transition-all relative group/link tracking-wider uppercase"
               >
-                <span className="inline-block transition-all duration-500 ease-out origin-right group-hover:scale-[1.02] group-hover:-translate-x-6 group-hover:text-primary group-hover:drop-shadow-[0_0_15px_rgba(6,143,255,0.5)]">
-                  {link.name}
-                </span>
+                {link.name}
               </Link>
-            </div>
+            </li>
           ))}
-        </div>
+        </ul>
 
-        {/* Left Side (originally Right) - Info */}
-        <div className="flex flex-col justify-end md:justify-center gap-12 mt-16 md:mt-0 md:w-1/3">
-          <div className="font-light">
-            <p className="tracking-wider text-white/50 text-sm mb-2 uppercase">E-mail</p>
-            <p className="text-xl md:text-2xl tracking-widest lowercase hover:text-primary transition-colors">example@gmail.com</p>
-          </div>
-          
-          <div className="font-light">
-            <p className="tracking-wider text-white/50 text-sm mb-4 uppercase">Social Media</p>
-            <div className="flex flex-col gap-y-4">
-              <a href="https://github.com/ArifKhanEver" target="_blank" rel="noopener noreferrer" className="inline-block text-lg tracking-widest uppercase transition-all duration-300 hover:-translate-y-1 hover:text-primary">
-                {"{ Github }"}
-              </a>
-              <a href="http://linkedin.com/in/arifkhanever" target="_blank" rel="noopener noreferrer" className="inline-block text-lg tracking-widest uppercase transition-all duration-300 hover:-translate-y-1 hover:text-primary">
-                {"{ LinkedIn }"}
-              </a>
-              <a href="https://codepen.io/arifkhanever" target="_blank" rel="noopener noreferrer" className="inline-block text-lg tracking-widest uppercase transition-all duration-300 hover:-translate-y-1 hover:text-primary">
-                {"{ Codepen }"}
-              </a>
-            </div>
-          </div>
-        </div>
-      </nav>
-    </>
+      </div>
+    </nav>
   );
 };
 
