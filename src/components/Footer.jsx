@@ -62,8 +62,8 @@ const Footer = () => {
           
           {/* Column 1: Info & Stats */}
           <div className="lg:col-span-5 space-y-6">
-            <h2 className="text-4xl md:text-5xl font-bold text-cyan-400 tracking-tight leading-tight mb-4">
-              &gt; Arif Khan <br/> &lt;
+            <h2 className="text-4xl md:text-5xl font-semibold text-cyan-400 tracking-tight leading-tight mb-4">
+              &gt; Shafiqul Islam Khan &lt;
             </h2>
             <p className="text-gray-400 text-sm leading-relaxed max-w-md">
               MERN/Full stack developer turning complex problems into elegant solutions. From pixel-perfect UIs to bulletproof backends—every line of code is a promise of quality.
@@ -71,22 +71,26 @@ const Footer = () => {
             
             <LocalTime />
 
-            <div className="flex flex-wrap gap-4 mt-6">
-              <div className="bg-[#0B0F19]/80 border border-white/5 rounded-lg p-4 w-[110px] flex flex-col items-center justify-center">
-                <h3 className="text-cyan-400 font-black text-2xl">4+</h3>
-                <p className="text-gray-600 text-[9px] font-bold uppercase tracking-widest mt-1">Projects</p>
+            <div className="flex flex-col gap-4 mt-6">
+              <div className="flex gap-4">
+                <div className="bg-[#0B0F19]/80 border border-white/5 rounded-lg p-4 w-[100px] flex-shrink-0 flex flex-col items-center justify-center">
+                  <h3 className="text-cyan-400 font-black text-2xl">4+</h3>
+                  <p className="text-gray-600 text-[9px] font-bold uppercase tracking-widest mt-1">Projects</p>
+                </div>
+                <div className="bg-[#0B0F19]/80 border border-white/5 rounded-lg p-4 w-[110px] flex-shrink-0 flex flex-col items-center justify-center">
+                  <h3 className="text-emerald-400 font-black text-2xl">8462+</h3>
+                  <p className="text-gray-600 text-[9px] font-bold uppercase tracking-widest mt-1">Commits</p>
+                </div>
+                <div className="bg-[#0B0F19]/80 border border-white/5 rounded-lg p-4 flex-1 flex flex-col items-center justify-center whitespace-nowrap">
+                  <h3 className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400 font-black text-2xl">2+ Years</h3>
+                  <p className="text-gray-600 text-[9px] font-bold uppercase tracking-widest mt-1">Experience</p>
+                </div>
               </div>
-              <div className="bg-[#0B0F19]/80 border border-white/5 rounded-lg p-4 w-[110px] flex flex-col items-center justify-center">
-                <h3 className="text-emerald-400 font-black text-2xl">8462+</h3>
-                <p className="text-gray-600 text-[9px] font-bold uppercase tracking-widest mt-1">Commits</p>
-              </div>
-              <div className="bg-[#0B0F19]/80 border border-white/5 rounded-lg p-4 flex-1 min-w-[130px] flex flex-col items-center justify-center">
-                <h3 className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400 font-black text-2xl">2+ Years</h3>
-                <p className="text-gray-600 text-[9px] font-bold uppercase tracking-widest mt-1">Experience</p>
-              </div>
-              <div className="bg-[#0B0F19]/80 border border-white/5 rounded-lg p-4 w-[110px] flex flex-col items-center justify-center">
-                <h3 className="text-amber-400 font-black text-2xl">295+</h3>
-                <p className="text-gray-600 text-[9px] font-bold uppercase tracking-widest mt-1">Visitors</p>
+              <div className="flex gap-4">
+                <div className="bg-[#0B0F19]/80 border border-white/5 rounded-lg p-4 w-[100px] flex flex-col items-center justify-center">
+                  <h3 className="text-amber-400 font-black text-2xl">295+</h3>
+                  <p className="text-gray-600 text-[9px] font-bold uppercase tracking-widest mt-1">Visitors</p>
+                </div>
               </div>
             </div>
 
@@ -101,7 +105,7 @@ const Footer = () => {
           </div>
 
           {/* Column 2: Services & Links */}
-          <div className="lg:col-span-3 space-y-10 lg:pl-8">
+          <div className="lg:col-span-3 space-y-10 lg:-ml-4">
             
             {/* Services */}
             <div>
