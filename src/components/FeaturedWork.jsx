@@ -151,21 +151,18 @@ const FeaturedWork = () => {
         const frame = card.querySelector('.corner-frame');
         if (!frame) return;
 
-        // The frame LEADS the card — it starts offset to the RIGHT (ahead in
-        // scroll direction) and the card gradually catches up to it as it
-        // reaches center. This creates the "chasing the frame" parallax feel.
+        // Simple fade-in as card enters — stuck to the card, no offset.
         gsap.fromTo(frame,
-          { x: 120, opacity: 0.6 },
+          { opacity: 0 },
           {
-            x: -40,
             opacity: 1,
             ease: "none",
             immediateRender: false,
             scrollTrigger: {
               trigger: card,
               containerAnimation: horizontalTween,
-              start: "left right",   // card's left edge enters from viewport right
-              end: "center center",  // card center is at viewport center
+              start: "left 90%",
+              end: "left 40%",
               scrub: true,
             }
           }
@@ -311,46 +308,19 @@ const FeaturedWork = () => {
               className="project-card-wrapper relative w-[85vw] md:w-[480px] lg:w-[600px] h-[400px] md:h-[450px] flex-shrink-0 cursor-pointer group"
               style={{ perspective: "2000px" }}
             >
-              {/* Neon Corner Frame SVG — uses a fixed viewBox so we can use
-                  real pixel coordinates. non-scaling-stroke keeps line weight
-                  crisp. Top-right has a chamfered "diamond cut" notch. */}
-              <svg
+              {/* Neon border frame — same clip-path as card so chamfer aligns perfectly.
+                  Outer neon div is 3px larger on each side. The card sits on top,
+                  leaving exactly 3px of neon color visible as the border. */}
+              <div
                 className="corner-frame absolute pointer-events-none z-30"
-                viewBox="0 0 628 478"
-                preserveAspectRatio="none"
                 style={{
-                  top: '-16px', left: '-16px',
-                  width: 'calc(100% + 32px)',
-                  height: 'calc(100% + 32px)',
-                  filter: 'drop-shadow(0 0 10px #38bdf8) drop-shadow(0 0 4px #7dd3fc)',
+                  inset: '-3px',
+                  background: '#38bdf8',
+                  clipPath: 'polygon(0 0, calc(100% - 100px) 0, 100% 60px, 100% 100%, 0 100%)',
+                  filter: 'drop-shadow(0 0 10px #38bdf8) drop-shadow(0 0 20px rgba(56,189,248,0.5))',
+                  opacity: 0,
                 }}
-              >
-                {/* top-left L-bracket */}
-                <polyline
-                  points="0,70 0,0 70,0"
-                  fill="none" stroke="#38bdf8" strokeWidth="2.5" strokeLinecap="square"
-                  vectorEffect="non-scaling-stroke"
-                />
-                {/* top-right: LARGE chamfered/diamond-cut corner
-                    The cut starts 150px from the right edge, giving a bold angled notch */}
-                <polyline
-                  points="478,0 568,0 628,60 628,130"
-                  fill="none" stroke="#38bdf8" strokeWidth="2.5" strokeLinecap="square"
-                  vectorEffect="non-scaling-stroke"
-                />
-                {/* bottom-left L-bracket */}
-                <polyline
-                  points="0,408 0,478 70,478"
-                  fill="none" stroke="#38bdf8" strokeWidth="2.5" strokeLinecap="square"
-                  vectorEffect="non-scaling-stroke"
-                />
-                {/* bottom-right L-bracket */}
-                <polyline
-                  points="558,478 628,478 628,408"
-                  fill="none" stroke="#38bdf8" strokeWidth="2.5" strokeLinecap="square"
-                  vectorEffect="non-scaling-stroke"
-                />
-              </svg>
+              />
 
               {/* Card Content — sharp chamfered top-right corner matching the SVG frame */}
               <div
