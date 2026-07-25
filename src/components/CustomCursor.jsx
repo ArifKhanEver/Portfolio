@@ -5,22 +5,46 @@ import gsap from "gsap";
 import { usePathname } from "next/navigation";
 
 const CustomCursor = () => {
-  const cursorRef = useRef(null);
+  const mainCursor = useRef(null);
+  const trailsRef = useRef([]);
   const pathname = usePathname();
 
+  const numDots = 8;
+
   useEffect(() => {
-    const cursor = cursorRef.current;
-    if (!cursor) return;
+    if (!mainCursor.current) return;
 
-    // Set initial position center offset and rotation (diamond shape)
-    gsap.set(cursor, { xPercent: -50, yPercent: -50, rotation: 45 });
+    // Set initial position centers
+    gsap.set(mainCursor.current, { xPercent: -50, yPercent: -50 });
+    
+    // Set initial scales and opacities for the trails
+    trailsRef.current.forEach((trail, index) => {
+      if (trail) {
+        gsap.set(trail, { 
+          xPercent: -50, 
+          yPercent: -50,
+          scale: 1 - index * 0.1,
+          opacity: Math.max(0.6 - index * 0.07, 0.1)
+        });
+      }
+    });
 
-    const xTo = gsap.quickTo(cursor, "x", { duration: 0.2, ease: "power3" });
-    const yTo = gsap.quickTo(cursor, "y", { duration: 0.2, ease: "power3" });
+    const xTo = gsap.quickTo(mainCursor.current, "x", { duration: 0.1, ease: "power3.out" });
+    const yTo = gsap.quickTo(mainCursor.current, "y", { duration: 0.1, ease: "power3.out" });
+
+    // Create quick setters with incremental durations for the trailing effect
+    const trailXTo = trailsRef.current.map((trail, index) => 
+      gsap.quickTo(trail, "x", { duration: 0.15 + index * 0.08, ease: "power3.out" })
+    );
+    const trailYTo = trailsRef.current.map((trail, index) => 
+      gsap.quickTo(trail, "y", { duration: 0.15 + index * 0.08, ease: "power3.out" })
+    );
 
     const handleMouseMove = (e) => {
       xTo(e.clientX);
       yTo(e.clientY);
+      trailXTo.forEach((to) => to(e.clientX));
+      trailYTo.forEach((to) => to(e.clientY));
     };
 
     window.addEventListener("mousemove", handleMouseMove);
@@ -31,18 +55,15 @@ const CustomCursor = () => {
   }, []);
 
   useEffect(() => {
-    const cursor = cursorRef.current;
-    if (!cursor) return;
+    if (!mainCursor.current) return;
 
     // Give a slight delay to allow React to render any new DOM elements completely
     const timeout = setTimeout(() => {
       const interactables = document.querySelectorAll("a, button, .magnetic-target");
       
       const handleMouseEnter = () => {
-        gsap.to(cursor, {
-          scale: 2.5,
-          borderRadius: "50%",
-          rotation: 0,
+        gsap.to(mainCursor.current, {
+          scale: 2,
           duration: 0.3,
           ease: "power2.out",
         });
@@ -50,10 +71,8 @@ const CustomCursor = () => {
 
       const handleMouseLeave = (e) => {
         const el = e.currentTarget;
-        gsap.to(cursor, {
+        gsap.to(mainCursor.current, {
           scale: 1,
-          borderRadius: "0%",
-          rotation: 45,
           duration: 0.3,
           ease: "power2.out",
         });
@@ -107,10 +126,22 @@ const CustomCursor = () => {
   }, [pathname]);
 
   return (
-    <div
-      ref={cursorRef}
-      className="fixed top-0 left-0 w-4 h-4 bg-white pointer-events-none z-[99999] mix-blend-difference hidden lg:block"
-    />
+    <div className="hidden lg:block">
+      {/* Trail Dots */}
+      {[...Array(numDots)].map((_, i) => (
+        <div
+          key={i}
+          ref={(el) => (trailsRef.current[i] = el)}
+          className="fixed top-0 left-0 w-2 h-2 rounded-full bg-white pointer-events-none z-[99998] mix-blend-difference"
+        />
+      ))}
+
+      {/* Main Cursor */}
+      <div
+        ref={mainCursor}
+        className="fixed top-0 left-0 w-4 h-4 rounded-full bg-white pointer-events-none z-[99999] mix-blend-difference"
+      />
+    </div>
   );
 };
 
