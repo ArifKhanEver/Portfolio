@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import gsap from 'gsap';
-import { FaGithub, FaLinkedinIn, FaCodepen } from 'react-icons/fa';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -42,7 +41,7 @@ const Navbar = () => {
       {/* Floating Toggle Button */}
       <div 
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed z-[10000] flex flex-col items-center justify-center gap-[6px] transition-all duration-300 bg-white/10 backdrop-blur-md border border-white/20 rounded-full cursor-pointer w-14 h-14 md:w-16 md:h-16 top-6 right-6 md:right-10 hover:bg-white/20 hover:scale-105 shadow-lg"
+        className="fixed z-[10000] flex flex-col items-center justify-center gap-[6px] transition-all duration-300 bg-theme-black border border-white/20 rounded-full cursor-pointer w-14 h-14 md:w-16 md:h-16 top-6 right-6 md:right-10 hover:bg-gray-900 hover:scale-105 shadow-2xl"
       >
         <span className={`block w-6 h-[2px] bg-white rounded-full transition-all duration-300 ${isOpen ? 'rotate-45 translate-y-[8px]' : ''}`}></span>
         <span className={`block w-6 h-[2px] bg-white rounded-full transition-all duration-300 ${isOpen ? 'opacity-0' : ''}`}></span>
@@ -52,20 +51,20 @@ const Navbar = () => {
       {/* Fullscreen Overlay Menu */}
       <nav 
         ref={overlayRef}
-        className={`fixed inset-0 z-[9999] flex flex-col md:flex-row justify-between w-full h-full px-10 md:px-20 py-28 bg-theme-black text-white ${isOpen ? 'pointer-events-auto' : 'pointer-events-none'}`}
+        className={`fixed inset-0 z-[9999] flex flex-col md:flex-row-reverse justify-between w-full h-full px-10 md:px-20 py-28 bg-theme-black text-white ${isOpen ? 'pointer-events-auto' : 'pointer-events-none'}`}
         style={{ clipPath: 'circle(0% at 90% 10%)' }}
       >
-        {/* Left Side - Links */}
-        <div className="flex flex-col text-5xl gap-y-4 md:text-6xl lg:text-8xl w-full md:w-1/2 md:justify-center">
+        {/* Right Side (originally Left) - Links */}
+        <div className="flex flex-col text-5xl gap-y-4 md:text-6xl lg:text-8xl w-full md:w-1/2 md:justify-center text-right items-end">
           {navLinks.map((link, index) => (
-            <div key={link.name} className="overflow-hidden">
+            <div key={link.name} className="overflow-hidden w-full text-right">
               <Link 
                 href={link.href}
                 onClick={() => setIsOpen(false)}
-                className="group block w-full text-left font-black tracking-tighter"
+                className="group inline-block font-black tracking-tighter"
                 ref={el => linksRef.current[index] = el}
               >
-                <span className="inline-block transition-all duration-500 ease-out origin-left group-hover:scale-[1.02] group-hover:translate-x-6 group-hover:text-primary group-hover:drop-shadow-[0_0_15px_rgba(6,143,255,0.5)]">
+                <span className="inline-block transition-all duration-500 ease-out origin-right group-hover:scale-[1.02] group-hover:-translate-x-6 group-hover:text-primary group-hover:drop-shadow-[0_0_15px_rgba(6,143,255,0.5)]">
                   {link.name}
                 </span>
               </Link>
@@ -73,7 +72,7 @@ const Navbar = () => {
           ))}
         </div>
 
-        {/* Right Side - Info */}
+        {/* Left Side (originally Right) - Info */}
         <div className="flex flex-col justify-end md:justify-center gap-12 mt-16 md:mt-0 md:w-1/3">
           <div className="font-light">
             <p className="tracking-wider text-white/50 text-sm mb-2 uppercase">E-mail</p>
