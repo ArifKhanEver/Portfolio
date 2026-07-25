@@ -22,20 +22,20 @@ const SERVICES_DATA = [
     title: "Frontend",
     description: "Creating highly interactive, accessible, and performant user interfaces that deliver exceptional user experiences.",
     items: [
-      "UI/UX Implementation",
+      "Component Architecture",
+      "State Management (Redux/Zustand)",
       "Complex Animations (GSAP)",
-      "Responsive Web Design",
-      "State Management"
+      "Responsive Web Design"
     ]
   },
   {
-    title: "Backend",
-    description: "Building scalable and secure server-side applications, APIs, and database architectures to power your web applications.",
+    title: "Backend & Database",
+    description: "Building and maintaining the fundamental server-side logic and database connections for web applications.",
     items: [
-      "RESTful API Design",
-      "Database Modeling",
+      "CRUD Operations (Create, Read, Update, Delete)",
+      "Cloud Deployment (Vercel/netlify/firebase)",
       "Authentication & Security",
-      "Cloud Deployment"
+      "Database Modeling"
     ]
   }
 ];
@@ -44,7 +44,7 @@ const Services = () => {
   const containerRef = useRef(null);
 
   useGSAP(() => {
-    // 1. Text Reveal Animation for the header elements
+    // Text Reveal Animation for the header elements
     gsap.from(".reveal-text", {
       y: 50,
       opacity: 0,
@@ -54,27 +54,6 @@ const Services = () => {
       scrollTrigger: {
         trigger: containerRef.current,
         start: "top 75%",
-      }
-    });
-
-    // 2. Sticky Cards Animation (Scale down and fade as the next card covers it)
-    const cards = gsap.utils.toArray(".service-card");
-    
-    cards.forEach((card, index) => {
-      // We don't animate the last card because nothing covers it
-      if (index !== cards.length - 1) {
-        gsap.to(card, {
-          scale: 0.9,
-          opacity: 0.4,
-          filter: "blur(4px)",
-          ease: "none",
-          scrollTrigger: {
-            trigger: cards[index + 1], // The next card
-            start: "top bottom", // When the top of the next card hits the bottom of the viewport
-            end: "top top", // When the top of the next card reaches the top of the viewport
-            scrub: true,
-          }
-        });
       }
     });
   }, { scope: containerRef });
@@ -114,7 +93,7 @@ const Services = () => {
           <div 
             key={service.title}
             className="sticky w-full"
-            style={{ top: '0px', zIndex: index + 1 }}
+            style={{ top: `calc(2vh + ${index * 130}px)`, zIndex: index + 1 }}
           >
             <div className="service-card px-6 md:px-10 pt-8 sm:pt-12 pb-12 text-white bg-theme-black border-t border-white/20 w-full min-h-[480px] lg:min-h-[580px] transform-gpu origin-top">
               <div className="flex items-start justify-between gap-6 sm:gap-10 flex-col lg:flex-row">
