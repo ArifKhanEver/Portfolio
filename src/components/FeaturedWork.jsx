@@ -83,11 +83,11 @@ const FeaturedWork = () => {
         }
       });
 
-      // 1c. Global Background Glow Animation (Part 1: Top-Right to Bottom-Left)
+      // 1c. Global Background Glow Animation (Part 1: Top-Right to Left-Side)
       gsap.set(".global-glow", { x: "50vw", y: "-50vh" }); // Initialize at Top-Right
 
       gsap.to(".global-glow", {
-        x: "-50vw", y: "50vh", // End at bottom left
+        x: "-50vw", y: "0vh", // End at the left side (vertically centered behind FEATURED)
         ease: "none",
         scrollTrigger: {
           trigger: ".into-container",
@@ -176,12 +176,13 @@ const FeaturedWork = () => {
         }
       });
 
-      // 6. Global Background Glow Animation (Part 2: Bottom-Left to Bottom-Right)
+      // 6. Global Background Glow Animation (Part 2: Left-Side to Bottom-Right)
       gsap.fromTo(".global-glow",
-        { x: "-50vw", y: "50vh" }, // Start where Part 1 ended (Bottom Left)
+        { x: "-50vw", y: "0vh" }, // Start exactly where Part 1 ended (Left Side)
         {
           x: "50vw", y: "50vh", // Move to bottom-right across the horizontal scroll
           ease: "none",
+          immediateRender: false, // CRITICAL: prevents this from overriding Part 1's initial Top-Right position on load
           scrollTrigger: {
             trigger: track,
             start: "top 0%",
