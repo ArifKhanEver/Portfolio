@@ -1,81 +1,109 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import gsap from "gsap";
 import { usePathname } from "next/navigation";
 
 const CustomCursor = () => {
+  const mainCursor = useRef(null);
   const canvasRef = useRef(null);
   const pathname = usePathname();
 
+  // Primary Canvas & Mouse Tracking setup
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    if (!canvas || !mainCursor.current) return;
     const ctx = canvas.getContext("2d");
 
-    // Handle Resize
+    // Initialize the main DOM cursor center offset
+    gsap.set(mainCursor.current, { xPercent: -50, yPercent: -50 });
+
+    const xTo = gsap.quickTo(mainCursor.current, "x", { duration: 0.1, ease: "power3.out" });
+    const yTo = gsap.quickTo(mainCursor.current, "y", { duration: 0.1, ease: "power3.out" });
+
+    // Handle Window Resize
     const handleResize = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     };
-    handleResize(); // Initial sizing
+    handleResize(); // Set initial size
     window.addEventListener("resize", handleResize);
 
-    // Initial mouse coordinates (center screen)
+    // Initial mouse coordinates
     let mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
 
     const handleMouseMove = (e) => {
       mouse.x = e.clientX;
       mouse.y = e.clientY;
+      xTo(mouse.x);
+      yTo(mouse.y);
     };
     window.addEventListener("mousemove", handleMouseMove);
 
-    // Physics Setup: 'Handful of Hair' Strands
+    // Physics Setup: Long Flowing Hair Strands
     const NUM_STRANDS = 4;
-    const POINTS_PER_STRAND = 25;
-    // Different stiffness values for organic separation when moving fast
-    const STIFFNESS = [0.35, 0.45, 0.55, 0.65]; 
+    const POINTS_PER_STRAND = 70; // Long elegant trails
     
-    // Array to hold state for each strand
+    // Varying stiffness and damping across strands for organic separation
+    const STIFFNESS = [0.15, 0.20, 0.25, 0.30]; 
+    const DAMPING = [0.65, 0.70, 0.72, 0.75]; // Adds a loose, trailing drag
+    const LINE_WIDTHS = [1.2, 1.5, 1.8, 2.0]; // Adds visual depth
+    
     let strands = [];
 
     for (let i = 0; i < NUM_STRANDS; i++) {
       let points = [];
       for (let j = 0; j < POINTS_PER_STRAND; j++) {
-        points.push({ x: mouse.x, y: mouse.y });
+        // include vx, vy for spring physics
+        points.push({ x: mouse.x, y: mouse.y, vx: 0, vy: 0 });
       }
-      strands.push({ points, stiffness: STIFFNESS[i] });
+      strands.push({ 
+        points, 
+        stiffness: STIFFNESS[i], 
+        damping: DAMPING[i], 
+        lineWidth: LINE_WIDTHS[i] 
+      });
     }
 
     let animationFrameId;
 
     const render = () => {
-      // Clear canvas each frame
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
-      // Premium aesthetics
-      ctx.strokeStyle = "rgba(255, 255, 255, 0.4)";
-      ctx.lineWidth = 1.5;
       ctx.lineCap = "round";
       ctx.lineJoin = "round";
 
       strands.forEach((strand) => {
-        // The head of the strand exactly follows the mouse
+        // The head of the strand instantly locks to mouse
         strand.points[0].x = mouse.x;
         strand.points[0].y = mouse.y;
 
         ctx.beginPath();
         ctx.moveTo(strand.points[0].x, strand.points[0].y);
 
-        // Calculate trailing spring physics for the rest of the strand
+        // Solid white stroke that relies on the canvas mix-blend-difference to invert colors dynamically
+        ctx.strokeStyle = "rgba(255, 255, 255, 1)"; 
+        ctx.lineWidth = strand.lineWidth;
+
+        // Calculate trailing spring physics with damping
         for (let j = 1; j < POINTS_PER_STRAND; j++) {
           const pt = strand.points[j];
           const prevPt = strand.points[j - 1];
 
-          // Move current point towards the previous point based on stiffness
-          pt.x += (prevPt.x - pt.x) * strand.stiffness;
-          pt.y += (prevPt.y - pt.y) * strand.stiffness;
+          // Calculate spring force pulling towards previous point
+          const dx = prevPt.x - pt.x;
+          const dy = prevPt.y - pt.y;
 
-          // Smooth bezier curve through the points would be nice, but simple lines work great with many points
+          // Apply force to velocity, then apply damping
+          pt.vx += dx * strand.stiffness;
+          pt.vy += dy * strand.stiffness;
+          
+          pt.vx *= strand.damping;
+          pt.vy *= strand.damping;
+
+          // Add final velocity to position
+          pt.x += pt.vx;
+          pt.y += pt.vy;
+
           ctx.lineTo(pt.x, pt.y);
         }
         
@@ -87,19 +115,102 @@ const CustomCursor = () => {
 
     render();
 
-    // Cleanup
+    // Cleanup phase
     return () => {
       window.removeEventListener("resize", handleResize);
       window.removeEventListener("mousemove", handleMouseMove);
       cancelAnimationFrame(animationFrameId);
     };
-  }, [pathname]); 
+  }, []);
+
+  // Magnetic Hover & Cursor Scale Logic
+  useEffect(() => {
+    if (!mainCursor.current) return;
+
+    // Slight delay so React finishes rendering the tree
+    const timeout = setTimeout(() => {
+      const interactables = document.querySelectorAll("a, button, .magnetic-target");
+      
+      const handleMouseEnter = () => {
+        // Scale main cursor up on hover
+        gsap.to(mainCursor.current, {
+          scale: 2.5,
+          duration: 0.3,
+          ease: "power2.out",
+        });
+      };
+
+      const handleMouseLeave = (e) => {
+        const el = e.currentTarget;
+        // Revert cursor scale
+        gsap.to(mainCursor.current, {
+          scale: 1,
+          duration: 0.3,
+          ease: "power2.out",
+        });
+        // Snap element back to origin
+        gsap.to(el, {
+          x: 0,
+          y: 0,
+          duration: 0.7,
+          ease: "elastic.out(1, 0.3)",
+        });
+      };
+
+      const handleMagneticMove = (e) => {
+        const el = e.currentTarget;
+        const rect = el.getBoundingClientRect();
+        const elCenterX = rect.left + rect.width / 2;
+        const elCenterY = rect.top + rect.height / 2;
+        
+        const distanceX = e.clientX - elCenterX;
+        const distanceY = e.clientY - elCenterY;
+
+        // Apply magnetic pull to the element
+        gsap.to(el, {
+          x: distanceX * 0.3,
+          y: distanceY * 0.3,
+          duration: 0.2,
+          ease: "power2.out",
+        });
+      };
+
+      interactables.forEach((el) => {
+        el.addEventListener("mouseenter", handleMouseEnter);
+        el.addEventListener("mouseleave", handleMouseLeave);
+        el.addEventListener("mousemove", handleMagneticMove);
+      });
+
+      window.__cleanupMagnetic = () => {
+        interactables.forEach((el) => {
+          el.removeEventListener("mouseenter", handleMouseEnter);
+          el.removeEventListener("mouseleave", handleMouseLeave);
+          el.removeEventListener("mousemove", handleMagneticMove);
+        });
+      };
+    }, 100);
+
+    return () => {
+      clearTimeout(timeout);
+      if (window.__cleanupMagnetic) {
+        window.__cleanupMagnetic();
+      }
+    };
+  }, [pathname]);
 
   return (
-    <canvas
-      ref={canvasRef}
-      className="fixed inset-0 pointer-events-none z-[100] hidden lg:block mix-blend-difference"
-    />
+    <div className="hidden lg:block">
+      {/* Canvas for the long flowing hair trail */}
+      <canvas
+        ref={canvasRef}
+        className="fixed inset-0 pointer-events-none z-[99998] mix-blend-difference"
+      />
+      {/* Primary Invert Spotlight Cursor */}
+      <div
+        ref={mainCursor}
+        className="fixed top-0 left-0 w-3 h-3 rounded-full bg-white pointer-events-none z-[99999] mix-blend-difference"
+      />
+    </div>
   );
 };
 
