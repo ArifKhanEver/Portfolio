@@ -3,19 +3,22 @@
 import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const SKILL_CATEGORIES = [
   {
     title: "Frontend",
-    skills: ["React", "Next.js", "Tailwind CSS", "GSAP", "Framer Motion", "Zustand"]
+    skills: [ "JavaScript", "TyperScript" ,"React", "Next.js", "Tailwind CSS", "GSAP", "Framer Motion", "Zustand", "Hero UI", "Shedcn UI", "SwiperJs", "Auto Slide", "Lenis", "TanStack Query"]
   },
   {
     title: "Backend",
-    skills: ["Node.js", "Express", "MongoDB", "Firebase", "Mongoose", "REST APIs"]
+    skills: ["Node.js", "Express", "MongoDB", "Better Auth", "Firebase", "Supabase", "Mongoose", "REST APIs"]
   },
   {
     title: "Tools",
-    skills: ["Git", "Github", "Vercel", "Postman", "Figma", "VS Code"]
+    skills: ["Git", "Github", "Vercel", "Postman", "Figma", "VS Code", "Strip", "React Hook Form", "Cloudinary", "Bun", "npm", "yarn",]
   }
 ];
 
@@ -23,18 +26,24 @@ const Skills = () => {
   const containerRef = useRef(null);
 
   useGSAP(() => {
-    // Infinite Marquee animation for each row
+    // Scroll-triggered Marquee animation for each row
     const marquees = gsap.utils.toArray(".marquee-inner");
     marquees.forEach((marquee, i) => {
-      // Alternate directions if desired, or all same direction
       const direction = i % 2 === 0 ? -1 : 1;
       
-      gsap.to(marquee, {
-        xPercent: direction * -50,
-        ease: "none",
-        duration: 30, // adjust speed here
-        repeat: -1,
-      });
+      gsap.fromTo(marquee, 
+        { xPercent: direction === -1 ? 0 : -30 },
+        {
+          xPercent: direction === -1 ? -30 : 0,
+          ease: "none",
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: 1.5,
+          }
+        }
+      );
     });
   }, { scope: containerRef });
 
