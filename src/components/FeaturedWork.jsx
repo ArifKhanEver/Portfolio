@@ -67,6 +67,21 @@ const FeaturedWork = () => {
         }
       });
 
+      // 1b. Elegant Strip Grow Animation
+      gsap.fromTo(".elegant-strip", 
+        { scaleX: 0 },
+        {
+          scaleX: 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 60%", // Start growing as the user scrolls down
+            end: "top 20%",
+            scrub: true,
+          }
+        }
+      );
+
       // 2. Horizontal Scroll Logic
       const track = trackRef.current;
       
@@ -165,7 +180,10 @@ const FeaturedWork = () => {
           <span className="title-word">complex</span>
           <span className="title-word text-blue-500">problems</span>
           <span className="title-word">into</span>
-          <span className="title-word px-4 py-1 bg-blue-600 text-white -rotate-2 transform rounded-sm shadow-xl shadow-blue-500/20">elegant</span>
+          <span className="title-word relative px-4 py-1 text-white -rotate-2 transform inline-block">
+            <span className="relative z-10">elegant</span>
+            <div className="elegant-strip absolute inset-0 bg-blue-600 rounded-sm shadow-xl shadow-blue-500/20 origin-left -z-10"></div>
+          </span>
           <span className="title-word">solutions</span>
           <span className="title-word text-white/50 text-xl md:text-3xl lg:text-4xl w-full mt-4 tracking-normal lowercase block">one line of code at a time</span>
         </h1>
@@ -178,7 +196,7 @@ const FeaturedWork = () => {
           {PROJECTS.map((project, idx) => (
             <div 
               key={project.id}
-              className="project-card-wrapper relative w-[320px] md:w-[500px] lg:w-[600px] flex-shrink-0 cursor-pointer group"
+              className="project-card-wrapper relative w-[280px] md:w-[400px] lg:w-[480px] flex-shrink-0 cursor-pointer group"
               style={{ perspective: "1500px" }}
             >
               {/* Assembling Corner Brackets */}
@@ -198,7 +216,7 @@ const FeaturedWork = () => {
               >
                 
                 {/* Image Container */}
-                <div className="relative h-56 md:h-72 w-full rounded-t-2xl border-b border-white/5 overflow-hidden" style={{ transform: "translateZ(10px)" }}>
+                <div className="relative h-48 md:h-64 lg:h-64 w-full rounded-t-2xl border-b border-white/5 overflow-hidden" style={{ transform: "translateZ(10px)" }}>
                   <Image
                     src={project.image}
                     alt={project.title}
