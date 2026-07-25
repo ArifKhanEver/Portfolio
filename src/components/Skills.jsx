@@ -48,7 +48,7 @@ const Skills = () => {
   }, { scope: containerRef });
 
   return (
-    <section id="skills" ref={containerRef} className="w-full py-20 bg-theme-black relative overflow-hidden">
+    <section id="skills" ref={containerRef} className="w-full py-24 bg-theme-black relative overflow-hidden">
       
       {/* Background Grid Pattern */}
       <div className="absolute inset-0 opacity-10 pointer-events-none">
@@ -56,25 +56,25 @@ const Skills = () => {
         <div className="absolute inset-0 bg-[linear-gradient(to_bottom,#ffffff10_1px,transparent_1px)] bg-[size:4rem_4rem]"></div>
       </div>
 
-      <div className="relative space-y-16">
+      <div className="relative space-y-16 lg:space-y-24">
         {SKILL_CATEGORIES.map((category, idx) => {
           const isLeft = idx % 2 === 0;
 
           return (
             <div key={category.title} className="relative overflow-hidden flex items-center w-full min-h-[60px] sm:min-h-[80px]">
               
-              {/* The Pinned Stack Name */}
+              {/* The Pinned Stack Name with Smooth Fade Mask */}
               {isLeft ? (
-                <div className="absolute left-0 top-0 bottom-0 z-20 flex items-center bg-theme-black pr-8 pl-4 sm:pl-10">
-                  <h4 className="text-white text-3xl sm:text-4xl lg:text-6xl font-black uppercase tracking-tighter">
+                <div className="absolute left-0 top-0 bottom-0 z-20 flex items-center w-[300px] sm:w-[450px] lg:w-[600px] bg-gradient-to-r from-theme-black via-theme-black to-transparent pl-4 sm:pl-10">
+                  <h4 className="text-gray-400 text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-widest drop-shadow-lg">
                     {category.title}
                   </h4>
                   <div className="h-[2px] w-20 sm:w-32 lg:w-48 bg-gradient-to-r from-primary to-transparent ml-6 sm:ml-10"></div>
                 </div>
               ) : (
-                <div className="absolute right-0 top-0 bottom-0 z-20 flex items-center bg-theme-black pl-8 pr-4 sm:pr-10">
+                <div className="absolute right-0 top-0 bottom-0 z-20 flex items-center justify-end w-[300px] sm:w-[450px] lg:w-[600px] bg-gradient-to-l from-theme-black via-theme-black to-transparent pr-4 sm:pr-10">
                   <div className="h-[2px] w-20 sm:w-32 lg:w-48 bg-gradient-to-l from-primary to-transparent mr-6 sm:mr-10"></div>
-                  <h4 className="text-white text-3xl sm:text-4xl lg:text-6xl font-black uppercase tracking-tighter">
+                  <h4 className="text-gray-400 text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-widest drop-shadow-lg">
                     {category.title}
                   </h4>
                 </div>
@@ -84,13 +84,13 @@ const Skills = () => {
               <div className="marquee-inner flex items-center gap-8 whitespace-nowrap w-max relative z-10">
                 {/* Duplicate content to create seamless loop */}
                 {[...Array(4)].map((_, i) => (
-                  <div key={i} className="flex items-center gap-8 flex-shrink-0">
+                  <div key={i} className="flex items-center gap-6 sm:gap-10 flex-shrink-0">
                     {category.skills.map((skill, sIdx) => (
                       <div key={skill + sIdx} className="flex items-center">
-                        <p className="text-xl sm:text-2xl lg:text-3xl font-light tracking-wide inline-block text-gray-300 hover:text-primary transition-colors">
+                        <p className="text-xl sm:text-3xl lg:text-4xl font-normal tracking-wide inline-block text-gray-200 hover:text-white transition-colors">
                           {skill}
                         </p>
-                        <span className="text-base sm:text-lg mx-6 text-primary">•</span>
+                        <span className="text-sm sm:text-base mx-6 sm:mx-10 text-primary opacity-60">•</span>
                       </div>
                     ))}
                   </div>
@@ -102,9 +102,6 @@ const Skills = () => {
         })}
       </div>
       
-      {/* Fade borders to make it look smooth on edges */}
-      <div className="absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-theme-black to-transparent pointer-events-none z-30"></div>
-      <div className="absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-theme-black to-transparent pointer-events-none z-30"></div>
     </section>
   );
 };
