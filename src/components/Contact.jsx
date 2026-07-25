@@ -81,8 +81,8 @@ const Contact = () => {
         {/* Header Section */}
         <div className="text-center mb-20 relative">
           <h4 className="text-gray-400 text-[10px] md:text-xs font-bold tracking-[0.3em] uppercase mb-4">Get In Touch</h4>
-          <h2 className="contact-title text-5xl md:text-7xl lg:text-[90px] font-black text-[#1877F2] mb-6 uppercase tracking-tighter leading-none">
-            Contact
+          <h2 className="contact-title text-5xl md:text-7xl lg:text-[90px] font-semibold text-[#1877F2] mb-6 uppercase tracking-tighter leading-none">
+            Let's Connect
           </h2>
           <p className="text-gray-400 font-light mx-auto text-sm">
             Ready to bring your ideas to life?
@@ -103,7 +103,7 @@ const Contact = () => {
               <input type="hidden" name="_template" value="table" />
               <input type="hidden" name="_next" value="https://arifkhanever.vercel.app/" />
 
-              <h3 className="text-gray-500 text-[10px] font-bold tracking-[0.2em] uppercase mb-8 text-center md:text-left">Send A Message</h3>
+              <h3 className="text-gray-500 text-xs md:text-sm font-bold tracking-[0.2em] uppercase mb-8 text-center md:text-left">Send A Message</h3>
 
               <div className="space-y-6">
                 <div className="space-y-2">
@@ -112,7 +112,7 @@ const Contact = () => {
                     type="text"
                     name="name"
                     required
-                    placeholder="Your name"
+                    placeholder="Shafiqul Islam Khan"
                     className="w-full px-4 py-3 bg-[#0a1530]/30 border border-white/5 rounded-lg focus:outline-none focus:border-[#1877F2]/50 transition-all text-white placeholder-gray-600 text-sm"
                   />
                 </div>
@@ -123,7 +123,7 @@ const Contact = () => {
                     type="email"
                     name="email"
                     required
-                    placeholder="your.email@example.com"
+                    placeholder="contact@example.com"
                     className="w-full px-4 py-3 bg-[#0a1530]/30 border border-white/5 rounded-lg focus:outline-none focus:border-[#1877F2]/50 transition-all text-white placeholder-gray-600 text-sm"
                   />
                 </div>
@@ -144,7 +144,7 @@ const Contact = () => {
                     name="message" 
                     required
                     rows="4"
-                    placeholder="Tell me about your project..."
+                    placeholder="How can I help you with your next project?"
                     className="w-full px-4 py-3 bg-[#0a1530]/30 border border-white/5 rounded-lg focus:outline-none focus:border-[#1877F2]/50 transition-all text-white placeholder-gray-600 text-sm resize-none"
                   ></textarea>
                 </div>
@@ -175,18 +175,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <h4 className="text-white font-bold text-lg mb-1">Email</h4>
-                  <p className="text-gray-400 text-xs md:text-sm">rakibhasansohag133@gmail.com</p>
-                </div>
-              </div>
-
-              {/* Phone */}
-              <div className="contact-item flex items-center gap-6 p-5 md:p-6 bg-[#050914]/80 rounded-xl border border-white/5 hover:border-white/10 transition-colors">
-                <div className="w-12 h-12 bg-[#1877F2] rounded-lg flex items-center justify-center text-white shrink-0 shadow-lg">
-                  <FiPhone size={22} />
-                </div>
-                <div>
-                  <h4 className="text-white font-bold text-lg mb-1">Phone</h4>
-                  <p className="text-gray-400 text-xs md:text-sm">+880 176016 9982</p>
+                  <p className="text-gray-400 text-xs md:text-sm">contact.arifkhanever@gmail.com</p>
                 </div>
               </div>
 
@@ -197,7 +186,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <h4 className="text-white font-bold text-lg mb-1">Location</h4>
-                  <p className="text-gray-400 text-xs md:text-sm">Dhaka, Bangladesh</p>
+                  <p className="text-gray-400 text-xs md:text-sm">Available for remote work worldwide</p>
                 </div>
               </div>
             </div>
@@ -206,10 +195,10 @@ const Contact = () => {
             <div className="contact-item p-5 md:p-6 bg-[#050914]/80 rounded-xl border border-white/5">
               <h4 className="text-white font-bold text-lg mb-4">Follow Me</h4>
               <div className="flex gap-4">
-                <a href="https://github.com/Rakib-Hasan-Sohag" target="_blank" rel="noreferrer" className="flex-1 flex items-center justify-center gap-2 py-3.5 bg-white/5 border border-white/10 rounded-lg text-white hover:bg-white/10 transition-colors text-sm font-semibold">
+                <a href="https://github.com/ArifKhanEver" target="_blank" rel="noreferrer" className="flex-1 flex items-center justify-center gap-2 py-3.5 bg-white/5 border border-white/10 rounded-lg text-white hover:bg-white/10 transition-colors text-sm font-semibold">
                   <FiGithub size={18} /> GitHub
                 </a>
-                <a href="https://linkedin.com/in/rakib-hasan-sohag" target="_blank" rel="noreferrer" className="flex-1 flex items-center justify-center gap-2 py-3.5 bg-white/5 border border-white/10 rounded-lg text-white hover:bg-white/10 transition-colors text-sm font-semibold">
+                <a href="https://linkedin.com/in/arifkhanever" target="_blank" rel="noreferrer" className="flex-1 flex items-center justify-center gap-2 py-3.5 bg-white/5 border border-white/10 rounded-lg text-white hover:bg-white/10 transition-colors text-sm font-semibold">
                   <FiLinkedin size={18} /> LinkedIn
                 </a>
               </div>
