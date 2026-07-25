@@ -83,23 +83,21 @@ const FeaturedWork = () => {
         }
       });
 
-      // 1c. Background Glow Animation (Top-Right to Bottom-Left)
-      gsap.fromTo(".scroll-glow", 
-        { x: "50vw", y: "-50vh" }, // Start at top right
-        {
-          x: "-50vw", y: "50vh", // End at bottom left
-          ease: "none",
-          scrollTrigger: {
-            trigger: ".into-container",
-            start: "top bottom",
-            end: "top top",
-            scrub: true,
-          }
+      // 1c. Global Background Glow Animation (Part 1: Top-Right to Bottom-Left)
+      gsap.set(".global-glow", { x: "50vw", y: "-50vh" }); // Initialize at Top-Right
+
+      gsap.to(".global-glow", {
+        x: "-50vw", y: "50vh", // End at bottom left
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".into-container",
+          start: "top bottom",
+          end: "top top",
+          scrub: true,
         }
-      );
+      });
 
       const track = trackRef.current;
-      const cardsTrack = cardsTrackRef.current;
 
       // 2. Featured Work Showcase Slide-Up & Clip-path
       const showcaseTimeline = gsap.timeline({
@@ -124,9 +122,12 @@ const FeaturedWork = () => {
         }, "-=0.2");
 
       // 3. Horizontal Cards Scroll Logic
-      const getScrollAmount = () => cardsTrack ? cardsTrack.scrollWidth : 0; 
+      const getScrollAmount = () => {
+        const ct = document.querySelector('.cards-track');
+        return ct ? ct.scrollWidth : window.innerWidth * 2;
+      };
 
-      const horizontalTween = gsap.to(cardsTrack, {
+      const horizontalTween = gsap.to(".cards-track", {
         x: () => -getScrollAmount(),
         ease: "none",
         scrollTrigger: {
@@ -175,11 +176,11 @@ const FeaturedWork = () => {
         }
       });
 
-      // 6. Horizontal Section Glow Animation
-      gsap.fromTo(".horizontal-glow",
-        { x: "0vw", y: "0vh" }, // Start top-left
+      // 6. Global Background Glow Animation (Part 2: Bottom-Left to Bottom-Right)
+      gsap.fromTo(".global-glow",
+        { x: "-50vw", y: "50vh" }, // Start where Part 1 ended
         {
-          x: "100vw", y: "100vh", // Move to bottom-right across the horizontal scroll
+          x: "50vw", y: "50vh", // Move to bottom-right across the horizontal scroll
           ease: "none",
           scrollTrigger: {
             trigger: track,
@@ -235,19 +236,18 @@ const FeaturedWork = () => {
     <section ref={sectionRef} id="featured-work" className="relative min-h-screen w-full bg-black">
       
       {/* 1. Grid Background (Stretches across entire section) */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff15_1px,transparent_1px),linear-gradient(to_bottom,#ffffff15_1px,transparent_1px)] bg-[size:80px_80px] pointer-events-none"></div>
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff15_1px,transparent_1px),linear-gradient(to_bottom,#ffffff15_1px,transparent_1px)] bg-[size:80px_80px] pointer-events-none z-0"></div>
       
+      {/* GLOBAL GLOW: Single element that animates across the entire section component */}
+      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+        <div className="sticky top-0 w-full h-screen">
+          <div className="global-glow absolute top-1/2 left-1/2 w-[400px] h-[400px] md:w-[600px] md:h-[600px] bg-[#1877F2]/40 rounded-full blur-[100px] -translate-x-1/2 -translate-y-1/2"></div>
+        </div>
+      </div>
+
       {/* 2. Massive Vertical Scroll Title Sequence */}
       <div className="relative z-10 w-full flex flex-col items-center pt-12 md:pt-24 pb-[30vh] select-none overflow-hidden">
         
-        {/* Animated radial glow that moves from top-right to bottom-left */}
-        <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden">
-          <div className="sticky top-0 w-full h-screen">
-            {/* Positioned dead center. GSAP will offset it from here to top-right, and end at bottom-left */}
-            <div className="scroll-glow absolute top-1/2 left-1/2 w-[400px] h-[400px] md:w-[600px] md:h-[600px] bg-[#1877F2]/40 rounded-full blur-[100px] -translate-x-1/2 -translate-y-1/2"></div>
-          </div>
-        </div>
-
         <h1 className="relative z-10 flex flex-col items-center text-center text-[12vw] sm:text-[10vw] md:text-[8vw] lg:text-[7vw] font-semibold uppercase tracking-tight text-white/20 leading-[1.1] w-full">
           <span className="light-text">TURNING</span>
           <span className="light-text">COMPLEX</span>
@@ -281,11 +281,6 @@ const FeaturedWork = () => {
       {/* Horizontal Scrolling Track - Pinning Target */}
       <div ref={trackRef} className="relative flex items-center h-screen w-full z-20 overflow-hidden">
         
-        {/* Animated Horizontal Glow (Starts Top-Left) */}
-        <div className="absolute inset-0 pointer-events-none -z-10">
-          <div className="horizontal-glow absolute top-0 left-0 w-[400px] h-[400px] md:w-[600px] md:h-[600px] bg-[#1877F2]/40 rounded-full blur-[100px] -translate-x-1/2 -translate-y-1/2"></div>
-        </div>
-
         {/* Absolute Title (Stays on left, fades out as cards slide over) */}
         <div className="showcase-title-container absolute left-6 md:left-16 lg:left-32 z-10 w-[80vw] md:w-[60vw] lg:w-[600px]">
           <h2 className="flex flex-col text-[12vw] sm:text-[10vw] md:text-[8vw] lg:text-[7vw] font-semibold uppercase tracking-tight text-white leading-[1.1]">
@@ -307,7 +302,7 @@ const FeaturedWork = () => {
         </div>
 
         {/* Moving track of cards (Slides from right to left, over the title) */}
-        <div className="cards-track flex gap-12 lg:gap-24 h-[70vh] items-center absolute left-[90vw] md:left-[70vw] lg:left-[800px] z-20 pr-[50vw]">
+        <div className="cards-track flex gap-12 lg:gap-24 h-[70vh] items-center absolute left-[90vw] md:left-[70vw] lg:left-[800px] z-20 w-max pr-[50vw]">
           {PROJECTS.map((project, idx) => (
             <div 
               key={project.id}
