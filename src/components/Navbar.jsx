@@ -52,7 +52,7 @@ const Navbar = () => {
       {/* Fullscreen Overlay Menu */}
       <nav 
         ref={overlayRef}
-        className="fixed inset-0 z-[9999] flex flex-col md:flex-row justify-between w-full h-full px-10 md:px-20 py-28 bg-theme-black text-white"
+        className={`fixed inset-0 z-[9999] flex flex-col md:flex-row justify-between w-full h-full px-10 md:px-20 py-28 bg-theme-black text-white ${isOpen ? 'pointer-events-auto' : 'pointer-events-none'}`}
         style={{ clipPath: 'circle(0% at 90% 10%)' }}
       >
         {/* Left Side - Links */}

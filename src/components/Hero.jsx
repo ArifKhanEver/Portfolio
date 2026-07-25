@@ -71,7 +71,7 @@ const Hero = () => {
                         <span className="text-transparent" style={{ WebkitTextStroke: "2px white" }}>I'M</span>
                     </h2>
                     
-                    <h1 className="reveal-element bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent text-5xl sm:text-6xl lg:text-7xl font-extrabold uppercase mt-4 leading-tight tracking-tight">
+                    <h1 className="reveal-element text-primary text-5xl sm:text-6xl lg:text-7xl font-extrabold uppercase mt-4 leading-tight tracking-tight">
                         Shafiqul Islam<br/>Khan
                     </h1>
 
