@@ -1,6 +1,27 @@
 @import "tailwindcss";
 
-@tailwind utilities;
+@theme {
+  --color-primary: #068FFF;
+  --color-accent: #00D2FC;
+  --color-theme-black: #0a0a0e;
+  --color-theme-white: #ffffff;
+  
+  --animate-wave-gentle: wave-gentle 3s ease-in-out infinite;
+  --animate-wave-fast: wave-fast 0.5s ease-in-out infinite;
+  --animate-spin-slow: spin 20s linear infinite;
+
+  @keyframes wave-gentle {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-10deg); }
+    75% { transform: rotate(10deg); }
+  }
+  
+  @keyframes wave-fast {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-15deg); }
+    75% { transform: rotate(15deg); }
+  }
+}
 
 @variant dark (&:where(.dark, .dark *));
 

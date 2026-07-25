@@ -1,4 +1,5 @@
 "use client";
+
 import HeroImage from '@/assets/HeroFigure.png'
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
@@ -11,19 +12,9 @@ if (typeof window !== "undefined") {
 
 const About = () => {
     const sectionRef = useRef(null);
-    const textRef = useRef(null);
 
     useEffect(() => {
         let ctx = gsap.context(() => {
-            // Background elements animation
-            gsap.to(".about-glow", {
-                y: "random(-30, 30)",
-                duration: 4,
-                repeat: -1,
-                yoyo: true,
-                ease: "sine.inOut"
-            });
-
             // Text reveal animation
             gsap.from(".about-content > *", {
                 scrollTrigger: {
@@ -32,7 +23,18 @@ const About = () => {
                 },
                 y: 30,
                 opacity: 0,
-                stagger: 0.2,
+                stagger: 0.15,
+                duration: 1,
+                ease: "power3.out"
+            });
+            
+            gsap.from(".about-image-wrapper", {
+                scrollTrigger: {
+                    trigger: ".about-image-wrapper",
+                    start: "top 80%",
+                },
+                x: -50,
+                opacity: 0,
                 duration: 1,
                 ease: "power3.out"
             });
@@ -42,59 +44,49 @@ const About = () => {
     }, []);
 
     return (
-        <section ref={sectionRef} id="about" className="w-full md:py-20 bg-white dark:bg-black relative overflow-hidden">
-            {/* Background Decorative Glows */}
-            <div className="absolute inset-0 pointer-events-none z-0">
-                <div className="about-glow absolute -top-[10%] -right-[5%] w-[400px] h-[400px] bg-teal-50 dark:bg-teal-900/20 rounded-full blur-[100px] opacity-60"></div>
-                <div className="about-glow absolute -bottom-[10%] -left-[5%] w-[300px] h-[300px] bg-blue-50 dark:bg-blue-900/20 rounded-full blur-[80px] opacity-40"></div>
-            </div>
-
+        <section ref={sectionRef} id="about" className="w-full md:py-24 bg-theme-black relative overflow-hidden border-t border-white/5">
             <div className="container mx-auto px-6 relative z-10">
-                <div className="flex flex-col lg:flex-row items-center gap-16">
+                <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
 
-                    {/* Left Side: Image/Visual Placeholder */}
-                    <div className="lg:w-2/5 relative">
-                        <div className="relative z-10 rounded-[3rem] overflow-hidden border-8 border-white dark:border-zinc-900 shadow-2xl shadow-slate-200 dark:shadow-none">
-                            <div className="aspect-[4/5] bg-slate-100 dark:bg-zinc-900 flex items-center justify-center">
-                                <Image src={HeroImage} alt='my Image' fill  className='object-cover'/>
+                    {/* Left Side: Image Visual */}
+                    <div className="about-image-wrapper lg:w-[45%] relative">
+                        <div className="relative z-10 rounded-[2rem] overflow-hidden border border-white/10 shadow-[0_0_50px_rgba(6,143,255,0.15)] bg-white/5 backdrop-blur-sm p-4">
+                            <div className="aspect-[4/5] bg-theme-black rounded-[1.5rem] overflow-hidden relative flex items-center justify-center">
+                                <Image src={HeroImage} alt='My Image' fill className='object-cover opacity-90' />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                             </div>
                         </div>
-                        {/* Decorative Frame */}
-                        <div className="absolute -bottom-6 -right-6 w-full h-full border-2 border-[#149988] rounded-[3rem] -z-10 translate-x-4 translate-y-4"></div>
+                        {/* Decorative background element */}
+                        <div className="absolute -bottom-10 -right-10 w-full h-full border border-primary/30 rounded-[2rem] -z-10 bg-primary/5 blur-sm"></div>
                     </div>
 
                     {/* Right Side: Content */}
-                    <div className="lg:w-3/5 about-content space-y-8">
+                    <div className="lg:w-[55%] about-content space-y-8">
                         <div className="space-y-4">
-                            <div className="inline-flex items-center gap-2 bg-[#E6F4F1] dark:bg-[#149988]/20 text-[#149988] px-4 py-2 rounded-full text-xs font-bold mb-3">
-                                <span className="w-2 h-2 bg-[#149988] rounded-full animate-pulse"></span>
-                                About Me
-                            </div>
-                            <h2 className="text-4xl lg:text-[50px] font-black text-slate-900 dark:text-white leading-tight">
+                            <h2 className="text-5xl lg:text-[60px] font-black text-white leading-tight uppercase tracking-tighter">
                                 Bridging Narrative <br />
-                                <span className="text-[#149988]">With Technology</span>
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">With Technology</span>
                             </h2>
-                            <div className="h-1.5 w-20 bg-[#149988] rounded-full"></div>
                         </div>
 
-                        <div className="space-y-6 text-slate-500 dark:text-zinc-400 font-medium text-lg leading-relaxed">
+                        <div className="space-y-6 text-gray-400 font-light text-lg leading-relaxed">
                             <p>
-                                Hello, I'm <strong>Shafiqul Islam Khan</strong> , a web developer with a passion for creating innovative and impactful digital experiences. My interest in web development started when I discovered my love for HTML and CSS, and since then, I've been fortunate enough to work with a variety of clients, including advertising agencies, start-ups, and large corporations.At Upstatement, I'm focused on developing accessible and inclusive digital products and experiences, constantly pushing the boundaries of what's possible. I'm proficient in a variety of cutting-edge technologies necessary for both Frontend and Backend.
+                                Hello, I'm <strong className="text-white font-medium">Shafiqul Islam Khan</strong>, a web developer with a passion for creating innovative and impactful digital experiences. My interest in web development started when I discovered my love for modern UI interactions, and since then, I've been fortunate enough to build accessible and inclusive digital products that push the boundaries of what's possible.
                             </p>
                             <p>
-                                As an experienced web developer, I'm committed to help businesses and individuals achieve their digital goals. Whether you're a marketing professional, a small business owner, or a fellow developer, I have the expertise and knowledge to help take your digital presence to the next level.
+                                As a full-stack engineer, I'm committed to helping businesses and individuals achieve their digital goals. Whether it's robust backend architecture or fluid frontend animations, I have the expertise to take your digital presence to the next level.
                             </p>
                         </div>
 
                         {/* Quick Skills/Focus Area */}
                         <div className="grid grid-cols-2 gap-6 pt-4">
-                            <div className="p-6 bg-slate-50 dark:bg-zinc-950 rounded-2xl border border-slate-100 dark:border-zinc-900 group hover:border-[#149988]/30 transition-all">
-                                <h4 className="text-[#149988] font-black text-xs uppercase tracking-widest mb-2">Strategy</h4>
-                                <p className="text-slate-800 dark:text-zinc-200 font-bold">Critical Thinking & Research</p>
+                            <div className="p-6 bg-white/5 rounded-2xl border border-white/10 group hover:border-primary/50 transition-all backdrop-blur-md">
+                                <h4 className="text-primary font-bold text-xs uppercase tracking-widest mb-2">Strategy</h4>
+                                <p className="text-white font-medium">Critical Thinking & Research</p>
                             </div>
-                            <div className="p-6 bg-slate-50 dark:bg-zinc-950 rounded-2xl border border-slate-100 dark:border-zinc-900 group hover:border-[#149988]/30 transition-all">
-                                <h4 className="text-[#149988] font-black text-xs uppercase tracking-widest mb-2">Execution</h4>
-                                <p className="text-slate-800 dark:text-zinc-200 font-bold">Modern Web Architecture</p>
+                            <div className="p-6 bg-white/5 rounded-2xl border border-white/10 group hover:border-accent/50 transition-all backdrop-blur-md">
+                                <h4 className="text-accent font-bold text-xs uppercase tracking-widest mb-2">Execution</h4>
+                                <p className="text-white font-medium">Modern Web Architecture</p>
                             </div>
                         </div>
                     </div>

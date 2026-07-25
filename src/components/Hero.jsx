@@ -1,53 +1,54 @@
-'use client';
+"use client";
 
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import HeroImage from "@/assets/HeroFigure.png"; 
-import { FaDownload, FaLinkedinIn, FaGithub, FaCodepen, FaEnvelope } from "react-icons/fa";
-import { HiArrowRight } from "react-icons/hi";
+import { FaDownload, FaLinkedinIn, FaGithub, FaCodepen, FaPhoneAlt, FaEnvelope, FaFacebook } from "react-icons/fa";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import HeroImage from "@/assets/HeroFigure.png"; // Keeping just in case, but reference has no image here. If they want avatar, we can put it inside phone.
+
+const TYPEWRITER_TEXTS = ["Backend Developer", "Problem Solver", "Full Stack Dev"];
 
 const Hero = () => {
     const containerRef = useRef(null);
+    const [typewriterText, setTypewriterText] = useState("");
+    const [wordIndex, setWordIndex] = useState(0);
+    const [isDeleting, setIsDeleting] = useState(false);
+
+    // Typewriter Effect
+    useEffect(() => {
+        const currentWord = TYPEWRITER_TEXTS[wordIndex];
+        const typeSpeed = isDeleting ? 50 : 100;
+
+        const timeout = setTimeout(() => {
+            if (!isDeleting && typewriterText === currentWord) {
+                setTimeout(() => setIsDeleting(true), 1500);
+            } else if (isDeleting && typewriterText === "") {
+                setIsDeleting(false);
+                setWordIndex((prev) => (prev + 1) % TYPEWRITER_TEXTS.length);
+            } else {
+                setTypewriterText((prev) => 
+                    isDeleting ? currentWord.substring(0, prev.length - 1) : currentWord.substring(0, prev.length + 1)
+                );
+            }
+        }, typeSpeed);
+
+        return () => clearTimeout(timeout);
+    }, [typewriterText, isDeleting, wordIndex]);
 
     useGSAP(() => {
         const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
 
-        // Texts & Elements reveal
-        tl.from(".reveal-item", {
+        tl.from(".reveal-element", {
             y: 30,
             opacity: 0,
             duration: 1,
             stagger: 0.1,
-        })
-        .from(".hero-visual", {
-            x: 40,
-            opacity: 0,
-            scale: 0.9,
-            duration: 1.2,
-            ease: "power3.out"
-        }, "-=0.8");
-
-        // Rotating Tech Rings around the image
-        gsap.to(".tech-ring-1", {
-            rotation: 360,
-            duration: 25,
-            repeat: -1,
-            ease: "none"
-        });
-        
-        gsap.to(".tech-ring-2", {
-            rotation: -360,
-            duration: 35,
-            repeat: -1,
-            ease: "none"
         });
 
-        // Floating avatar
-        gsap.to(".avatar-float", {
-            y: "-=12",
+        gsap.to(".phone-float", {
+            y: "-=15",
             duration: 3,
             repeat: -1,
             yoyo: true,
@@ -59,115 +60,81 @@ const Hero = () => {
     const googleDriveCVLink = "https://drive.google.com/file/d/YOUR_FILE_ID/view?usp=sharing";
 
     return (
-        <section ref={containerRef} className="w-full min-h-screen pt-28 pb-16 bg-[#0a0a0e] relative overflow-hidden flex items-center">
-            
-            {/* Deep Space / Galaxy Background Glows */}
-            <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-                <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-purple-600/20 rounded-full blur-[120px]"></div>
-                <div className="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-indigo-600/15 rounded-full blur-[150px]"></div>
-                <div className="absolute top-[40%] left-[50%] -translate-x-1/2 w-[800px] h-[300px] bg-blue-500/10 rounded-full blur-[120px]"></div>
-            </div>
-
-            <div className="container mx-auto px-6 lg:px-16 relative z-10">
-                <div className="flex flex-col-reverse lg:flex-row items-center justify-between gap-12 lg:gap-8">
+        <section id="home" ref={containerRef} className="relative bg-theme-black min-h-screen overflow-hidden flex items-center">
+            <div className="container mx-auto px-6 lg:px-16 py-20 relative z-10 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16">
+                
+                {/* Left Content */}
+                <div className="lg:w-[55%] text-left flex flex-col items-start z-10">
+                    <h2 className="reveal-element text-4xl sm:text-5xl lg:text-7xl font-bold uppercase leading-tight flex flex-wrap items-center gap-x-4 text-white">
+                        <span>HELLO</span>
+                        <div className="inline-block cursor-pointer hover:animate-wave-fast animate-wave-gentle origin-bottom" role="img" aria-label="Waving Hand">👋</div>
+                        <span className="text-transparent" style={{ WebkitTextStroke: "2px white" }}>I'M</span>
+                    </h2>
                     
-                    {/* Left Content (Text) */}
-                    <div className="lg:w-[55%] text-center lg:text-left flex flex-col items-center lg:items-start">
-                        
-                        {/* Status Badge */}
-                        <div className="reveal-item inline-flex items-center gap-2 bg-white/5 border border-white/10 text-gray-300 px-5 py-2 rounded-full text-xs font-semibold mb-6 backdrop-blur-md">
-                            <span className="relative flex h-2 w-2">
-                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
-                                <span className="relative inline-flex rounded-full h-2 w-2 bg-purple-500"></span>
-                            </span>
-                            Jr. Full Stack Developer • Backend Focused
+                    <h1 className="reveal-element bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent text-5xl sm:text-6xl lg:text-7xl font-extrabold uppercase mt-4 leading-tight tracking-tight">
+                        Shafiqul Islam<br/>Khan
+                    </h1>
+
+                    <div className="reveal-element space-y-6 mt-8">
+                        <div className="text-white text-xl sm:text-2xl lg:text-3xl font-semibold leading-relaxed flex flex-wrap items-center gap-x-3">
+                            <span className="whitespace-nowrap">A highly skilled</span>
+                            <div className="relative inline-flex items-center">
+                                <span className="font-bold border-b-4 border-primary text-white">
+                                    {typewriterText}
+                                    <span className="inline-block w-[3px] h-[1em] ml-1 bg-white animate-pulse align-middle"></span>
+                                </span>
+                            </div>
                         </div>
-
-                        {/* Greeting & Name */}
-                        <h2 className="reveal-item text-xl sm:text-2xl text-gray-300 font-medium mb-2">
-                            Hi, I'm
-                        </h2>
-                        <h1 className="reveal-item text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-[1.1] mb-4 tracking-tight">
-                            Shafiqul Islam <br className="hidden lg:block"/>
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-fuchsia-400 to-cyan-400">
-                                Khan
-                            </span>
-                        </h1>
-
-                        {/* Subtitle */}
-                        <h3 className="reveal-item text-xl sm:text-2xl text-gray-200 font-semibold mb-5">
-                            I am a <span className="text-purple-400">Problem Solver</span>
-                        </h3>
-
-                        {/* Description */}
-                        <p className="reveal-item text-gray-400 text-sm sm:text-base lg:text-lg max-w-xl mb-10 leading-relaxed">
-                            Passionate about building modern, interactive, and beautiful web applications working with the <span className="text-fuchsia-400 font-medium">MERN stack</span>. I love solving complex problems and actively building an engineering mindset.
+                        <p className="text-gray-400 text-base sm:text-lg lg:text-xl leading-relaxed max-w-2xl font-light">
+                            Crafting exceptional digital experiences with modern technologies. Passionate about building scalable, user-friendly applications that make a difference.
                         </p>
-
-                        {/* Buttons */}
-                        <div className="reveal-item flex flex-col sm:flex-row items-center gap-5 mb-10 w-full lg:w-auto justify-center lg:justify-start">
-                            <a
-                                href={googleDriveCVLink} 
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="w-full sm:w-auto bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-8 py-3.5 rounded-full font-semibold flex items-center justify-center gap-2 hover:shadow-[0_0_20px_rgba(147,51,234,0.4)] transition-all hover:scale-105 active:scale-95"
-                            >
-                                <FaDownload /> Get Resume
-                            </a>
-                            
-                            <Link href='#projects' className="w-full sm:w-auto bg-white/10 border border-white/20 text-white px-8 py-3.5 rounded-full font-semibold flex items-center justify-center gap-2 hover:bg-white/20 transition-all hover:scale-105 active:scale-95 backdrop-blur-sm">
-                                View Projects <HiArrowRight />
-                            </Link>
-                        </div>
-
-                        {/* Social Icons */}
-                        <div className="reveal-item flex items-center gap-4">
-                            <a href="https://github.com/ArifKhanEver" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:bg-purple-600 hover:text-white hover:border-purple-500 transition-all hover:-translate-y-1">
-                                <FaGithub size={18} />
-                            </a>
-                            <a href="http://linkedin.com/in/arifkhanever" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:bg-purple-600 hover:text-white hover:border-purple-500 transition-all hover:-translate-y-1">
-                                <FaLinkedinIn size={18} />
-                            </a>
-                            <a href="https://codepen.io/arifkhanever" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:bg-purple-600 hover:text-white hover:border-purple-500 transition-all hover:-translate-y-1">
-                                <FaCodepen size={18} />
-                            </a>
-                            <a href="mailto:your-email@example.com" className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:bg-purple-600 hover:text-white hover:border-purple-500 transition-all hover:-translate-y-1">
-                                <FaEnvelope size={18} />
-                            </a>
-                        </div>
                     </div>
 
-                    {/* Right Section - Main Image & Tech Rings */}
-                    <div className="hero-visual lg:w-[45%] relative flex justify-center items-center w-full max-w-sm lg:max-w-none mx-auto mt-10 lg:mt-0">
+                    {/* Buttons */}
+                    <div className="reveal-element flex flex-wrap gap-6 mt-10 w-full sm:w-auto">
+                        <Link href="#projects" className="group relative inline-flex items-center justify-center font-bold text-lg rounded-lg overflow-hidden transition-all duration-300 active:scale-95 px-10 py-4 bg-white/10 text-white hover:shadow-[0_10px_30px_rgba(6,143,255,0.3)] border border-white/20">
+                            <span className="relative z-10">View My Work</span>
+                            <span className="absolute inset-0 m-auto w-[120%] aspect-square rounded-full bg-gradient-to-r from-primary to-accent scale-0 group-hover:scale-125 transition-transform duration-500 ease-out z-0"></span>
+                        </Link>
                         
-                        <div className="relative w-full aspect-square max-w-[400px] flex items-center justify-center">
-                            
-                            {/* Outer Dashed Ring (Slow reverse rotation) */}
-                            <div className="tech-ring-2 absolute inset-[-10%] rounded-full border border-dashed border-purple-500/30"></div>
-                            
-                            {/* Inner Glowing Ring (Forward rotation) */}
-                            <div className="tech-ring-1 absolute inset-0 rounded-full border-2 border-transparent border-t-purple-500 border-r-cyan-400 shadow-[0_0_30px_rgba(168,85,247,0.2)]"></div>
-                            
-                            {/* Subtle background behind avatar */}
-                            <div className="absolute inset-2 rounded-full bg-gradient-to-tr from-purple-900/40 to-transparent backdrop-blur-sm border border-white/5"></div>
+                        <a href={googleDriveCVLink} target="_blank" rel="noopener noreferrer" className="group relative inline-flex items-center justify-center font-bold text-lg rounded-lg overflow-hidden transition-all duration-300 active:scale-95 px-10 py-4 text-white border border-white hover:bg-white hover:text-black shadow-xl hover:-translate-y-1">
+                            <span className="relative z-10 transition-colors duration-300">Download CV</span>
+                        </a>
+                    </div>
+                </div>
 
-                            {/* Avatar Image */}
-                            <Image
-                                src={HeroImage}
-                                alt="Shafiqul Islam Khan"
-                                priority
-                                className="avatar-float relative z-10 w-[85%] h-[85%] object-cover rounded-full drop-shadow-[0_10px_20px_rgba(0,0,0,0.5)]"
-                            />
-                            
-                            {/* Small decorative floating dots around the ring */}
-                            <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-cyan-400 rounded-full shadow-[0_0_10px_#22d3ee]"></div>
-                            <div className="absolute bottom-10 left-0 w-2 h-2 bg-purple-500 rounded-full shadow-[0_0_10px_#a855f7]"></div>
-                            <div className="absolute top-20 right-0 w-2.5 h-2.5 bg-fuchsia-400 rounded-full shadow-[0_0_10px_#e879f9]"></div>
+                {/* Right Content - Phone Mockup */}
+                <div className="reveal-element lg:w-[45%] relative flex justify-center lg:justify-end items-center z-10">
+                    <div className="phone-float relative bg-black w-[320px] h-[550px] rounded-[3rem] flex flex-col p-4 shadow-[0_20px_50px_rgba(6,143,255,0.2)] border-4 border-zinc-800">
+                        {/* Inner Screen */}
+                        <div className="grow bg-zinc-100 dark:bg-[#eaeaff] rounded-[2rem] p-6 relative overflow-hidden flex flex-col">
+                            {/* Notch */}
+                            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-black rounded-b-xl z-20"></div>
 
+                            {/* Top icons */}
+                            <div className="absolute top-4 left-4 flex gap-3 z-10">
+                                <a href="tel:+1234567890" className="text-zinc-800 hover:text-primary transition-colors"><FaPhoneAlt size={16} /></a>
+                                <a href="mailto:example@gmail.com" className="text-zinc-800 hover:text-primary transition-colors"><FaEnvelope size={16} /></a>
+                            </div>
+                            <div className="absolute top-4 right-4 flex gap-3 z-10">
+                                <a href="https://github.com/ArifKhanEver" target="_blank" rel="noreferrer" className="text-zinc-800 hover:text-primary transition-colors"><FaGithub size={18} /></a>
+                                <a href="http://linkedin.com/in/arifkhanever" target="_blank" rel="noreferrer" className="text-zinc-800 hover:text-primary transition-colors"><FaLinkedinIn size={18} /></a>
+                            </div>
+
+                            {/* Main Phone Content */}
+                            <div className="flex flex-col justify-center items-center h-full pt-12 pb-4 text-center z-10">
+                                <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-white shadow-lg mb-6">
+                                    <Image src={HeroImage} alt="Avatar" className="w-full h-full object-cover" />
+                                </div>
+                                <h1 className="text-3xl font-bold text-black font-sans leading-tight mb-8">Hello There, Stranger!</h1>
+                                <a href="#contact" className="w-full py-4 bg-black text-white rounded-xl font-bold text-xl hover:scale-105 transition-transform shadow-lg cursor-pointer">
+                                    Let's Talk
+                                </a>
+                            </div>
                         </div>
                     </div>
-
                 </div>
+
             </div>
         </section>
     );

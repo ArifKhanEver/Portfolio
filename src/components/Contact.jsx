@@ -30,7 +30,7 @@ const Contact = () => {
         }
       );
 
-      // 2. Info Cards Entrance (Left Side)
+      // 2. Info Cards Entrance
       gsap.fromTo(".contact-item",
         { x: -40, opacity: 0 },
         {
@@ -46,7 +46,7 @@ const Contact = () => {
         }
       );
 
-      // 3. Form Entrance (Right Side)
+      // 3. Form Entrance
       if (formRef.current) {
         gsap.fromTo(formRef.current,
           { x: 40, opacity: 0 },
@@ -64,7 +64,6 @@ const Contact = () => {
       }
     }, sectionRef);
 
-    // Refresh for accurate calculations
     const timer = setTimeout(() => {
       ScrollTrigger.refresh();
     }, 300);
@@ -76,50 +75,43 @@ const Contact = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} id="contact" className="w-full py-24 bg-gray-100 dark:bg-zinc-950 relative overflow-hidden">
-      {/* Background Subtle Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-teal-50/40 dark:bg-teal-900/20 rounded-full blur-[120px] pointer-events-none z-0"></div>
-
+    <section ref={sectionRef} id="contact" className="w-full py-24 bg-theme-black relative overflow-hidden border-t border-white/5">
       <div className="container mx-auto px-6 relative z-10">
         <div className="text-center mb-20">
-          <div className="inline-flex items-center gap-2 bg-[#E6F4F1] dark:bg-[#149988]/20 text-[#149988] px-4 py-2 rounded-full text-xs font-bold mb-3">
-            <span className="w-2 h-2 bg-[#149988] rounded-full animate-pulse"></span>
-            Contact Me
-          </div>
-          <h2 className="contact-title text-4xl lg:text-[50px] font-black text-slate-900 dark:text-white mb-6 opacity-1">
-            Let’s <span className="text-[#149988]">Connect</span>
+          <h2 className="contact-title text-5xl lg:text-[60px] font-black text-white mb-6 uppercase tracking-tighter">
+            Let’s <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Connect</span>
           </h2>
-          <p className="text-slate-500 dark:text-zinc-400 font-medium max-w-xl mx-auto">
+          <p className="text-gray-400 font-light max-w-xl mx-auto text-lg">
             Open for collaborations, innovative projects, or just a friendly tech talk.
-            I'm currently seeking opportunities to architect scalable MERN applications.
+            I'm currently seeking opportunities to architect scalable applications.
           </p>
         </div>
 
         <div className="contact-grid grid grid-cols-1 lg:grid-cols-12 gap-12 max-w-6xl mx-auto">
           {/* Left Side: Contact Info */}
           <div className="lg:col-span-5 space-y-6">
-            <div className="contact-item p-8 bg-white dark:bg-zinc-900 rounded-[2rem] border border-slate-100 dark:border-zinc-800 group hover:border-[#149988]/30 dark:hover:border-[#149988]/30 transition-all opacity-1">
-              <div className="w-12 h-12 bg-white dark:bg-zinc-950 rounded-xl flex items-center justify-center text-[#149988] shadow-sm mb-4">
+            <div className="contact-item p-8 bg-white/5 rounded-[2rem] border border-white/10 group hover:border-primary/50 transition-all backdrop-blur-md">
+              <div className="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center text-primary shadow-sm mb-4 border border-white/10 group-hover:bg-primary group-hover:text-white transition-colors">
                 <FiMail size={24} />
               </div>
-              <h4 className="text-slate-900 dark:text-white font-bold mb-1">Email Me</h4>
-              <p className="text-slate-500 dark:text-zinc-400 text-sm">contact.arifkhanever@gmail.com</p>
+              <h4 className="text-white font-bold mb-1">Email Me</h4>
+              <p className="text-gray-400 text-sm font-light">contact.arifkhanever@gmail.com</p>
             </div>
 
-            <div className="contact-item p-8 bg-white dark:bg-zinc-900 rounded-[2rem] border border-slate-100 dark:border-zinc-800 group hover:border-[#149988]/30 dark:hover:border-[#149988]/30 transition-all opacity-1">
-              <div className="w-12 h-12 bg-white dark:bg-zinc-950 rounded-xl flex items-center justify-center text-[#149988] shadow-sm mb-4">
+            <div className="contact-item p-8 bg-white/5 rounded-[2rem] border border-white/10 group hover:border-primary/50 transition-all backdrop-blur-md">
+              <div className="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center text-primary shadow-sm mb-4 border border-white/10 group-hover:bg-primary group-hover:text-white transition-colors">
                 <FiLinkedin size={24} />
               </div>
-              <h4 className="text-slate-900 dark:text-white font-bold mb-1">LinkedIn</h4>
-              <p className="text-slate-500 dark:text-zinc-400 text-sm">@arifkhanever</p>
+              <h4 className="text-white font-bold mb-1">LinkedIn</h4>
+              <p className="text-gray-400 text-sm font-light">@arifkhanever</p>
             </div>
 
-            <div className="contact-item p-8 bg-white dark:bg-zinc-900 rounded-[2rem] border border-slate-100 dark:border-zinc-800 group hover:border-[#149988]/30 dark:hover:border-[#149988]/30 transition-all opacity-1">
-              <div className="w-12 h-12 bg-white dark:bg-zinc-950 rounded-xl flex items-center justify-center text-[#149988] shadow-sm mb-4">
+            <div className="contact-item p-8 bg-white/5 rounded-[2rem] border border-white/10 group hover:border-primary/50 transition-all backdrop-blur-md">
+              <div className="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center text-primary shadow-sm mb-4 border border-white/10 group-hover:bg-primary group-hover:text-white transition-colors">
                 <FiMapPin size={24} />
               </div>
-              <h4 className="text-slate-900 dark:text-white font-bold mb-1">Location</h4>
-              <p className="text-slate-500 dark:text-zinc-400 text-sm">Available for remote work worldwide</p>
+              <h4 className="text-white font-bold mb-1">Location</h4>
+              <p className="text-gray-400 text-sm font-light">Available for remote work worldwide</p>
             </div>
           </div>
 
@@ -128,50 +120,49 @@ const Contact = () => {
             action="https://formsubmit.co/b9593152921aba84ef103074c9ed733d"
             method="POST"
             ref={formRef}
-            className="lg:col-span-7 bg-white dark:bg-zinc-900 p-10 rounded-[2.5rem] border border-slate-100 dark:border-zinc-800 shadow-2xl shadow-slate-100/50 dark:shadow-none opacity-1"
+            className="lg:col-span-7 bg-white/5 p-10 rounded-[2.5rem] border border-white/10 shadow-2xl backdrop-blur-md"
           >
-            {/* Form Configuration */}
             <input type="hidden" name="_captcha" value="false" />
             <input type="hidden" name="_template" value="table" />
             <input type="hidden" name="_next" value="https://arifkhanever.vercel.app/" />
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
               <div className="space-y-2">
-                <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-2">Your Name</label>
+                <label className="text-xs font-bold uppercase tracking-widest text-gray-500 ml-2">Your Name</label>
                 <input
                   type="text"
                   name="name"
                   required
                   placeholder="Shafiqul Islam Khan"
-                  className="w-full px-6 py-4 bg-slate-50 dark:bg-zinc-950 border border-slate-100 dark:border-zinc-800 rounded-2xl focus:outline-none focus:border-[#149988] focus:bg-white dark:focus:bg-slate-800 transition-all text-slate-800 dark:text-zinc-200"
+                  className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-2xl focus:outline-none focus:border-primary transition-all text-white placeholder-gray-600"
                 />
               </div>
               <div className="space-y-2">
-                <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-2">Your Email</label>
+                <label className="text-xs font-bold uppercase tracking-widest text-gray-500 ml-2">Your Email</label>
                 <input
                   type="email"
                   name="email"
                   required
                   placeholder="contact@example.com"
-                  className="w-full px-6 py-4 bg-slate-50 dark:bg-zinc-950 border border-slate-100 dark:border-zinc-800 rounded-2xl focus:outline-none focus:border-[#149988] focus:bg-white dark:focus:bg-slate-800 transition-all text-slate-800 dark:text-zinc-200"
+                  className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-2xl focus:outline-none focus:border-primary transition-all text-white placeholder-gray-600"
                 />
               </div>
             </div>
 
             <div className="space-y-2 mb-8">
-              <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-2">Message</label>
+              <label className="text-xs font-bold uppercase tracking-widest text-gray-500 ml-2">Message</label>
               <textarea
                 name="message" 
                 required
                 rows="5"
-                placeholder="How can I help you with your next MERN project?"
-                className="w-full px-6 py-4 bg-slate-50 dark:bg-zinc-950 border border-slate-100 dark:border-zinc-800 rounded-2xl focus:outline-none focus:border-[#149988] focus:bg-white dark:focus:bg-slate-800 transition-all text-slate-800 dark:text-zinc-200 resize-none"
+                placeholder="How can I help you with your next project?"
+                className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-2xl focus:outline-none focus:border-primary transition-all text-white placeholder-gray-600 resize-none"
               ></textarea>
             </div>
 
             <button
               type="submit"
-              className="w-full py-5 bg-[#149988] text-white rounded-2xl font-black flex items-center justify-center gap-3 hover:bg-[#0f7d6f] transition-all shadow-xl shadow-teal-100 dark:shadow-none active:scale-[0.98]"
+              className="w-full py-5 bg-gradient-to-r from-primary to-accent text-black rounded-2xl font-bold flex items-center justify-center gap-3 hover:opacity-90 transition-all shadow-[0_0_20px_rgba(6,143,255,0.4)] active:scale-[0.98]"
             >
               Send Message <FiSend />
             </button>

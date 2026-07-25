@@ -101,25 +101,18 @@ const Projects = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} id="portfolio" className="w-full py-24 bg-gray-50 dark:bg-zinc-950 relative overflow-hidden border-b border-slate-50 dark:border-zinc-900">
+    <section ref={sectionRef} id="projects" className="w-full py-24 bg-theme-black relative overflow-hidden border-t border-white/5">
       <div className="container mx-auto px-6 relative z-10">
 
         {/* Header Section */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
           <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 bg-[#E6F4F1] dark:bg-[#149988]/20 text-[#149988] px-4 py-2 rounded-full text-xs font-bold mb-3">
-              <span className="w-2 h-2 bg-[#149988] rounded-full animate-pulse"></span>
-              Portfolio
-            </div>
-            <h2 className="proj-title text-4xl lg:text-[50px] font-black text-slate-900 dark:text-white mb-6">
-              Innovative <span className="text-[#149988]">Creations</span>
+            <h2 className="proj-title text-5xl lg:text-[60px] font-black text-white mb-6 uppercase tracking-tighter">
+              Featured <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Work</span>
             </h2>
-            <p className="text-slate-500 dark:text-zinc-400 font-medium text-lg italic">
-              "Architecting scalable web applications with a focus on precision and performance."
+            <p className="text-gray-400 font-light text-lg lg:text-xl">
+              Architecting scalable web applications with a focus on precision and performance.
             </p>
-          </div>
-          <div className="hidden md:flex items-center gap-2 text-slate-400 font-black uppercase tracking-widest text-sm">
-            <FiLayers className="text-[#149988]" /> Showcase of 100 Innovative Apps
           </div>
         </div>
 
@@ -128,40 +121,40 @@ const Projects = () => {
           {PROJECTS.map((project, idx) => (
             <div
               key={idx}
-              className="project-card group bg-white dark:bg-zinc-900 rounded-[2.5rem] border border-slate-100 dark:border-zinc-800 overflow-hidden hover:shadow-2xl hover:shadow-teal-100/50 dark:hover:shadow-teal-900/50 transition-all duration-500 flex flex-col h-full"
+              className="project-card group bg-white/5 border border-white/10 rounded-[2rem] overflow-hidden hover:shadow-[0_10px_30px_rgba(6,143,255,0.2)] transition-all duration-500 flex flex-col h-full backdrop-blur-md"
             >
               {/* Image Container */}
-              <div className="relative h-64 overflow-hidden">
+              <div className="relative h-64 overflow-hidden border-b border-white/10">
                 <Image
                   src={project.image}
                   alt={project.title}
                   fill
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out opacity-80 group-hover:opacity-100"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-8">
+                <div className="absolute inset-0 bg-gradient-to-t from-theme-black/90 via-theme-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-6">
                    <div className="flex gap-4 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                    <a href={project.link} target="_blank" className="p-3 bg-[#149988] text-white rounded-full hover:bg-[#0f7d6f] transition-colors shadow-lg"><FiExternalLink size={20} /></a>
-                    <a href={project.github} target="_blank" className="p-3 bg-white dark:bg-zinc-950 text-slate-900 dark:text-white rounded-full hover:bg-slate-100 transition-colors shadow-lg"><FiGithub size={20} /></a>
+                    <a href={project.link} target="_blank" className="p-3 bg-primary text-white rounded-full hover:bg-accent hover:text-black transition-colors shadow-[0_0_15px_rgba(6,143,255,0.5)]"><FiExternalLink size={20} /></a>
+                    <a href={project.github} target="_blank" className="p-3 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-full hover:bg-white hover:text-black transition-colors shadow-lg"><FiGithub size={20} /></a>
                   </div>
                 </div>
               </div>
 
               {/* Content Container */}
               <div className="p-8 flex flex-col flex-grow">
-                <span className="text-[#149988] font-black text-[10px] uppercase tracking-[0.2em] mb-3">
+                <span className="text-primary font-bold text-[10px] uppercase tracking-widest mb-3">
                   {project.category}
                 </span>
-                <h3 className="text-2xl font-bold text-slate-800 dark:text-zinc-200 mb-4 group-hover:text-[#149988] transition-colors">
+                <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-primary transition-colors">
                   {project.title}
                 </h3>
-                <p className="text-slate-500 dark:text-zinc-400 text-sm leading-relaxed mb-6 font-medium line-clamp-2">
+                <p className="text-gray-400 text-sm leading-relaxed mb-6 font-light line-clamp-2">
                   {project.desc}
                 </p>
 
                 {/* Tags */}
                 <div className="flex flex-wrap gap-2 mb-8">
                   {project.tags.map(tag => (
-                    <span key={tag} className="px-3 py-1 bg-slate-50 dark:bg-zinc-900 text-slate-400 text-[9px] font-bold uppercase rounded-lg border border-slate-100 dark:border-zinc-800 group-hover:border-[#149988]/20 group-hover:text-[#149988] transition-all">
+                    <span key={tag} className="px-3 py-1 bg-white/5 text-gray-300 text-[10px] uppercase tracking-wider rounded-lg border border-white/10 group-hover:border-primary/30 group-hover:text-primary transition-all">
                       {tag}
                     </span>
                   ))}
@@ -171,7 +164,7 @@ const Projects = () => {
                 <div className="mt-auto">
                   <Link 
                     href={`/projects/${project.id}`}
-                    className="inline-flex items-center gap-2 bg-slate-900 text-white px-6 py-3 rounded-2xl font-bold text-sm hover:bg-[#149988] transition-all active:scale-95 group/btn shadow-lg"
+                    className="inline-flex items-center gap-2 bg-white text-black px-6 py-3 rounded-xl font-bold text-sm hover:bg-primary hover:text-white transition-all active:scale-95 group/btn shadow-lg w-full justify-center"
                   >
                     View Details
                     <FiArrowRight className="group-hover/btn:translate-x-1 transition-transform" />
