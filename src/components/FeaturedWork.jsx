@@ -4,6 +4,7 @@ import { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
+import Link from "next/link";
 import { FiGithub, FiExternalLink, FiInfo } from "react-icons/fi";
 import Dragon from '@/assets/home-layout.png'
 import KinKeeper from '@/assets/KinKeeper.png'
@@ -150,14 +151,32 @@ const FeaturedWork = () => {
         const frame = card.querySelector('.corner-frame');
         if (!frame) return;
 
-        // The frame drifts right as the card moves across the screen.
-        // immediateRender: false ensures the fromState (x:-30) is not
-        // applied instantly on mount — it only kicks in when the scroll trigger fires.
+        // Animate stroke-dashoffset to draw the border as the card scrolls in
+        const polylines = frame.querySelectorAll('polyline');
+        polylines.forEach((pl) => {
+          try {
+            const len = pl.getTotalLength ? pl.getTotalLength() : 150;
+            gsap.set(pl, { strokeDasharray: len, strokeDashoffset: len });
+            gsap.to(pl, {
+              strokeDashoffset: 0,
+              ease: "none",
+              immediateRender: false,
+              scrollTrigger: {
+                trigger: card,
+                containerAnimation: horizontalTween,
+                start: "left 85%",
+                end: "center center",
+                scrub: true,
+              }
+            });
+          } catch(e) { /* polyline may not support getTotalLength in SSR */ }
+        });
+
+        // Also drift the whole frame right with the scroll for parallax
         gsap.fromTo(frame,
-          { x: -30, opacity: 0 },
+          { x: -20 },
           {
-            x: 30,
-            opacity: 1,
+            x: 20,
             ease: "none",
             immediateRender: false,
             scrollTrigger: {
@@ -318,34 +337,34 @@ const FeaturedWork = () => {
                 viewBox="0 0 628 478"
                 preserveAspectRatio="none"
                 style={{
-                  top: '-14px', left: '-14px',
-                  width: 'calc(100% + 28px)',
-                  height: 'calc(100% + 28px)',
-                  filter: 'drop-shadow(0 0 8px #38bdf8) drop-shadow(0 0 2px #7dd3fc)',
-                  opacity: 0,
+                  top: '-16px', left: '-16px',
+                  width: 'calc(100% + 32px)',
+                  height: 'calc(100% + 32px)',
+                  filter: 'drop-shadow(0 0 10px #38bdf8) drop-shadow(0 0 4px #7dd3fc)',
                 }}
               >
                 {/* top-left L-bracket */}
                 <polyline
-                  points="0,50 0,0 50,0"
+                  points="0,70 0,0 70,0"
                   fill="none" stroke="#38bdf8" strokeWidth="2.5" strokeLinecap="square"
                   vectorEffect="non-scaling-stroke"
                 />
-                {/* top-right: chamfered/diamond-cut corner — along top, diagonal notch, then down */}
+                {/* top-right: LARGE chamfered/diamond-cut corner
+                    The cut starts 150px from the right edge, giving a bold angled notch */}
                 <polyline
-                  points="528,0 608,0 628,20 628,50"
+                  points="478,0 568,0 628,60 628,130"
                   fill="none" stroke="#38bdf8" strokeWidth="2.5" strokeLinecap="square"
                   vectorEffect="non-scaling-stroke"
                 />
                 {/* bottom-left L-bracket */}
                 <polyline
-                  points="0,428 0,478 50,478"
+                  points="0,408 0,478 70,478"
                   fill="none" stroke="#38bdf8" strokeWidth="2.5" strokeLinecap="square"
                   vectorEffect="non-scaling-stroke"
                 />
                 {/* bottom-right L-bracket */}
                 <polyline
-                  points="578,478 628,478 628,428"
+                  points="558,478 628,478 628,408"
                   fill="none" stroke="#38bdf8" strokeWidth="2.5" strokeLinecap="square"
                   vectorEffect="non-scaling-stroke"
                 />
@@ -418,13 +437,14 @@ const FeaturedWork = () => {
                     <FiGithub size={20} />
                   </a>
 
-                  <button
-                    className="flex items-center justify-center w-10 h-10 md:w-11 md:h-11 bg-black/50 backdrop-blur-md border border-white/20 rounded-md text-white hover:bg-white hover:text-black hover:scale-110 active:scale-95 transition-all shadow-xl"
+                  <Link
+                    href={`/projects/${project.id}`}
+                    className="flex items-center gap-2 bg-black/50 backdrop-blur-md border border-white/20 rounded-md text-white px-4 py-2 md:py-2.5 hover:bg-white hover:text-black hover:scale-105 active:scale-95 transition-all shadow-xl text-xs md:text-sm font-bold uppercase tracking-widest"
                   >
-                    <FiInfo size={20} />
-                  </button>
+                    Details
+                    <FiInfo size={16} />
+                  </Link>
                 </div>
-
               </div>
             </div>
           ))}
