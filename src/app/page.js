@@ -15,8 +15,8 @@ export default function Home() {
       <Hero></Hero>
       {/* <HeroInspiration></HeroInspiration> */}
       <About></About>
-      <Services></Services>
       <Skills></Skills>
+      <Services></Services>
       <Experience></Experience>
       <Education></Education>
       <Projects></Projects>
