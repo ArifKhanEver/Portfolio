@@ -151,40 +151,22 @@ const FeaturedWork = () => {
         const frame = card.querySelector('.corner-frame');
         if (!frame) return;
 
-        // Animate stroke-dashoffset to draw the border as the card scrolls in
-        const polylines = frame.querySelectorAll('polyline');
-        polylines.forEach((pl) => {
-          try {
-            const len = pl.getTotalLength ? pl.getTotalLength() : 150;
-            gsap.set(pl, { strokeDasharray: len, strokeDashoffset: len });
-            gsap.to(pl, {
-              strokeDashoffset: 0,
-              ease: "none",
-              immediateRender: false,
-              scrollTrigger: {
-                trigger: card,
-                containerAnimation: horizontalTween,
-                start: "left 85%",
-                end: "center center",
-                scrub: true,
-              }
-            });
-          } catch(e) { /* polyline may not support getTotalLength in SSR */ }
-        });
-
-        // Also drift the whole frame right with the scroll for parallax
+        // The frame slides in from the LEFT and moves rightward FAST as the
+        // card crosses the screen. scrub: 0.3 makes it feel snappy/loose
+        // relative to the card's own motion.
         gsap.fromTo(frame,
-          { x: -20 },
+          { x: -120, opacity: 0 },
           {
-            x: 20,
-            ease: "none",
+            x: 80,
+            opacity: 1,
+            ease: "power2.out",
             immediateRender: false,
             scrollTrigger: {
               trigger: card,
               containerAnimation: horizontalTween,
-              start: "left 100%",
-              end: "right 0%",
-              scrub: true,
+              start: "left 90%",
+              end: "center center",
+              scrub: 0.3,
             }
           }
         );
@@ -370,13 +352,16 @@ const FeaturedWork = () => {
                 />
               </svg>
 
-              {/* Card Content */}
+              {/* Card Content — sharp chamfered top-right corner matching the SVG frame */}
               <div
                 ref={(el) => cardsRef.current[idx] = el}
                 onMouseMove={(e) => handleMouseMove(e, idx)}
                 onMouseLeave={() => handleMouseLeave(idx)}
-                className="relative w-full h-full rounded-2xl bg-zinc-900 border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)] transition-transform duration-100 ease-out overflow-hidden"
-                style={{ transformStyle: "preserve-3d" }}
+                className="relative w-full h-full bg-zinc-900 border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)] transition-transform duration-100 ease-out overflow-hidden"
+                style={{
+                  transformStyle: "preserve-3d",
+                  clipPath: "polygon(0 0, calc(100% - 100px) 0, 100% 60px, 100% 100%, 0 100%)",
+                }}
               >
                 {/* Full Background Image */}
                 <div className="absolute inset-0 w-full h-full">
