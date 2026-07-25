@@ -2,7 +2,7 @@
 import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-import { FiMail, FiLinkedin, FiSend, FiMapPin, FiPhone, FiGithub, FiArrowRight } from "react-icons/fi";
+import { FiMail, FiLinkedin, FiMapPin, FiPhone, FiGithub, FiArrowRight } from "react-icons/fi";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -81,7 +81,7 @@ const Contact = () => {
         {/* Header Section */}
         <div className="text-center mb-20 relative">
           <h4 className="text-gray-400 text-[10px] md:text-xs font-bold tracking-[0.3em] uppercase mb-4">Get In Touch</h4>
-          <h2 className="contact-title text-5xl md:text-7xl lg:text-[90px] font-semibold text-[#1877F2] mb-6 uppercase tracking-tighter leading-none">
+          <h2 className="contact-title text-5xl md:text-7xl lg:text-[90px] font-semibold text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent mb-6 uppercase tracking-tighter leading-none">
             Let's Connect
           </h2>
           <p className="text-gray-400 font-light mx-auto text-sm">
@@ -97,63 +97,67 @@ const Contact = () => {
               action="https://formsubmit.co/b9593152921aba84ef103074c9ed733d"
               method="POST"
               ref={formRef}
-              className="bg-[#050914]/80 border border-white/5 rounded-2xl p-8 md:p-10 relative overflow-hidden"
+              className="bg-[#0B0F19] border border-white/5 rounded-2xl p-8 md:p-10 relative overflow-hidden shadow-2xl"
             >
               <input type="hidden" name="_captcha" value="false" />
               <input type="hidden" name="_template" value="table" />
               <input type="hidden" name="_next" value="https://arifkhanever.vercel.app/" />
 
-              <h3 className="text-gray-500 text-xs md:text-sm font-bold tracking-[0.2em] uppercase mb-8 text-center md:text-left">Send A Message</h3>
+              <div className="flex items-center gap-4 mb-8">
+                <div className="h-[1px] w-12 bg-gradient-to-r from-transparent to-[#1877F2]/80"></div>
+                <h3 className="text-gray-500 text-[10px] md:text-xs font-bold tracking-[0.2em] uppercase whitespace-nowrap">Send A Message</h3>
+                <div className="h-[1px] flex-1 max-w-[48px] bg-gradient-to-l from-transparent to-[#1877F2]/80"></div>
+              </div>
 
               <div className="space-y-6">
                 <div className="space-y-2">
-                  <label className="text-[11px] font-bold tracking-wider text-white">NAME<span className="text-gray-500">.REQUIRED</span></label>
+                  <label className="text-[11px] font-bold tracking-wider text-gray-200">NAME.REQUIRED</label>
                   <input
                     type="text"
                     name="name"
                     required
-                    placeholder="Shafiqul Islam Khan"
-                    className="w-full px-4 py-3 bg-[#0a1530]/30 border border-white/5 rounded-lg focus:outline-none focus:border-[#1877F2]/50 transition-all text-white placeholder-gray-600 text-sm"
+                    placeholder="Your name"
+                    className="w-full px-4 py-3.5 bg-[#111827] border border-white/5 rounded-lg focus:outline-none focus:border-[#1877F2]/50 transition-all text-white placeholder-gray-500 text-sm"
                   />
                 </div>
                 
                 <div className="space-y-2">
-                  <label className="text-[11px] font-bold tracking-wider text-white">EMAIL<span className="text-gray-500">.REQUIRED</span></label>
+                  <label className="text-[11px] font-bold tracking-wider text-gray-200">EMAIL.REQUIRED</label>
                   <input
                     type="email"
                     name="email"
                     required
-                    placeholder="contact@example.com"
-                    className="w-full px-4 py-3 bg-[#0a1530]/30 border border-white/5 rounded-lg focus:outline-none focus:border-[#1877F2]/50 transition-all text-white placeholder-gray-600 text-sm"
+                    placeholder="your.email@example.com"
+                    className="w-full px-4 py-3.5 bg-[#111827] border border-white/5 rounded-lg focus:outline-none focus:border-[#1877F2]/50 transition-all text-white placeholder-gray-500 text-sm"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-[11px] font-bold tracking-wider text-white">SUBJECT<span className="text-gray-500">.OPTIONAL</span></label>
+                  <label className="text-[11px] font-bold tracking-wider text-gray-200">SUBJECT.OPTIONAL</label>
                   <input
                     type="text"
                     name="subject"
                     placeholder="Project discussion"
-                    className="w-full px-4 py-3 bg-[#0a1530]/30 border border-white/5 rounded-lg focus:outline-none focus:border-[#1877F2]/50 transition-all text-white placeholder-gray-600 text-sm"
+                    className="w-full px-4 py-3.5 bg-[#111827] border border-white/5 rounded-lg focus:outline-none focus:border-[#1877F2]/50 transition-all text-white placeholder-gray-500 text-sm"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-[11px] font-bold tracking-wider text-white">MESSAGE<span className="text-gray-500">.REQUIRED</span></label>
+                  <label className="text-[11px] font-bold tracking-wider text-gray-200">MESSAGE.REQUIRED</label>
                   <textarea
                     name="message" 
                     required
                     rows="4"
-                    placeholder="How can I help you with your next project?"
-                    className="w-full px-4 py-3 bg-[#0a1530]/30 border border-white/5 rounded-lg focus:outline-none focus:border-[#1877F2]/50 transition-all text-white placeholder-gray-600 text-sm resize-none"
+                    placeholder="Tell me about your project..."
+                    className="w-full px-4 py-3.5 bg-[#111827] border border-white/5 rounded-lg focus:outline-none focus:border-[#1877F2]/50 transition-all text-white placeholder-gray-500 text-sm resize-none"
                   ></textarea>
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full py-4 bg-white/10 hover:bg-white/15 border border-white/5 text-white rounded-lg font-bold flex items-center justify-center gap-2 transition-all text-xs tracking-wider mt-4"
+                  className="w-full py-4 mt-6 bg-[#2B2B2B] hover:bg-[#333333] border border-white/5 text-white rounded-lg font-bold flex items-center justify-center gap-2 transition-all text-xs tracking-wider"
                 >
-                  SEND_MESSAGE<FiArrowRight />
+                  SEND_MESSAGE<FiArrowRight size={14} />
                 </button>
               </div>
             </form>
@@ -176,6 +180,17 @@ const Contact = () => {
                 <div>
                   <h4 className="text-white font-bold text-lg mb-1">Email</h4>
                   <p className="text-gray-400 text-xs md:text-sm">contact.arifkhanever@gmail.com</p>
+                </div>
+              </div>
+
+              {/* Phone */}
+              <div className="contact-item flex items-center gap-6 p-5 md:p-6 bg-[#050914]/80 rounded-xl border border-white/5 hover:border-white/10 transition-colors">
+                <div className="w-12 h-12 bg-[#1877F2] rounded-lg flex items-center justify-center text-white shrink-0 shadow-lg">
+                  <FiPhone size={22} />
+                </div>
+                <div>
+                  <h4 className="text-white font-bold text-lg mb-1">Phone</h4>
+                  <p className="text-gray-400 text-xs md:text-sm">+8801777-874594</p>
                 </div>
               </div>
 
