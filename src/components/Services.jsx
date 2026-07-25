@@ -1,94 +1,114 @@
 "use client";
 
 import { useRef } from "react";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { FaCode, FaServer, FaMobileAlt, FaDatabase } from "react-icons/fa";
 
-gsap.registerPlugin(ScrollTrigger);
-
-const SERVICES = [
+const SERVICES_DATA = [
   {
-    title: "Frontend Development",
-    description: "Building responsive, interactive, and highly optimized user interfaces using React, Next.js, and modern CSS frameworks.",
-    icon: FaCode,
+    title: "Full-Stack",
+    description: "End-to-end web applications built with modern MERN stacks, ensuring seamless frontend-backend integration.",
+    items: [
+      "React/Next.js Frontend",
+      "Node.js/Express Backend",
+      "MongoDB/PostgreSQL Database",
+      "Custom API Development"
+    ]
   },
   {
-    title: "Backend Development",
-    description: "Designing robust and scalable RESTful APIs and server-side logic using Node.js, Express, and modern backend practices.",
-    icon: FaServer,
+    title: "Frontend",
+    description: "Creating highly interactive, accessible, and performant user interfaces that deliver exceptional user experiences.",
+    items: [
+      "UI/UX Implementation",
+      "Complex Animations (GSAP)",
+      "Responsive Web Design",
+      "State Management"
+    ]
   },
   {
-    title: "Database Architecture",
-    description: "Structuring and managing both SQL and NoSQL databases like MongoDB and PostgreSQL for optimal performance and data integrity.",
-    icon: FaDatabase,
-  },
-  {
-    title: "Full Stack Solutions",
-    description: "End-to-end web application development from concept to deployment, ensuring seamless integration between frontend and backend.",
-    icon: FaMobileAlt,
+    title: "Backend",
+    description: "Building scalable and secure server-side applications, APIs, and database architectures to power your web applications.",
+    items: [
+      "RESTful API Design",
+      "Database Modeling",
+      "Authentication & Security",
+      "Cloud Deployment"
+    ]
   }
 ];
 
 const Services = () => {
   const containerRef = useRef(null);
 
-  useGSAP(() => {
-    const cards = gsap.utils.toArray(".service-card");
-    
-    gsap.fromTo(cards, 
-      { y: 50, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 0.8,
-        stagger: 0.2,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top 80%",
-        }
-      }
-    );
-  }, { scope: containerRef });
-
   return (
-    <section id="services" ref={containerRef} className="w-full py-24 bg-theme-black relative overflow-hidden">
-      <div className="w-full px-6 md:px-12 lg:px-24 xl:px-32 relative z-10">
-        
-        {/* Section Header */}
-        <div className="mb-16">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight text-white flex items-center gap-6">
-            Services
-            <span className="h-[2px] w-24 sm:w-40 lg:w-64 bg-gradient-to-r from-primary to-transparent"></span>
-          </h2>
+    <section id="services" ref={containerRef} className="min-h-screen bg-theme-black rounded-t-[2.5rem] relative overflow-hidden">
+      <div>
+        <div>
+          <div style={{ clipPath: "polygon(0 0, 100% 0, 100% 120%, 0 120%)" }}>
+            <div className="flex flex-col justify-center gap-6 sm:gap-12 pt-16 sm:pt-24 pb-4">
+              <p className="text-xs sm:text-sm font-light tracking-[0.25rem] sm:tracking-[0.5rem] uppercase px-6 sm:px-10 text-white/70">
+                Where Clean Code Meets Chaos Control
+              </p>
+              <div className="px-6 sm:px-10">
+                <h1 className="flex flex-col gap-4 sm:gap-12 uppercase text-6xl md:text-8xl lg:text-[10rem] font-black text-white select-none">
+                  <span>Services</span>
+                </h1>
+              </div>
+            </div>
+          </div>
+          
+          <div className="relative px-6 sm:px-10 mt-6 sm:mt-0 text-white">
+            <div className="absolute inset-x-0 border-t-2 border-white/20"></div>
+            <div className="py-8 sm:py-16 text-end flex justify-end">
+              <div className="font-light uppercase text-xl sm:text-2xl lg:text-4xl text-white/80 select-none max-w-4xl">
+                <span className="block leading-relaxed tracking-wide text-pretty">Your ideas deserve more than just code—they deserve speed,</span>
+                <span className="block leading-relaxed tracking-wide text-pretty"> stability and a sleek experience.</span>
+                <span className="block leading-relaxed tracking-wide text-pretty"> I build exactly that.</span>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
 
-        {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-          {SERVICES.map((service, idx) => (
-            <div key={idx} className="service-card group relative p-8 md:p-10 rounded-2xl bg-[#111111] border border-white/10 hover:border-primary/50 transition-colors duration-500 overflow-hidden">
-              {/* Background Glow */}
-              <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full blur-3xl group-hover:bg-primary/20 transition-all duration-500 transform translate-x-1/2 -translate-y-1/2"></div>
+      <div className="relative pb-[5vh] lg:pb-[10vh]">
+        {SERVICES_DATA.map((service, index) => (
+          <div 
+            key={service.title}
+            className="sticky px-6 md:px-10 pt-8 sm:pt-12 pb-12 text-white bg-theme-black border-t border-white/20 w-full min-h-[480px] lg:min-h-[580px]" 
+            style={{ top: '0px', zIndex: index + 1 }}
+          >
+            <div className="flex items-start justify-between gap-6 sm:gap-10 flex-col lg:flex-row">
               
-              <div className="relative z-10">
-                <div className="w-16 h-16 rounded-xl bg-white/5 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500">
-                  <service.icon className="text-3xl text-primary" />
+              {/* Left Side: Title & Description */}
+              <div className="flex flex-col gap-4 sm:gap-8 w-full lg:w-1/2">
+                <div className="h-[5rem] lg:h-[7rem] flex items-start">
+                  <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter uppercase leading-none text-white select-none">
+                    {service.title}
+                  </h2>
                 </div>
-                
-                <h3 className="text-2xl lg:text-3xl font-bold text-white mb-4 tracking-wide">
-                  {service.title}
-                </h3>
-                
-                <p className="text-gray-400 text-lg leading-relaxed font-light">
+                <p className="text-lg sm:text-xl md:text-2xl text-white/50 leading-relaxed font-light text-pretty max-w-xl">
                   {service.description}
                 </p>
               </div>
-            </div>
-          ))}
-        </div>
 
+              {/* Right Side: Features List */}
+              <div className="flex flex-col gap-2 sm:gap-4 w-full lg:w-1/2 mt-6 lg:mt-0">
+                {service.items.map((item, i) => (
+                  <div key={i} className="group relative">
+                    <div className="flex items-center py-4 sm:py-5 border-b border-white/5 group-last:border-none px-4 rounded-xl transition-all duration-300 group-hover:bg-white/[0.03] overflow-hidden">
+                      <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-gradient-to-r from-transparent via-primary/50 to-transparent group-hover:w-full transition-all duration-700 ease-in-out"></div>
+                      <span className="mr-6 sm:mr-8 text-base sm:text-lg md:text-xl font-mono text-white/10 group-hover:text-primary transition-all duration-300">
+                        0{i + 1}
+                      </span>
+                      <h3 className="tracking-tight text-lg sm:text-xl md:text-2xl lg:text-3xl font-medium text-white/60 group-hover:text-white group-hover:translate-x-2 transition-all duration-300">
+                        {item}
+                      </h3>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+            </div>
+          </div>
+        ))}
       </div>
     </section>
   );
