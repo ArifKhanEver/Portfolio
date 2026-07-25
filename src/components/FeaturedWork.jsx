@@ -64,7 +64,7 @@ const FeaturedWork = () => {
           ease: "none",
           scrollTrigger: {
             trigger: el,
-            start: "top 75%", // Light up when element reaches 75% of screen height
+            start: "top 75%",
             end: "top 45%",
             scrub: true,
           }
@@ -77,17 +77,17 @@ const FeaturedWork = () => {
         ease: "none",
         scrollTrigger: {
           trigger: ".into-container",
-          start: "top 80%", // Start revealing early
-          end: "top 50%",   // Finish exactly when it reaches the center of the screen
+          start: "top 80%",
+          end: "top 50%",
           scrub: true,
         }
       });
 
       // 1c. Global Background Glow Animation (Part 1: Top-Right to Bottom-Left)
-      gsap.set(".global-glow", { x: "50vw", y: "-50vh" }); // Initialize at Top-Right
+      gsap.set(".global-glow", { x: "50vw", y: "-50vh" });
 
       gsap.to(".global-glow", {
-        x: "-50vw", y: "50vh", // End at bottom left
+        x: "-50vw", y: "50vh",
         ease: "none",
         scrollTrigger: {
           trigger: ".into-container",
@@ -140,47 +140,55 @@ const FeaturedWork = () => {
         }
       });
 
-      // 4. Corner Border Assembly Animation (linked to horizontalTween)
+      // 4. Neon Corner Frame — drifts RIGHT as each card travels across
+      // the viewport. Linked to horizontalTween via containerAnimation so
+      // progress is measured against the horizontal scroll of THIS card,
+      // not the page's vertical scroll.
       const cards = gsap.utils.toArray('.project-card-wrapper');
 
       cards.forEach((card) => {
-        const tl = card.querySelector('.corner-tl');
-        const tr = card.querySelector('.corner-tr');
-        const bl = card.querySelector('.corner-bl');
-        const br = card.querySelector('.corner-br');
+        const frame = card.querySelector('.corner-frame');
+        if (!frame) return;
 
-        gsap.from([tl, tr, bl, br], {
-          x: (i) => (i % 2 === 0 ? -40 : 40),
-          y: (i) => (i < 2 ? -40 : 40),
-          opacity: 0,
-          scrollTrigger: {
-            trigger: card,
-            containerAnimation: horizontalTween,
-            start: "left 80%",
-            end: "center center",
-            scrub: true,
+        // The frame drifts right as the card moves across the screen.
+        // immediateRender: false ensures the fromState (x:-30) is not
+        // applied instantly on mount — it only kicks in when the scroll trigger fires.
+        gsap.fromTo(frame,
+          { x: -30, opacity: 0 },
+          {
+            x: 30,
+            opacity: 1,
+            ease: "none",
+            immediateRender: false,
+            scrollTrigger: {
+              trigger: card,
+              containerAnimation: horizontalTween,
+              start: "left 100%",
+              end: "right 0%",
+              scrub: true,
+            }
           }
-        });
+        );
       });
 
       // 5. Title Fade Out
       gsap.to(".showcase-title-container", {
         opacity: 0,
-        x: -100, // slight parallax push
+        x: -100,
         ease: "none",
         scrollTrigger: {
           trigger: track,
           start: "top 0%",
-          end: "+=800", // fade out during the first 800px of the horizontal scroll
+          end: "+=800",
           scrub: true,
         }
       });
 
       // 6. Global Background Glow Animation (Part 2: Bottom-Left to Bottom-Right)
       gsap.fromTo(".global-glow",
-        { x: "-50vw", y: "50vh" }, // Start where Part 1 ended (Bottom Left)
+        { x: "-50vw", y: "50vh" },
         {
-          x: "50vw", y: "50vh", // Move to bottom-right across the horizontal scroll
+          x: "50vw", y: "50vh",
           ease: "none",
           scrollTrigger: {
             trigger: track,
@@ -235,10 +243,10 @@ const FeaturedWork = () => {
   return (
     <section ref={sectionRef} id="featured-work" className="relative min-h-screen w-full bg-black">
 
-      {/* 1. Grid Background (Stretches across entire section) */}
+      {/* 1. Grid Background */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff15_1px,transparent_1px),linear-gradient(to_bottom,#ffffff15_1px,transparent_1px)] bg-[size:80px_80px] pointer-events-none z-0"></div>
 
-      {/* GLOBAL GLOW: Single element that animates across the entire section component */}
+      {/* GLOBAL GLOW */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
         <div className="sticky top-0 w-full h-screen">
           <div className="global-glow absolute top-1/2 left-1/2 w-[400px] h-[400px] md:w-[600px] md:h-[600px] bg-[#1877F2]/40 rounded-full blur-[100px] -translate-x-1/2 -translate-y-1/2"></div>
@@ -253,11 +261,8 @@ const FeaturedWork = () => {
           <span className="light-text">COMPLEX</span>
           <span className="light-text">PROBLEMS</span>
 
-          {/* The INTO / ELEGANT SOLUTIONS swap container */}
           <div className="into-container relative flex justify-center items-center w-full h-[1.3em] my-2 lg:my-4">
             <span className="light-text absolute">INTO</span>
-
-            {/* ELEGANT SOLUTIONS block sliding/clipping in from left */}
             <span
               className="elegant-replacement absolute z-10 flex justify-center items-center p-2"
               style={{ clipPath: 'inset(0% 100% 0% 0%)' }}
@@ -272,7 +277,6 @@ const FeaturedWork = () => {
           <span className="light-text">AT A TIME</span>
         </h1>
 
-        {/* Subtitle paragraph */}
         <p className="light-text text-white/30 text-sm md:text-base lg:text-lg max-w-xl mx-auto text-center mt-16 leading-relaxed px-6 tracking-wide">
           Building scalable full-stack applications with modern technologies. From MongoDB to React, NextJS to Postgres. I craft digital experiences that users love
         </p>
@@ -281,11 +285,9 @@ const FeaturedWork = () => {
       {/* Horizontal Scrolling Track - Pinning Target */}
       <div ref={trackRef} className="relative flex items-center h-screen w-full z-20 overflow-hidden">
 
-        {/* Absolute Title (Stays on left, fades out as cards slide over) */}
         <div className="showcase-title-container absolute left-6 md:left-16 lg:left-32 z-10 w-[80vw] md:w-[60vw] lg:w-[600px]">
           <h2 className="flex flex-col text-[12vw] sm:text-[10vw] md:text-[8vw] lg:text-[7vw] font-semibold uppercase tracking-tight text-white leading-[1.1]">
             <span className="showcase-word opacity-0 translate-y-20 block">FEATURED</span>
-
             <div className="showcase-word opacity-0 translate-y-20 relative flex items-center w-full h-[1.3em] my-2 lg:my-4">
               <span
                 className="work-replacement absolute z-10 flex items-center p-2"
@@ -296,12 +298,11 @@ const FeaturedWork = () => {
                 </span>
               </span>
             </div>
-
             <span className="showcase-word opacity-0 translate-y-20 block">SHOWCASE</span>
           </h2>
         </div>
 
-        {/* Moving track of cards (Slides from right to left, over the title) */}
+        {/* Moving track of cards */}
         <div className="cards-track flex gap-16 lg:gap-32 h-[70vh] items-center absolute left-[90vw] md:left-[70vw] lg:left-[800px] z-20 w-max pr-[50vw]">
           {PROJECTS.map((project, idx) => (
             <div
@@ -309,13 +310,48 @@ const FeaturedWork = () => {
               className="project-card-wrapper relative w-[85vw] md:w-[480px] lg:w-[600px] h-[400px] md:h-[450px] flex-shrink-0 cursor-pointer group"
               style={{ perspective: "2000px" }}
             >
-              {/* Corner Borders Animation targets */}
-              <div className="corner-tl absolute -top-4 -left-4 md:-top-6 md:-left-6 w-10 h-10 border-t-2 border-l-2 border-[#1877F2] rounded-tl-xl opacity-0 pointer-events-none"></div>
-              <div className="corner-tr absolute -top-4 -right-4 md:-top-6 md:-right-6 w-10 h-10 border-t-2 border-r-2 border-[#1877F2] rounded-tr-xl opacity-0 pointer-events-none"></div>
-              <div className="corner-bl absolute -bottom-4 -left-4 md:-bottom-6 md:-left-6 w-10 h-10 border-b-2 border-l-2 border-[#1877F2] rounded-bl-xl opacity-0 pointer-events-none"></div>
-              <div className="corner-br absolute -bottom-4 -right-4 md:-bottom-6 md:-right-6 w-10 h-10 border-b-2 border-r-2 border-[#1877F2] rounded-br-xl opacity-0 pointer-events-none"></div>
+              {/* Neon Corner Frame SVG — uses a fixed viewBox so we can use
+                  real pixel coordinates. non-scaling-stroke keeps line weight
+                  crisp. Top-right has a chamfered "diamond cut" notch. */}
+              <svg
+                className="corner-frame absolute pointer-events-none z-30"
+                viewBox="0 0 628 478"
+                preserveAspectRatio="none"
+                style={{
+                  top: '-14px', left: '-14px',
+                  width: 'calc(100% + 28px)',
+                  height: 'calc(100% + 28px)',
+                  filter: 'drop-shadow(0 0 8px #38bdf8) drop-shadow(0 0 2px #7dd3fc)',
+                  opacity: 0,
+                }}
+              >
+                {/* top-left L-bracket */}
+                <polyline
+                  points="0,50 0,0 50,0"
+                  fill="none" stroke="#38bdf8" strokeWidth="2.5" strokeLinecap="square"
+                  vectorEffect="non-scaling-stroke"
+                />
+                {/* top-right: chamfered/diamond-cut corner — along top, diagonal notch, then down */}
+                <polyline
+                  points="528,0 608,0 628,20 628,50"
+                  fill="none" stroke="#38bdf8" strokeWidth="2.5" strokeLinecap="square"
+                  vectorEffect="non-scaling-stroke"
+                />
+                {/* bottom-left L-bracket */}
+                <polyline
+                  points="0,428 0,478 50,478"
+                  fill="none" stroke="#38bdf8" strokeWidth="2.5" strokeLinecap="square"
+                  vectorEffect="non-scaling-stroke"
+                />
+                {/* bottom-right L-bracket */}
+                <polyline
+                  points="578,478 628,478 628,428"
+                  fill="none" stroke="#38bdf8" strokeWidth="2.5" strokeLinecap="square"
+                  vectorEffect="non-scaling-stroke"
+                />
+              </svg>
 
-              {/* The Card Content */}
+              {/* Card Content */}
               <div
                 ref={(el) => cardsRef.current[idx] = el}
                 onMouseMove={(e) => handleMouseMove(e, idx)}
@@ -333,59 +369,56 @@ const FeaturedWork = () => {
                   />
                 </div>
 
-                {/* Gradient Overlay for Text Readability */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-black/20 group-hover:bg-black/40 transition-colors duration-500 pointer-events-none"></div>
+                {/* Overlay — dark navy/blue tint instead of flat black, ties into the corner-border accent color */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#050914]/95 via-[#0a1530]/60 to-[#0a1530]/10 group-hover:from-[#050914]/70 group-hover:via-[#0a1530]/40 transition-colors duration-500 pointer-events-none"></div>
 
-                {/* Overlaid Content Container */}
-                <div className="absolute inset-0 p-6 md:p-8 flex flex-col items-center justify-center text-center" style={{ transform: "translateZ(30px)" }}>
-                  
+                {/* Overlaid Content Container — left aligned like the reference card */}
+                <div className="absolute inset-0 p-6 md:p-8 flex flex-col items-start justify-center text-left" style={{ transform: "translateZ(30px)" }}>
+
                   {/* Tech Stack Tags */}
-                  <div className="flex flex-wrap gap-2 md:gap-3 mb-4 justify-center">
+                  <div className="flex flex-wrap gap-2 md:gap-3 mb-4 justify-start">
                     {project.tags.map(tag => (
-                      <span 
-                        key={tag} 
+                      <span
+                        key={tag}
                         className="px-4 py-1.5 rounded-full border border-white/20 bg-black/40 backdrop-blur-sm text-white/90 text-xs md:text-sm font-bold uppercase tracking-widest"
                       >
                         {tag}
                       </span>
                     ))}
                   </div>
-                  
+
                   {/* Title */}
-                  <h3 className="text-4xl md:text-5xl lg:text-6xl font-black text-white italic uppercase tracking-tighter mb-4 drop-shadow-2xl leading-[1.1]">
+                  <h3 className="font-sans text-4xl md:text-5xl lg:text-6xl font-black text-white uppercase tracking-tighter mb-4 drop-shadow-2xl leading-[1.05] text-left">
                     {project.title}
                   </h3>
-                  
+
                   {/* Description */}
-                  <p className="text-white/80 text-sm md:text-base max-w-md font-medium leading-relaxed drop-shadow-md mb-8 line-clamp-3 md:line-clamp-none">
+                  <p className="font-sans text-white/80 text-sm md:text-base max-w-md font-medium leading-relaxed drop-shadow-md mb-8 line-clamp-3 md:line-clamp-none text-left">
                     {project.desc}
                   </p>
-                  
+
                 </div>
 
                 {/* Action Buttons (Absolute Bottom-Left) */}
                 <div className="absolute bottom-6 left-6 md:bottom-8 md:left-8 flex flex-wrap items-center gap-3 z-30" style={{ transform: "translateZ(40px)" }}>
-                  {/* Live Preview Button */}
-                  <a 
-                    href={project.link} 
-                    target="_blank" 
+                  <a
+                    href={project.link}
+                    target="_blank"
                     className="flex items-center gap-2 bg-white text-black px-4 md:px-6 py-2 md:py-2.5 rounded-md font-black uppercase tracking-widest text-xs md:text-sm hover:bg-zinc-200 hover:scale-105 active:scale-95 transition-all shadow-xl"
                   >
                     <FiExternalLink size={18} strokeWidth={2.5} />
                     Preview
                   </a>
-                  
-                  {/* Github Button */}
-                  <a 
-                    href={project.github} 
-                    target="_blank" 
+
+                  <a
+                    href={project.github}
+                    target="_blank"
                     className="flex items-center justify-center w-10 h-10 md:w-11 md:h-11 bg-black/50 backdrop-blur-md border border-white/20 rounded-md text-white hover:bg-white hover:text-black hover:scale-110 active:scale-95 transition-all shadow-xl"
                   >
                     <FiGithub size={20} />
                   </a>
 
-                  {/* Details (Info) Button */}
-                  <button 
+                  <button
                     className="flex items-center justify-center w-10 h-10 md:w-11 md:h-11 bg-black/50 backdrop-blur-md border border-white/20 rounded-md text-white hover:bg-white hover:text-black hover:scale-110 active:scale-95 transition-all shadow-xl"
                   >
                     <FiInfo size={20} />
