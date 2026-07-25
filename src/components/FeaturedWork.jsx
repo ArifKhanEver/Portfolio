@@ -83,6 +83,19 @@ const FeaturedWork = () => {
         }
       });
 
+      // 1c. Background Glow Animation (Top-Right to Bottom-Left)
+      gsap.to(".scroll-glow", {
+        x: () => -window.innerWidth, // Move all the way to the left
+        y: () => window.innerHeight, // Move down
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top top",
+          end: "bottom bottom",
+          scrub: true,
+        }
+      });
+
       // 2. Horizontal Scroll Logic for Projects
       const track = trackRef.current;
       const getScrollAmount = () => track.scrollWidth - window.innerWidth;
@@ -173,9 +186,11 @@ const FeaturedWork = () => {
       {/* 2. Massive Vertical Scroll Title Sequence */}
       <div className="relative z-10 w-full flex flex-col items-center pt-12 md:pt-24 pb-[30vh] select-none overflow-hidden">
         
-        {/* Radial glow pinned behind the text (wrapped in absolute so it doesn't push text down) */}
-        <div className="absolute inset-0 pointer-events-none -z-10">
-          <div className="sticky top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] md:w-[500px] md:h-[500px] bg-blue-500/10 rounded-full blur-[120px]"></div>
+        {/* Animated radial glow that moves from top-right to bottom-left */}
+        <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden">
+          <div className="sticky top-0 w-full h-screen">
+            <div className="scroll-glow absolute right-0 top-0 w-[400px] h-[400px] md:w-[600px] md:h-[600px] bg-[#1877F2]/20 rounded-full blur-[120px] -translate-y-1/4 translate-x-1/4"></div>
+          </div>
         </div>
 
         <h1 className="relative z-10 flex flex-col items-center text-center text-[12vw] sm:text-[10vw] md:text-[8vw] lg:text-[7vw] font-black uppercase tracking-tight text-white/20 leading-[1.1] w-full">
