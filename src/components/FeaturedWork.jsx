@@ -151,18 +151,39 @@ const FeaturedWork = () => {
         const frame = card.querySelector('.corner-frame');
         if (!frame) return;
 
-        // Simple fade-in as card enters — stuck to the card, no offset.
+        // Animate stroke-dashoffset to draw the border as the card scrolls in
+        const polylines = frame.querySelectorAll('polyline');
+        polylines.forEach((pl) => {
+          try {
+            const len = pl.getTotalLength ? pl.getTotalLength() : 150;
+            gsap.set(pl, { strokeDasharray: len, strokeDashoffset: len });
+            gsap.to(pl, {
+              strokeDashoffset: 0,
+              ease: "none",
+              immediateRender: false,
+              scrollTrigger: {
+                trigger: card,
+                containerAnimation: horizontalTween,
+                start: "left 85%",
+                end: "center center",
+                scrub: true,
+              }
+            });
+          } catch(e) { /* polyline may not support getTotalLength in SSR */ }
+        });
+
+        // The frame changes position, moving forward (left to right) faster than the card
         gsap.fromTo(frame,
-          { opacity: 0 },
+          { x: -100 },
           {
-            opacity: 1,
+            x: 100,
             ease: "none",
             immediateRender: false,
             scrollTrigger: {
               trigger: card,
               containerAnimation: horizontalTween,
-              start: "left 90%",
-              end: "left 40%",
+              start: "left 100%",
+              end: "right 0%",
               scrub: true,
             }
           }
@@ -308,29 +329,55 @@ const FeaturedWork = () => {
               className="project-card-wrapper relative w-[85vw] md:w-[480px] lg:w-[600px] h-[400px] md:h-[450px] flex-shrink-0 cursor-pointer group"
               style={{ perspective: "2000px" }}
             >
-              {/* Neon border frame — same clip-path as card so chamfer aligns perfectly.
-                  Outer neon div is 3px larger on each side. The card sits on top,
-                  leaving exactly 3px of neon color visible as the border. */}
-              <div
+              {/* Neon Corner Frame SVG — viewBox matches the exact dimensions of the lg card + 32px 
+                  This ensures the chamfer aligns perfectly with the card's CSS clip-path. */}
+              <svg
                 className="corner-frame absolute pointer-events-none z-30"
+                viewBox="0 0 632 482"
+                preserveAspectRatio="none"
                 style={{
-                  inset: '-3px',
-                  background: '#38bdf8',
-                  clipPath: 'polygon(0 0, calc(100% - 100px) 0, 100% 60px, 100% 100%, 0 100%)',
-                  filter: 'drop-shadow(0 0 10px #38bdf8) drop-shadow(0 0 20px rgba(56,189,248,0.5))',
-                  opacity: 0,
+                  top: '-16px', left: '-16px',
+                  width: 'calc(100% + 32px)',
+                  height: 'calc(100% + 32px)',
+                  filter: 'drop-shadow(0 0 10px #38bdf8) drop-shadow(0 0 4px #7dd3fc)',
                 }}
-              />
+              >
+                {/* top-left L-bracket */}
+                <polyline
+                  points="0,100 0,0 100,0"
+                  fill="none" stroke="#38bdf8" strokeWidth="2.5" strokeLinecap="square"
+                  vectorEffect="non-scaling-stroke"
+                />
+                {/* top-right: LARGE chamfered/diamond-cut corner
+                    Mathematically aligned to perfectly parallel a 60px cut on the card */}
+                <polyline
+                  points="440,0 540,0 632,92 632,192"
+                  fill="none" stroke="#38bdf8" strokeWidth="2.5" strokeLinecap="square"
+                  vectorEffect="non-scaling-stroke"
+                />
+                {/* bottom-left L-bracket */}
+                <polyline
+                  points="0,382 0,482 100,482"
+                  fill="none" stroke="#38bdf8" strokeWidth="2.5" strokeLinecap="square"
+                  vectorEffect="non-scaling-stroke"
+                />
+                {/* bottom-right L-bracket */}
+                <polyline
+                  points="532,482 632,482 632,382"
+                  fill="none" stroke="#38bdf8" strokeWidth="2.5" strokeLinecap="square"
+                  vectorEffect="non-scaling-stroke"
+                />
+              </svg>
 
-              {/* Card Content — sharp chamfered top-right corner matching the SVG frame */}
+              {/* Card Content */}
               <div
                 ref={(el) => cardsRef.current[idx] = el}
                 onMouseMove={(e) => handleMouseMove(e, idx)}
                 onMouseLeave={() => handleMouseLeave(idx)}
                 className="relative w-full h-full bg-zinc-900 border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)] transition-transform duration-100 ease-out overflow-hidden"
-                style={{
+                style={{ 
                   transformStyle: "preserve-3d",
-                  clipPath: "polygon(0 0, calc(100% - 100px) 0, 100% 60px, 100% 100%, 0 100%)",
+                  clipPath: "polygon(0 0, calc(100% - 60px) 0, 100% 60px, 100% 100%, 0 100%)"
                 }}
               >
                 {/* Full Background Image */}
