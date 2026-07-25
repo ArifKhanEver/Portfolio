@@ -60,8 +60,8 @@ const Hero = () => {
     const googleDriveCVLink = "https://drive.google.com/file/d/YOUR_FILE_ID/view?usp=sharing";
 
     return (
-        <section id="home" ref={containerRef} className="relative bg-theme-black min-h-screen overflow-hidden flex items-center">
-            <div className="container mx-auto px-6 lg:px-16 py-20 relative z-10 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16">
+        <section id="home" ref={containerRef} className="relative bg-theme-black min-h-screen overflow-hidden flex items-center w-full">
+            <div className="w-full px-6 md:px-12 lg:px-24 xl:px-32 py-20 relative z-10 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16">
                 
                 {/* Left Content */}
                 <div className="lg:w-[55%] text-left flex flex-col items-start z-10">
