@@ -117,9 +117,9 @@ npm --version
 
 ## 📫 Contact
 
-**Arif Khan** - *Full Stack Web Developer*  
+**Shafiqul Islam Khan** - *Full Stack Web Developer*  
 Email: [contact.arifkhanever@gmail.com](mailto:contact.arifkhanever@gmail.com)  
-LinkedIn: [Arif Khan](https://linkedin.com/in/arifkhanever)  
+LinkedIn: [Shafiqul Islam Khan](https://linkedin.com/in/arifkhanever)  
 GitHub: [@ArifKhanEver](https://github.com/ArifKhanEver)
 
 <p align="center">

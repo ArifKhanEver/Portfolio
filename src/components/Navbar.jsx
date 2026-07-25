@@ -3,19 +3,41 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useLenis } from 'lenis/react';
+import { usePathname, useRouter } from 'next/navigation';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const lenis = useLenis();
+  const pathname = usePathname();
+  const router = useRouter();
 
   const handleNavClick = (e, href) => {
     e.preventDefault();
-    if (lenis) {
-      lenis.scrollTo(href);
+
+    // If it's the home link
+    if (href === '/') {
+      if (pathname === '/') {
+        if (lenis) lenis.scrollTo(0);
+        else window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.history.pushState({}, '', '/');
+      } else {
+        router.push('/');
+      }
+      return;
+    }
+
+    // If it's a hash link
+    if (pathname === '/') {
+      if (lenis) {
+        lenis.scrollTo(href);
+      } else {
+        const target = document.querySelector(href);
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+      }
+      window.history.pushState({}, '', `/${href}`);
     } else {
-      const target = document.querySelector(href);
-      if (target) target.scrollIntoView({ behavior: 'smooth' });
+      router.push(`/${href}`);
     }
   };
 
@@ -27,10 +49,12 @@ const Navbar = () => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          setActiveSection(entry.target.id);
+          // If we hit the hero section, active is 'home', else the section id
+          const id = entry.target.id;
+          setActiveSection(id === 'home' ? 'home' : id);
         }
       });
-    }, { threshold: 0.3, rootMargin: "-20% 0px -40% 0px" });
+    }, { threshold: 0, rootMargin: "-20% 0px -70% 0px" });
 
     // Ensure we run this after the DOM is ready
     setTimeout(() => {
@@ -46,7 +70,7 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { name: 'Home', href: '#home' },
+    { name: 'Home', href: '/' },
     { name: 'About', href: '#about' },
     { name: 'Skills', href: '#skills' },
     { name: 'Services', href: '#services' },
@@ -64,7 +88,7 @@ const Navbar = () => {
       <div className="container mx-auto px-6 lg:px-20 flex items-center justify-between">
         
         {/* Brand Logo */}
-        <a href="#home" onClick={(e) => handleNavClick(e, '#home')} className="flex items-center gap-2 group cursor-pointer">
+        <a href="/" onClick={(e) => handleNavClick(e, '/')} className="flex items-center gap-2 group cursor-pointer">
           <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center transition-all group-hover:scale-110 group-hover:rotate-6 shadow-[0_0_15px_rgba(6,143,255,0.4)]">
              <div className="w-5 h-5 border-[3px] border-white rounded-full"></div>
           </div>
@@ -76,7 +100,7 @@ const Navbar = () => {
         {/* Desktop Menu - Aligned Right */}
         <ul className="hidden lg:flex items-center justify-end gap-6 lg:gap-8 w-full">
           {navLinks.map((link) => {
-            const isActive = activeSection === link.href.substring(1);
+            const isActive = link.href === '/' ? activeSection === 'home' : activeSection === link.href.substring(1);
             return (
               <li key={link.name}>
                 <a 

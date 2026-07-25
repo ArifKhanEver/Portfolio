@@ -63,7 +63,7 @@ const Footer = () => {
           {/* Column 1: Info & Stats */}
           <div className="lg:col-span-5 space-y-6">
             <h2 className="text-5xl md:text-6xl lg:text-7xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent uppercase tracking-tighter mb-4">
-              &gt; Arif Khan &lt;
+              &gt; Shafiqul Islam Khan &lt;
             </h2>
             <p className="text-gray-400 text-sm leading-relaxed max-w-md">
               MERN/Full stack developer turning complex problems into elegant solutions. From pixel-perfect UIs to bulletproof backends—every line of code is a promise of quality.
@@ -190,7 +190,7 @@ const Footer = () => {
           </div>
 
           <div className="flex items-center gap-1 uppercase tracking-widest text-center md:text-left">
-            © {currentYear} Arif Khan <span className="mx-2">|</span> Built with <span className="text-blue-500 text-sm mx-1">💙</span> and Uranium-235 (U-235)
+            © {currentYear} Shafiqul Islam Khan <span className="mx-2">|</span> Built with <span className="text-blue-500 text-sm mx-1">💙</span> and Uranium-235 (U-235)
           </div>
 
           <div className="flex items-center gap-2 font-bold tracking-widest uppercase">
