@@ -62,37 +62,41 @@ const Skills = () => {
 
           return (
             <div key={category.title} className="relative overflow-hidden flex items-center w-full min-h-[60px] sm:min-h-[80px]">
-              
-              {/* The Pinned Stack Name with Smooth Fade Mask */}
-              {isLeft ? (
-                <div className="absolute left-0 top-0 bottom-0 z-20 flex items-center w-[300px] sm:w-[450px] lg:w-[600px] bg-gradient-to-r from-theme-black via-theme-black to-transparent pl-4 sm:pl-10">
-                  <h4 className="text-gray-400 text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-widest drop-shadow-lg">
-                    {category.title}
-                  </h4>
-                  <div className="h-[2px] w-20 sm:w-32 lg:w-48 bg-gradient-to-r from-primary to-transparent ml-6 sm:ml-10"></div>
-                </div>
-              ) : (
-                <div className="absolute right-0 top-0 bottom-0 z-20 flex items-center justify-end w-[300px] sm:w-[450px] lg:w-[600px] bg-gradient-to-l from-theme-black via-theme-black to-transparent pr-4 sm:pr-10">
-                  <div className="h-[2px] w-20 sm:w-32 lg:w-48 bg-gradient-to-l from-primary to-transparent mr-6 sm:mr-10"></div>
-                  <h4 className="text-gray-400 text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-widest drop-shadow-lg">
-                    {category.title}
-                  </h4>
-                </div>
-              )}
 
-              {/* The Marquee (Scrolls behind the pinned titles) */}
+              {/* The Marquee */}
               <div className="marquee-inner flex items-center gap-8 whitespace-nowrap w-max relative z-10">
-                {/* Duplicate content to create seamless loop */}
-                {[...Array(4)].map((_, i) => (
+                {/* Repeat enough times so the stack name is always visible nearby */}
+                {[...Array(6)].map((_, i) => (
                   <div key={i} className="flex items-center gap-6 sm:gap-10 flex-shrink-0">
+                    
+                    {isLeft && (
+                      <>
+                        <h4 className="text-gray-500 text-4xl lg:text-6xl font-black uppercase tracking-tighter ml-8">
+                          {category.title}
+                        </h4>
+                        <div className="h-[2px] w-24 sm:w-40 lg:w-56 bg-gradient-to-r from-primary to-transparent"></div>
+                      </>
+                    )}
+
                     {category.skills.map((skill, sIdx) => (
                       <div key={skill + sIdx} className="flex items-center">
-                        <p className="text-xl sm:text-3xl lg:text-4xl font-normal tracking-wide inline-block text-gray-200 hover:text-white transition-colors">
+                        <p className="text-2xl sm:text-3xl lg:text-4xl font-normal tracking-wide inline-block text-gray-200">
                           {skill}
                         </p>
-                        <span className="text-sm sm:text-base mx-6 sm:mx-10 text-primary opacity-60">•</span>
+                        {/* Only add dot if it's not the last skill OR if we need a separator before the stack name */}
+                        <span className="text-lg sm:text-xl mx-6 sm:mx-10 text-primary opacity-60">•</span>
                       </div>
                     ))}
+
+                    {!isLeft && (
+                      <>
+                        <div className="h-[2px] w-24 sm:w-40 lg:w-56 bg-gradient-to-l from-primary to-transparent"></div>
+                        <h4 className="text-gray-500 text-4xl lg:text-6xl font-black uppercase tracking-tighter mr-8">
+                          {category.title}
+                        </h4>
+                      </>
+                    )}
+
                   </div>
                 ))}
               </div>
