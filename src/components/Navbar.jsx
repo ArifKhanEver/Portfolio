@@ -90,7 +90,7 @@ const Navbar = () => {
       <div className="container mx-auto px-6 lg:px-20 flex items-center justify-between">
         
         {/* Brand Logo */}
-        <a href="/" onClick={(e) => handleNavClick(e, '/')} className="flex items-center gap-2 group cursor-pointer">
+        <a href="/" onClick={(e) => handleNavClick(e, '/')} className="flex items-center gap-2 group cursor-pointer z-[101]">
           <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center transition-all group-hover:scale-110 group-hover:rotate-6 shadow-[0_0_15px_rgba(6,143,255,0.4)]">
              <div className="w-5 h-5 border-[3px] border-white rounded-full"></div>
           </div>
