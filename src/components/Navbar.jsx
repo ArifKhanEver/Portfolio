@@ -94,6 +94,17 @@ const Navbar = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, [isMobileMenuOpen]);
 
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape' && isMobileMenuOpen) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isMobileMenuOpen]);
+
   const navLinks = [
     { name: 'Home', href: '/' },
     { name: 'About', href: '#about' },
