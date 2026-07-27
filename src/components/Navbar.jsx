@@ -150,6 +150,8 @@ const Navbar = () => {
           className="lg:hidden text-white hover:text-primary transition-colors z-[101]"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           aria-label="Toggle mobile menu"
+          aria-expanded={isMobileMenuOpen}
+          aria-controls="mobile-menu"
         >
           {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
@@ -158,6 +160,10 @@ const Navbar = () => {
 
       {/* Mobile Menu Overlay */}
       <div 
+        id="mobile-menu"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Mobile Navigation Menu"
         className={`lg:hidden fixed inset-0 bg-theme-black/95 backdrop-blur-xl z-[100] transition-all duration-300 flex flex-col items-center justify-center ${
           isMobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'
         }`}
