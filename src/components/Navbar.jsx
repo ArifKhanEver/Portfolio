@@ -4,10 +4,12 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useLenis } from 'lenis/react';
 import { usePathname, useRouter } from 'next/navigation';
+import { Menu, X } from 'lucide-react';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const lenis = useLenis();
   const pathname = usePathname();
   const router = useRouter();
@@ -120,6 +122,50 @@ const Navbar = () => {
           })}
         </ul>
 
+        {/* Mobile Menu Toggle */}
+        <button 
+          className="lg:hidden text-white hover:text-primary transition-colors z-[101]"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          aria-label="Toggle mobile menu"
+        >
+          {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+        </button>
+
+      </div>
+
+      {/* Mobile Menu Overlay */}
+      <div 
+        className={`lg:hidden fixed inset-0 bg-theme-black/95 backdrop-blur-xl z-[100] transition-all duration-300 flex flex-col items-center justify-center ${
+          isMobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'
+        }`}
+      >
+        <ul className="flex flex-col items-center gap-8 w-full px-6">
+          {navLinks.map((link) => {
+            const isActive = link.href === '/' ? activeSection === 'home' : activeSection === link.href.substring(1);
+            return (
+              <li key={link.name} className="w-full text-center overflow-hidden">
+                <a 
+                  href={link.href} 
+                  onClick={(e) => {
+                    handleNavClick(e, link.href);
+                    setIsMobileMenuOpen(false); // Close menu on click
+                  }}
+                  className={`block text-2xl font-bold transition-all relative uppercase tracking-widest ${
+                    isActive ? "text-primary" : "text-gray-300 hover:text-white"
+                  }`}
+                  style={{
+                    transform: isMobileMenuOpen ? 'translateY(0)' : 'translateY(20px)',
+                    opacity: isMobileMenuOpen ? 1 : 0,
+                    transition: 'all 0.4s ease-out',
+                    transitionDelay: isMobileMenuOpen ? `${navLinks.indexOf(link) * 50}ms` : '0ms'
+                  }}
+                >
+                  {link.name}
+                </a>
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </nav>
   );
