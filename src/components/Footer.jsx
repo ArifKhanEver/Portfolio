@@ -185,8 +185,10 @@ const Footer = () => {
             <span className="font-bold tracking-[0.2em] uppercase">Scroll</span>
           </div>
 
-          <div className="flex items-center gap-1 uppercase tracking-widest text-center md:text-left">
-            © {currentYear} Shafiqul Islam Khan <span className="mx-2">|</span> Built with <span className="text-blue-500 text-sm mx-1">💙</span> and Uranium-235 (U-235)
+          <div className="flex flex-col md:flex-row items-center gap-2 md:gap-1 uppercase tracking-widest text-center md:text-left">
+            <span>© {currentYear} Shafiqul Islam Khan</span>
+            <span className="hidden md:inline mx-2">|</span>
+            <span>Built with <span className="text-blue-500 text-sm mx-1">💙</span> and Uranium-235 (U-235)</span>
           </div>
 
           <div className="flex items-center gap-2 font-bold tracking-widest uppercase">
