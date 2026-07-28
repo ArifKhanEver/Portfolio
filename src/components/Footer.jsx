@@ -62,7 +62,7 @@ const Footer = () => {
           
           {/* Column 1: Info & Stats */}
           <div className="lg:col-span-5 space-y-6">
-            <h2 className="text-5xl md:text-6xl lg:text-7xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent uppercase tracking-tighter mb-4">
+            <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent uppercase tracking-tighter mb-4 break-words">
               &gt; Shafiqul Islam Khan &lt;
             </h2>
             <p className="text-gray-400 text-sm leading-relaxed max-w-md">
