@@ -176,7 +176,7 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="relative w-full pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-6 text-[10px] md:text-xs font-mono text-gray-500">
+        <div className="relative w-full pt-16 md:pt-8 mt-12 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-6 text-[10px] md:text-xs font-mono text-gray-500">
           
           <div className="absolute left-1/2 -translate-x-1/2 -top-6 bg-[#02050A] px-4 flex flex-col items-center justify-center gap-2">
             <div className="w-5 h-8 border-2 border-gray-600 rounded-full flex justify-center p-1">
