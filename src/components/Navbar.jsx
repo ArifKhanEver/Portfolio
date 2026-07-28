@@ -175,11 +175,12 @@ const Navbar = () => {
         role="dialog"
         aria-modal="true"
         aria-label="Mobile Navigation Menu"
-        className={`lg:hidden fixed inset-0 bg-theme-black/95 backdrop-blur-xl z-[100] transition-all duration-300 flex flex-col items-center justify-center ${
+        className={`lg:hidden fixed inset-0 bg-theme-black/95 backdrop-blur-xl z-[100] transition-all duration-300 overflow-y-auto ${
           isMobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'
         }`}
       >
-        <ul className="flex flex-col items-center gap-8 w-full px-6">
+        <div className="min-h-full flex flex-col items-center justify-start pt-32 pb-12">
+          <ul className="flex flex-col items-center gap-8 w-full px-6">
           {navLinks.map((link) => {
             const isActive = link.href === '/' ? activeSection === 'home' : activeSection === link.href.substring(1);
             return (
@@ -206,6 +207,7 @@ const Navbar = () => {
             );
           })}
         </ul>
+        </div>
       </div>
     </nav>
   );
