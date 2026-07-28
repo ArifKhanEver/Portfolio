@@ -71,27 +71,23 @@ const Footer = () => {
             
             <LocalTime />
 
-            <div className="flex flex-col gap-4 mt-6">
-              <div className="flex gap-4">
-                <div className="bg-[#0B0F19]/80 border border-white/5 rounded-lg p-4 w-[100px] flex-shrink-0 flex flex-col items-center justify-center">
+            <div className="grid grid-cols-2 md:flex md:flex-wrap gap-4 mt-6">
+                <div className="bg-[#0B0F19]/80 border border-white/5 rounded-lg p-4 flex flex-col items-center justify-center">
                   <h3 className="text-cyan-400 font-black text-2xl">4+</h3>
                   <p className="text-gray-600 text-[9px] font-bold uppercase tracking-widest mt-1">Projects</p>
                 </div>
-                <div className="bg-[#0B0F19]/80 border border-white/5 rounded-lg p-4 w-[110px] flex-shrink-0 flex flex-col items-center justify-center">
+                <div className="bg-[#0B0F19]/80 border border-white/5 rounded-lg p-4 flex flex-col items-center justify-center">
                   <h3 className="text-emerald-400 font-black text-2xl">8462+</h3>
                   <p className="text-gray-600 text-[9px] font-bold uppercase tracking-widest mt-1">Commits</p>
                 </div>
-                <div className="bg-[#0B0F19]/80 border border-white/5 rounded-lg p-4 flex-1 flex flex-col items-center justify-center whitespace-nowrap">
+                <div className="bg-[#0B0F19]/80 border border-white/5 rounded-lg p-4 col-span-2 md:col-span-1 md:flex-1 flex flex-col items-center justify-center whitespace-nowrap">
                   <h3 className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400 font-black text-2xl">2+ Years</h3>
                   <p className="text-gray-600 text-[9px] font-bold uppercase tracking-widest mt-1">Experience</p>
                 </div>
-              </div>
-              <div className="flex gap-4">
-                <div className="bg-[#0B0F19]/80 border border-white/5 rounded-lg p-4 w-[100px] flex flex-col items-center justify-center">
+                <div className="bg-[#0B0F19]/80 border border-white/5 rounded-lg p-4 col-span-2 md:col-span-1 md:w-[100px] flex flex-col items-center justify-center">
                   <h3 className="text-amber-400 font-black text-2xl">295+</h3>
                   <p className="text-gray-600 text-[9px] font-bold uppercase tracking-widest mt-1">Visitors</p>
                 </div>
-              </div>
             </div>
 
             <div className="flex flex-wrap items-center gap-4 mt-6">
