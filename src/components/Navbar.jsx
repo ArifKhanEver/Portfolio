@@ -16,31 +16,35 @@ const Navbar = () => {
 
   const handleNavClick = (e, href) => {
     e.preventDefault();
+    setIsMobileMenuOpen(false);
 
-    // If it's the home link
-    if (href === '/') {
+    // Give the menu time to close before scrolling
+    setTimeout(() => {
+      // If it's the home link
+      if (href === '/') {
+        if (pathname === '/') {
+          if (lenis) lenis.scrollTo(0);
+          else window.scrollTo({ top: 0, behavior: 'smooth' });
+          window.history.pushState({}, '', '/');
+        } else {
+          router.push('/');
+        }
+        return;
+      }
+
+      // If it's a hash link
       if (pathname === '/') {
-        if (lenis) lenis.scrollTo(0);
-        else window.scrollTo({ top: 0, behavior: 'smooth' });
-        window.history.pushState({}, '', '/');
+        if (lenis) {
+          lenis.scrollTo(href);
+        } else {
+          const target = document.querySelector(href);
+          if (target) target.scrollIntoView({ behavior: 'smooth' });
+        }
+        window.history.pushState({}, '', `/${href}`);
       } else {
-        router.push('/');
+        router.push(`/${href}`);
       }
-      return;
-    }
-
-    // If it's a hash link
-    if (pathname === '/') {
-      if (lenis) {
-        lenis.scrollTo(href);
-      } else {
-        const target = document.querySelector(href);
-        if (target) target.scrollIntoView({ behavior: 'smooth' });
-      }
-      window.history.pushState({}, '', `/${href}`);
-    } else {
-      router.push(`/${href}`);
-    }
+    }, 100);
   };
 
   useEffect(() => {
@@ -74,14 +78,17 @@ const Navbar = () => {
   useEffect(() => {
     if (isMobileMenuOpen) {
       document.body.style.overflow = 'hidden';
+      if (lenis) lenis.stop();
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = '';
+      if (lenis) lenis.start();
     }
     
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = '';
+      if (lenis) lenis.start();
     };
-  }, [isMobileMenuOpen]);
+  }, [isMobileMenuOpen, lenis]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -189,7 +196,6 @@ const Navbar = () => {
                   href={link.href} 
                   onClick={(e) => {
                     handleNavClick(e, link.href);
-                    setIsMobileMenuOpen(false); // Close menu on click
                   }}
                   className={`block text-2xl font-bold transition-all relative uppercase tracking-widest ${
                     isActive ? "text-primary" : "text-gray-300 hover:text-white"
