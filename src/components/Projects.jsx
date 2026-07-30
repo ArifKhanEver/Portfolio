@@ -133,8 +133,8 @@ const Projects = () => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-theme-black/90 via-theme-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-6">
                    <div className="flex gap-4 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                    <a href={project.link} target="_blank" className="p-3 bg-primary text-white rounded-full hover:bg-accent hover:text-black transition-colors shadow-[0_0_15px_rgba(6,143,255,0.5)]"><FiExternalLink size={20} /></a>
-                    <a href={project.github} target="_blank" className="p-3 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-full hover:bg-white hover:text-black transition-colors shadow-lg"><FiGithub size={20} /></a>
+                    <a href={project.link} target="_blank" rel="noopener noreferrer" className="p-3 bg-primary text-white rounded-full hover:bg-accent hover:text-black transition-colors shadow-[0_0_15px_rgba(6,143,255,0.5)]"><FiExternalLink size={20} /></a>
+                    <a href={project.github} target="_blank" rel="noopener noreferrer" className="p-3 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-full hover:bg-white hover:text-black transition-colors shadow-lg"><FiGithub size={20} /></a>
                   </div>
                 </div>
               </div>
